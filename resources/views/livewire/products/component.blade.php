@@ -4,11 +4,11 @@
         <div class="widget widget-chart-one">
             <div class="widget-heading">
                 <h4 class="card-title">
-                    <b>{{$componentName}} | {{$pageTitle}}</b>
+                    <b>{{ $componentName }} | {{ $pageTitle }}</b>
                 </h4>
-                <ul class="tabs tab pills">
+                <ul class="tabs tab-pills">
                     <li>
-                        <a href="javascript:void(0)" class="tabmenu bg-dark" data-toggle="modal" data-target="#themodal">Agregar</a>
+                        <button class="tabmenu bg-dark btn" data-toggle="modal" data-target="#theModal">Agregar</button>
                     </li>
                 </ul>
             </div>
@@ -30,38 +30,49 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($data as $product)
-                            <tr>
-                                <td><h6 class="text-left">{{$product->name}}</h6></td>
-                                <td><h6 class="text-center">{{$product->barcode}}</h6></td>
-                                <td><h6 class="text-center">{{$product->category}}</h6></td>
-                                <td><h6 class="text-center">{{$product->price}}</h6></td>
-                                <td><h6 class="text-center">{{$product->stock}}</h6></td>
-                                <td><h6 class="text-center">{{$product->alerts}}</h6></td>
-                                
-                                <td class="text-center">
-                                    <span>
-                                        <img src="{{ asset('storage/products/' . $product->imagen) }}" alt="imagen de ejemplo" height="70" width="80" class="rounded">
-                                    </span>
-                                </td>
-                                <td class="text-center">
-                                    <a href="javascript:void(0)"
-                                    wire:click.prevent="Edit({{$product->id}})"
-                                     class="btn btn-dark mtmobile" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a href="javascript:void(0)"
-                                    onclick="Confirm('{{$product->id}}')"
-                                     class="btn btn-dark " title="Delete">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
+                            @foreach ($data as $product)
+                                <tr>
+                                    <td>
+                                        <h6 class="text-left">{{ $product->name }}</h6>
+                                    </td>
+                                    <td>
+                                        <h6 class="text-center">{{ $product->barcode }}</h6>
+                                    </td>
+                                    <td>
+                                        <h6 class="text-center">{{ $product->category }}</h6>
+                                    </td>
+                                    <td>
+                                        <h6 class="text-center">{{ $product->price }}</h6>
+                                    </td>
+                                    <td>
+                                        <h6 class="text-center">{{ $product->stock }}</h6>
+                                    </td>
+                                    <td>
+                                        <h6 class="text-center">{{ $product->alerts }}</h6>
+                                    </td>
 
-                                </td>
-                            </tr>
+                                    <td class="text-center">
+                                        <span>
+                                            <img src="{{ asset('storage/products/' . $product->imagen) }}"
+                                                alt="imagen de ejemplo" height="70" width="80" class="rounded">
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="javascript:void(0)" wire:click.prevent="Edit({{ $product->id }})"
+                                            class="btn btn-dark mtmobile" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="javascript:void(0)" onclick="Confirm('{{ $product->id }}')"
+                                            class="btn btn-dark " title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    {{$data->links()}}
+                    {{ $data->links() }}
                 </div>
 
             </div>
@@ -72,7 +83,7 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function(){
+    document.addEventListener('DOMContentLoaded', function() {
 
         window.livewire.on('product-added', msg => {
             $('#theModal').modal('hide');
@@ -90,7 +101,7 @@
             $('#theModal').modal('hide');
         });
         window.livewire.on('hidden.bs.modal', msg => {
-            $('.er').css('display','none')
+            $('.er').css('display', 'none')
         });
     });
 </script>
