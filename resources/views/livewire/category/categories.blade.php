@@ -34,7 +34,7 @@
                                     </td>
                                     <td class="text-center">
                                         <span>
-                                            <img src="{{ asset('storage/categories/' . $category->image) }}"
+                                            <img src="{{ asset('storage/categories/' . $category->imagen) }}"
                                                 alt="imagen de ejemplo" height="70" width="80" class="rounded">
                                         </span>
                                     </td>
@@ -50,6 +50,8 @@
                                             class="btn btn-dark " title="Delete">
                                             <i class="fas fa-trash"></i>
                                         </a>
+
+                                        {{--$category->imagen--}}
 
                                     </td>
                                 </tr>

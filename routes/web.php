@@ -1,6 +1,6 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Products;
 use App\Http\Livewire\Categories;
 
 /*
@@ -23,3 +23,4 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('categories', Categories::class);
+Route::get('products', Products::class);
