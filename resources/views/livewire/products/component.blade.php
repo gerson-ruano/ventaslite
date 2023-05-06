@@ -103,5 +103,29 @@
         window.livewire.on('hidden.bs.modal', msg => {
             $('.er').css('display', 'none')
         });
+
+        function Confirm(id, products) {
+
+            if (products > 0) {
+                swal('No se puede eliminar la categoria, porque tiene productos existentes')
+                return;
+            }
+            swal({
+                title: "QUE DESEA REALIZAR?",
+                //text: "You will not be able to recover this imaginary file!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "SI, ELIMINAR!",
+                closeOnConfirm: false
+            }).then(function(result) {
+                if (result.value) {
+                    window.livewire.emit('deleteRow', id)
+                    //swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                    swal.close()
+                }
+            });
+
+        }
     });
 </script>

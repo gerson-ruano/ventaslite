@@ -11,6 +11,11 @@
                         <a href="javascript:void(0)" class="tabmenu bg-dark" data-toggle="modal" data-target="#themodal">Agregar</a>
                     </li>
                 </ul>
+                <!--ul class="tabs tab-pills">
+                    <li>
+                        <button class="tabmenu bg-dark btn" data-toggle="modal" data-target="#theModal">Agregar</button>
+                    </li>
+                </ul-->
             </div>
             Search
 
