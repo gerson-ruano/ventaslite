@@ -8,7 +8,8 @@
                 </h4>
                 <ul class="tabs tab-pills">
                     <li class="float-right">
-                        <button class="tabmenu bg-dark btn btn-primary btn-lg" data-toggle="modal" data-target="#theModal">Agregar</button>
+                        <button class="tabmenu bg-dark btn btn-primary btn-lg" data-toggle="modal"
+                            data-target="#theModal">Agregar</button>
                     </li>
                 </ul>
             </div>
@@ -29,12 +30,16 @@
                         <tbody>
                             @foreach ($data as $coin)
                                 <tr>
-                                    <td><h6>{{ $coin->type }}</h6></td>
-                                    <td><h6>Q{{number_format($coin->value,2)}}</h6></td>
+                                    <td>
+                                        <h6>{{ $coin->type }}</h6>
+                                    </td>
+                                    <td>
+                                        <h6 class="text-center">Q{{ number_format($coin->value, 2) }}</h6>
+                                    </td>
                                     <td class="text-center">
                                         <span>
-                                            <img src="{{ asset('storage/coins/' . $coin->imagen) }}"
-                                                alt="imagen de ejemplo" height="70" width="80" class="rounded">
+                                            <img src="{{ asset('storage/' . $coin->imagen) }}" alt="imagen de ejemplo"
+                                                height="70" width="80" class="rounded">
                                         </span>
                                     </td>
                                     <td class="text-center">
@@ -44,13 +49,12 @@
                                         </a>
 
 
-                                        {{--<a href="javascript:void(0)"
-                                            onclick="Confirm('{{ $coin->id }}','{{ $coin->data->count() }}')"
+                                        <a href="javascript:void(0)" onclick="Confirm('{{ $coin->id }}')"
                                             class="btn btn-dark " title="Delete">
                                             <i class="fas fa-trash"></i>
-                                        </a>--}}
+                                        </a>
 
-                                        {{--$category->imagen--}}
+                                        {{-- $category->imagen --}}
 
                                     </td>
                                 </tr>
@@ -68,35 +72,7 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-
-        window.livewire.on('item-added', msg => {
-            $('#theModal').modal('hide');
-        });
-        window.livewire.on('item-updated', msg => {
-            $('#theModal').modal('hide');
-        });
-        window.livewire.on('item-deleted', msg => {
-            //notificacion
-        });
-        window.livewire.on('modal-show', msg => {
-            $('#theModal').modal('show');
-        });
-        window.livewire.on('modal-hide', msg => {
-            $('#theModal').modal('hide');
-        });
-
-        $('#theModal').on('hidden.bs.modal', function() {
-            $('.er').css('display', 'none')
-        });
-
-
-        /*window.livewire.on('hidden.bs.modal', msg => {
-            $('.er').css('display', 'none')
-        });*/
-
-        function Confirm(id) {
-
+    function Confirm(id) {
             swal({
                 title: "QUE DESEA REALIZAR?",
                 //text: "You will not be able to recover this imaginary file!",
@@ -114,5 +90,31 @@
             });
 
         }
+    document.addEventListener('DOMContentLoaded', function() {
+
+        window.livewire.on('item-added', msg => {
+            $('#theModal').modal('hide');
+        });
+        window.livewire.on('item-updated', msg => {
+            $('#theModal').modal('hide');
+        });
+        window.livewire.on('item-deleted', msg => {
+            //notificacion
+        });
+        window.livewire.on('show-modal', msg => {
+            $('#theModal').modal('show');
+        });
+        window.livewire.on('modal-hide', msg => {
+            $('#theModal').modal('hide');
+        });
+
+        $('#theModal').on('hidden.bs.modal', function() {
+            $('.er').css('display', 'none')
+        });
+
+
+        /*window.livewire.on('hidden.bs.modal', msg => {
+            $('.er').css('display', 'none')
+        });*/
     });
 </script>
