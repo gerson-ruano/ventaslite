@@ -2,9 +2,12 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Sale;
+use Illuminate\Support\Facades\Redirect;
 use Livewire\Component;
 use App\Models\Denomination;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
+use App\Models\Product;
 use DB;
 
 
@@ -12,7 +15,7 @@ class Pos extends Component
 
 {
 
-    public $total, $itemsQuatity, $efectivo, $change;
+    public $total, $itemsQuantity, $efectivo, $change;
 
     public function mount()
     {
@@ -36,7 +39,7 @@ class Pos extends Component
     public function ACash($value)
     {
         $this->efectivo +- ($value == 0 ? $this->total : $value);
-        $this->change = ($this->efectivo - $ths->total);
+        $this->change = ($this->efectivo - $this->total);
     }
 
     protected $listener =[
@@ -48,9 +51,10 @@ class Pos extends Component
 
     public function ScanCode($barcode, $cant = 1)
     {
+        dd($barcode);
         $product = Product::where('barcode', $barcode)->first();
 
-        if($product == null || empty($empy))
+        if($product == null || empty($empty))
         {
             $this->emit('scan-notfound','El producto no esta registrado');
         }else{
@@ -59,7 +63,7 @@ class Pos extends Component
                 $this->increaseQty($product->id);
                 return;
             }
-            if($product->stock <1)
+            if($product->stock < 1)
             {
                 $this->emit('no-stock','Stock insuficiente :/');
                 return;
@@ -70,6 +74,7 @@ class Pos extends Component
 
             $this->emit('scan-ok','Producto Agregado');
         }
+        
     }
 
     public function InCart($productId)
@@ -85,13 +90,15 @@ class Pos extends Component
     {
         $title = '';
         $product = Product::find($productId);
-        $exist = Card::get($productId);
+        $exist = Cart::get($productId);
         if($exist)
-            $title = 'Cantidad Actualizada'
+        {
+            $title = 'Cantidad Actualizada';
 
-        else
+        }else{
             $title = 'Producto agregado';
-           
+        }
+            
         if($exist)
         {
             if($product->stock < ($cant + $exist->quantity))
@@ -101,7 +108,7 @@ class Pos extends Component
             }
         }
 
-        Cart::add(product->id, $product->name, $product->price, $cant, $product->image);
+        Cart::add($product->id, $product->name, $product->price, $cant, $product->image);
 
         $this->total = Cart::getTotal();
         $this->itemsQuantity = Cart::getTotalQuantity();
@@ -115,7 +122,7 @@ class Pos extends Component
         $product = Product::find($productId);
         $exist = Cart::get($productId);
         if($exist)
-            $title = 'Cantidad Actualizada'
+            $title = 'Cantidad Actualizada';
         else
             $title = 'Producto agregado';
         if($exist)
@@ -151,12 +158,12 @@ class Pos extends Component
         $this->emit('scan-ok', 'Producto Eliminado');
     }
 
-    public function decreaseQty($productId);
+    public function decreaseQty($productId)
     {
         $item = Cart::get($productId);
         Cart::remove($productId);
 
-        $newQty = (item->quantity) - 1;
+        $newQty = ($item->quantity) - 1;
         if($newQty > 0)
         
             Cart::add($item>id, $item->name, $item->price, $newQty, $item->attributes[0]);
@@ -174,7 +181,7 @@ class Pos extends Component
         $this->efectivo = 0;
         $this->change = 0;
         $this->total = Cart::getTotal();
-        $this->itemQuantity = Cart:getTotalQuantity();
+        $this->itemsQuantity = Cart::getTotalQuantity();
 
         $this->emit('scan-ok', 'Carrito vacio');
     }
