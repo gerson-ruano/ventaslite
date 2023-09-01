@@ -34,7 +34,7 @@
                                         <h6>{{ $coin->type }}</h6>
                                     </td>
                                     <td>
-                                        <h6 class="text-center">Q{{ number_format($coin->value, 2) }}</h6>
+                                        <h6 class="text-center">Q {{ number_format($coin->value, 2) }}</h6>
                                     </td>
                                     <td class="text-center">
                                         <span>

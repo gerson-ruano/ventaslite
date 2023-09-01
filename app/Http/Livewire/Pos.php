@@ -18,7 +18,6 @@ class Pos extends Component
 {
 
     public $total, $itemsQuantity, $efectivo, $change;
-    //public $receivedCode;
 
     public function mount()
     {
@@ -47,9 +46,9 @@ class Pos extends Component
 
     protected $listeners =[
         'scan-code' => 'ScanCode',
-        'removeItem' => 'removeItem',
-        'clearCart' => 'clearCart',
-        'saveSale' => 'saveSale'
+        'removeitem' => 'removeItem',
+        'clearcart' => 'clearCart',
+        'savesale' => 'saveSale'
     ];
 
     public function ScanCode($barcode, $cant = 1)
@@ -92,12 +91,12 @@ class Pos extends Component
         $product = Product::find($productId);
         $exist = Cart::get($productId);
         if($exist)
-        {
+        
             $title = 'Cantidad Actualizada';
 
-        }else{
+        else
             $title = 'Producto agregado';
-        }
+        
             
         if($exist)
         {
@@ -113,7 +112,7 @@ class Pos extends Component
         $this->total = Cart::getTotal();
         $this->itemsQuantity = Cart::getTotalQuantity();
 
-        $this->emit('scan-ok');
+        $this->emit('scan-ok','Cantidad Actualizada');
     }
 
     public function updateQty($productId, $cant = 1)
@@ -137,7 +136,7 @@ class Pos extends Component
         $this->removeItem($productId);
         if($cant > 0)
         {
-            Cart::add($productId, $product->name, $product->price, $cant, $product->image);
+            Cart::add($product->id, $product->name, $product->price, $cant, $product->image);
 
             $this->total = Cart::getTotal();
             $this->itemsQuantity = Cart::getTotalQuantity();
@@ -149,7 +148,9 @@ class Pos extends Component
     }
 
     public function removeItem($productId)
+
     {
+        //dd("Evento recibido con exito");
         Cart::remove($productId);
 
         $this->total = Cart::getTotal();
@@ -166,13 +167,11 @@ class Pos extends Component
         $newQty = ($item->quantity) - 1;
         if($newQty > 0)
         
-            Cart::add($item->id, $item->name, $item->price, $newQty, $item->attributes[0]);
+        Cart::add($item->id, $item->name, $item->price, $newQty, $item->attributes[0]);
         
         $this->total = Cart::getTotal();
         $this->itemsQuantity = Cart::getTotalQuantity();
-
         $this->emit('scan-ok', 'Cantidad Actualizada');
-        
     }
 
     public function clearCart()
