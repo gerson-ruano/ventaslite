@@ -10,7 +10,6 @@
 
     function Confirm(id, eventName, text) {
 
-
         swal({
             title: "CONFIRMAR?",
             text: text,
@@ -18,13 +17,11 @@
             showCancelButton: true,
             cancelButtonText: 'Cerrar',
             cancelButtonColor: '#fff',
-
             confirmButtonColor: "#3B3F5C",
             confirmButtonText: "Aceptar",
         }).then(function(result) {
             if (result.value) {
                 window.livewire.emit('eventName', id)
-                //swal("Deleted!", "Your imaginary file has been deleted.", "success");
                 swal.close()
             }
         });

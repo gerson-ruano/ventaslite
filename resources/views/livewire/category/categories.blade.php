@@ -7,8 +7,8 @@
                     <b>{{ $componentName }} | {{ $pageTitle }}</b>
                 </h4>
                 <ul class="tabs tab-pills">
-                    <li class="float-right">
-                        <button class="tabmenu bg-dark btn btn-primary btn-lg" data-toggle="modal" data-target="#theModal">Agregar</button>
+                    <li>
+                        <button class="tabmenu bg-dark btn" data-toggle="modal" data-target="#theModal">Agregar</button>
                     </li>
                 </ul>
             </div>
