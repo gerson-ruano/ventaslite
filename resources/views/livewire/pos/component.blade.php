@@ -6,7 +6,7 @@
         <div class="col-sm-12 col-md-8">
             {{--Detalles--}}
             @include('livewire.pos.partials.detail')
-        </div>
+        </div><br>
 
         <div class="col-sm-12 col-md-4">
            {{--Total--}}

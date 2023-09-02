@@ -40,7 +40,7 @@ class Pos extends Component
 
     public function ACash($value)
     {
-        $this->efectivo +- ($value == 0 ? $this->total : $value);
+        $this->efectivo += ($value == 0 ? $this->total : $value);
         $this->change = ($this->efectivo - $this->total);
     }
 
@@ -176,12 +176,12 @@ class Pos extends Component
 
     public function clearCart()
     {
+        //dd("recibiendo evento");
         Cart::clear();
         $this->efectivo = 0;
         $this->change = 0;
         $this->total = Cart::getTotal();
         $this->itemsQuantity = Cart::getTotalQuantity();
-
         $this->emit('scan-ok', 'Carrito vacio');
     }
 

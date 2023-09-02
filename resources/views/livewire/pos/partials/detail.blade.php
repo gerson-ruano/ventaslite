@@ -46,14 +46,14 @@
                         </td>
                         
                         <td class="text-center">
-                            <button  onclick="Confirm('{{$item->id}}', 'removeitem', '¿Confirmas eliminar el registro?')" class="btn btn-dark mbmobile">
+                            <button  onclick="Confirm('{{$item->id}}', 'removeItem', '¿Confirmas eliminar el registro?')" class="btn btn-dark mbmobile">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                             <button wire:click.prevent="increaseQty({{$item->id}})" class="btn btn-dark mbmobile">
-                                <i class="fas fa-chevron-up"></i>
+                                <i class="fas fa-plus-square"></i>
                             </button>
                             <button wire:click.prevent="decreaseQty({{$item->id}})" class="btn btn-dark mbmobile">
-                                <i class="fas fa-chevron-down"></i>
+                                <i class="fas fa-minus-square"></i>
                             </button>
                         </td>
                         

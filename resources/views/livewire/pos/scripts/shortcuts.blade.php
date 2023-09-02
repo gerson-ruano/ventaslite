@@ -2,7 +2,7 @@
     var listener = new window.keypress.Listener();
 
     listener.simple_combo("f6", function() {
-        livewire.emit('saveSale')
+        livewire.emit('savesale')
     })
 
     listener.simple_combo("f8", function() {
@@ -13,7 +13,8 @@
     listener.simple_combo("f4", function() {
         var total = parseFloat(document.getElementById('hiddenTotal').value)
         if(total > 0) {
-            Confirm(0, 'clearCart', 'SEGURO DE ELIMINAR EL CARRITO?')
+            ConfirmVaciarCart(0,'clearCart', 'SEGURO DE ELIMINAR EL CARRITO?')
+            console.log(total)
         }else{
             noty('AGREGA PRODUCTOS A LA VENTA')
         }
