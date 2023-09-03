@@ -2,7 +2,6 @@
 
 <div class="row">
 <div class="col-sm-12">
-
     <div class="input-group">
         <div class="input-group-prepend">
             <span class="input-group-text">
@@ -14,7 +13,6 @@
         <input type="text" wire:model.lazy="name" class="form-control" placeholder="Ej. cursos">
     </div>
     @error('name') <span class="text danger er">{{$message}}</span>@enderror
-
 </div>
 
 <div class="col-sm-12 mt-3">
