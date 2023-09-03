@@ -144,7 +144,6 @@ class Pos extends Component
             $this->emit('scan-ok', $title);
         }
 
-
     }
 
     public function removeItem($productId)
@@ -243,7 +242,6 @@ class Pos extends Component
         }catch (Exception $e){
             DB::rollback();
             $this->emit('sale-error', $e->getMessage());
-
         }
     }
 
