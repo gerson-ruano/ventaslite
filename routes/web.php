@@ -1,4 +1,5 @@
 <?php
+use App\Http\Livewire\Permisos;
 use App\Http\Livewire\Roles;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Products;
@@ -30,3 +31,4 @@ Route::get('products', Products::class);
 Route::get('coins', Coins::class);
 Route::get('pos', Pos::class);
 Route::get('roles', Roles::class);
+Route::get('permisos', Permisos::class);

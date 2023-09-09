@@ -103,7 +103,7 @@ class Roles extends Component
         $permissionCount = Role::find($id)->permissions->count();
         if($permissionCount > 0)
         {
-            $this->emit('role-error', 'No se puede eliminar el role porque tiene permisos asosciados');
+            $this->emit('role-error', 'No se puede eliminar el role porque tiene permisos asociados');
             return;
         }
 
@@ -130,5 +130,6 @@ class Roles extends Component
         $this->roleName = '';
         $this->search = '';
         $this->selected_id = 0;
+        $this->resetValidation();
     }
 }
