@@ -37,7 +37,6 @@
                     <button type="button" wire:click.prevent="UpdatedPermission()"
                         class="btn btn-dark close-modal">ACTUALIZAR</button>
                     @endif
-
             </div>
         </div>
     </div>
