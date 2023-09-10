@@ -1,4 +1,5 @@
 <?php
+use App\Http\Livewire\Cashout;
 use App\Http\Livewire\Permisos;
 use App\Http\Livewire\Roles;
 use App\Http\Livewire\Users;
@@ -36,3 +37,4 @@ Route::get('roles', Roles::class);
 Route::get('permisos', Permisos::class);
 Route::get('asignar', Asignar::class);
 Route::get('users', Users::class);
+Route::get('cashout', Cashout::class);
