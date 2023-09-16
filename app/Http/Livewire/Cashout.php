@@ -22,6 +22,7 @@ class Cashout extends Component
     }
     public function render()
     {
+        //$fa = Carbon::now()->format('Y-m-d') . '23:59:59';
         return view('livewire.cashout.component',[
             'users' => User::orderBy('name','asc')->get()
         ])
