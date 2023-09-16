@@ -32,6 +32,8 @@
     }
 </script>
 
+<script src="{{ asset('plugins/flatpickr/flatpickr.js') }}"></script>
+
 @livewireScripts
 
 {{--<!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
