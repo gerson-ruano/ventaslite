@@ -29,7 +29,6 @@
                     <div class="col-sm-12 col-md-3">
                         <div class="form-group">
                             <label>Fecha final</label>
-                            {{--dd($fechaActual)--}}
                             <input type="date" wire:model.lazy="toDate" class="form-control">
                             @error('toDate') <span class="text-danger">{{$message}}</span>@enderror
                         </div>
@@ -81,7 +80,7 @@
                                         <h6 class="text-center">No hay ventas en la fecha seleccionada</h6>
                                     </td>
                                     @endif
-
+                                    {{--dd($sales)--}}
                                     @foreach($sales as $row)
                                     <td class="text-center">
                                         <h6>{{$row->id}}</h6>

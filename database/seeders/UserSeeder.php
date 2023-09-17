@@ -18,17 +18,17 @@ class UserSeeder extends Seeder
         User::create([
             'name'=>'Gerson Ruano',
             'phone'=>'23423424',
-            'email'=>'gerson@gmail.com',
-            'profile'=>'ADMIN',
-            'status'=>'ACTIVE',
+            'email'=>'toge@gmail.com',
+            'profile'=>'Admin',
+            'status'=>'Active',
             'password'=>bcrypt('12341234')
         ]);
         User::create([
             'name'=>'Invitado',
             'phone'=>'1029534344',
             'email'=>'invitado@gmail.com',
-            'profile'=>'EMPLOYEE',
-            'status'=>'ACTIVE',
+            'profile'=>'Employee',
+            'status'=>'Active',
             'password'=>bcrypt('12341234')
         ]);
     }

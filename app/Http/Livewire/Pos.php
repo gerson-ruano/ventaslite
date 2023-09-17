@@ -220,7 +220,7 @@ class Pos extends Component
                         'price' => $item->price,
                         'quantity' => $item->quantity,
                         'product_id' => $item->id,
-                        'sale_' => $sale->id,
+                        'sale_id' => $sale->id,
                     ]);
 
                     $product = Product::find($item->id);

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('name',255);
             $table->string('phone',10)->nullable();
             $table->string('email')->unique();
-            $table->enum('profile',['ADMIN','EMPLOYEE'])->default('ADMIN');
-            $table->enum('status',['ACTIVE','LOCKED'])->default('ACTIVE');
+            $table->enum('profile',['Admin','Employee'])->default('Admin');
+            $table->enum('status',['Active','Locked'])->default('Active');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password',100);
             $table->string('image',50)->nullable();

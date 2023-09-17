@@ -50,9 +50,9 @@ class Cashout extends Component
         $fi= Carbon::parse($this->fromDate)->format('Y-m-d') . ' 00:00:00';
         $ff= Carbon::parse($this->toDate)->format('Y-m-d') . ' 23:59:59';
 
-        $this->details = Sale::join('sale_details as d', 'd.id','sales.id')
+        $this->details = Sale::join('sale_details as d', 'd.sale_id','sales.id')
         ->join('products as p', 'p.id','d.product_id')
-        ->select('d.id','p.name as product','d.quantity','d.price')
+        ->select('d.sale_id','p.name as product','d.quantity','d.price')
         ->whereBetween('sales.created_at', [$fi, $ff])
         ->where('sales.status', 'Paid')
         ->where('sales.user_id', $this->userid)
@@ -64,6 +64,6 @@ class Cashout extends Component
 
     public function Print()
     {
-
+        //Code
     }
 }

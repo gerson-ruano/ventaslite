@@ -22,24 +22,25 @@
                             </tr>
                         </thead>
                         <tbody>
+                        {{--($details)--}}
                             @foreach($details as $d)
+                            {{--($d)--}}
                             <tr>
-                                <td>
+                                <td class="text-center">
                                     <h6>{{$d->id}}</h6>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <h6>{{$d->product}}</h6>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <h6>{{number_format($d->price,2)}}</h6>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <h6>{{number_format($d->quantity,2)}}</h6>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <h6>{{number_format($d->price * $d->quantity,2)}}</h6>
                                 </td>
-
                             </tr>
                             @endforeach
                         </tbody>
@@ -52,12 +53,11 @@
                                     <h5 class="text-center">{{$countDetails}}</h5>
                                 </td>
                                 <td>
-                                    <h5 class="text-center">Q{{number_format($sumDetails,2)}}</h5>
+                                    <h5 class="text-center">Q. {{number_format($sumDetails,2)}}</h5>
                                 </td>
                             </tr>
                         </tfoot>
                     </table>
-                    Pagination
                 </div>
 
 

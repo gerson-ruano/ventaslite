@@ -12,7 +12,8 @@ use Carbon\Carbon;
 class Reports extends Component
 {
 
-    public $componentName, $data, $details, $sumDetails, $countDetails, $reportType, $userId, $dateFrom, $dateTo, $saleId;
+    public $componentName, $data, $details, $sumDetails, $countDetails, 
+    $reportType, $userId, $dateFrom, $dateTo, $saleId;
 
     public function mount(){
         $this->componentName = 'Reporte de Ventas';
@@ -30,37 +31,43 @@ class Reports extends Component
 
         return view('livewire.reports.component',[
             'users' => User::orderBy('name','asc')->get()
-        ])->extends('layouts.theme.app')
+        ])
+        ->extends('layouts.theme.app')
         ->section('content');
     }
 
-    public function SalesByDate(){
+    public function SalesByDate()
+    {
         if($this->reportType == 0)  //VENTAS DEL DIA
         {
-            $from = Carbon::parse(Carbon::now())->format('Y-m-d') . '00:00:00';
-            $to = Carbon::parse(Carbon::now())->format('Y-m-d') . '23:59:59';
+            $from = Carbon::parse(Carbon::now())->format('Y-m-d') . ' 00:00:00';
+            $to = Carbon::parse(Carbon::now())->format('Y-m-d') . ' 23:59:59';
         }else{
-            $from = Carbon::parse($this->dateFrom)->format('Y-m-d') . '00:00:00';
-            $to = Carbon::parse($this->dateTo)->format('Y-m-d') . '23:59:59';
+            $from = Carbon::parse($this->dateFrom)->format('Y-m-d') . ' 00:00:00';
+            $to = Carbon::parse($this->dateTo)->format('Y-m-d') . ' 23:59:59';
         }
 
-        if($this->reportType == 1 && ($this->dateFrom == '' || $this->dateTo == '' )){
+        if($this->reportType == 1 && ($this->dateFrom == '' || $this->dateTo == '')){
             return;
         }
 
         if($this->userId == 0){
+
             $this->data = Sale::join('users as u','u.id','sales.user_id')
             ->select('sales.*','u.name as user')
             ->whereBetween('sales.created_at', [$from, $to])
             ->get();
         }else{
-            $this->data = Sale::join('users as u', 'u.id', 'sales.user_id')
+            $this->data = Sale::join('users as u', 'u.id','sales.user_id')
             ->select('sales.*','u.name as user')
-            ->whereBetween('sales.created_at' , [$from, $to])
+            ->whereBetween('sales.created_at', [$from, $to])
             ->where('user_id', $this->userId)
             ->get();
         }
+        //dd($from);
     } 
+
+    
 
     public function getDetails($saleId)
     {
@@ -69,15 +76,22 @@ class Reports extends Component
         ->where('sale_details.sale_id', $saleId)
         ->get();
 
-        //
+        //dd($this->details);
+
         $suma = $this->details->sum(function($item){
             return $item->price * $item->quantity;
         });
 
+       
+
         $this->sumDetails = $suma;
+        
         $this->countDetails = $this->details->sum('quantity');
+        //dd($this->countDetails);
+
         $this->saleId = $saleId;
 
         $this->emit('show-modal','Detalles Cargados');
     }
+    
 }

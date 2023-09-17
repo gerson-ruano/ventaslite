@@ -68,7 +68,7 @@
                             @endforeach
                             <td></td>
                             <td class="text-center">
-                                <h6 class="text-info">{{number_format($mytotal,2)}}</h6>
+                                <h6 class="text-info">Q. {{number_format($mytotal,2)}}</h6>
                             </td>
                             @endif
                         </tfoot>

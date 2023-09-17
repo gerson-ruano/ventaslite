@@ -13,7 +13,7 @@
                                 <div class="form-group">
                                     <select wire:model="userId" class="form-control">
                                         <option value="0">Todos</option>
-                                        {{--dd($data)--}}
+                                        {{--dd($users)--}}
                                         @foreach($users as $user)
                                         <option value="{{$user->id}}">{{$user->name}}</option>
                                         @endforeach
@@ -70,26 +70,27 @@
                                         <th class="table-th text-white text-center">ESTATUS</th>
                                         <th class="table-th text-white text-center">USUARIO</th>
                                         <th class="table-th text-white text-center">FECHA</th>
-                                        <th class="table-th text-white text-center">TOTAL</th>
                                         <th class="table-th text-white text-center" width="50px"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if(count($data) < 1) <tr>
-                                        <td colspan="7">
-                                            <h5>Sin Resultados</h5>
-                                        </td>
+                                    @if(count($data) < 1) 
+                                        <tr><td colspan="7"><h5 class="text-center mt-2">Sin Resultados</h5></td></tr>
                                         @endif
-                                        @foreach ($data as $d)
+                                    
+                                        @foreach($data as $d)
                                         <tr>
                                             <td class="text-center">
                                                 <h6>{{ $d->id }}</h6>
                                             </td>
                                             <td class="text-center">
-                                                <h6>Q.{{number_format($d->total,2)}}</h6>
+                                                <h6>Q. {{number_format($d->total,2)}}</h6>
                                             </td>
                                             <td class="text-center">
                                                 <h6>{{ $d->items }}</h6>
+                                            </td>
+                                            <td class="text-center">
+                                                <h6>{{ $d->status }}</h6>
                                             </td>
                                             <td class="text-center">
                                                 <h6>{{ $d->user }}</h6>

@@ -19,7 +19,7 @@ class CategorySeeder extends Seeder
             'image'=> 'https://dummyimage.com/200x150/5c5756/fff'
         ]);
         Category::create([
-            'name'=> 'TENIS',
+            'name'=> 'ZAPATOS',
             'image'=> 'https://dummyimage.com/200x150/5c5756/fff'
         ]);
         Category::create([
