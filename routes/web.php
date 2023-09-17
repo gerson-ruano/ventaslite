@@ -10,6 +10,7 @@ use App\Http\Livewire\Categories;
 use App\Http\Livewire\Coins;
 use App\Http\Livewire\Pos;
 use App\Http\Livewire\Asignar;
+use App\Http\Controllers\ExportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,3 +41,10 @@ Route::get('asignar', Asignar::class);
 Route::get('users', Users::class);
 Route::get('cashout', Cashout::class);
 Route::get('reports', Reports::class);
+
+
+//REPORTES PDF
+Route::get('report/pdf/{user}/{type}/{f1}/{f2}', [ExportController::class, 'reportPDF']);
+Route::get('report/pdf/{user}/{type}', [ExportController::class, 'reportPDF']);
+
+//REPORTES EXCEL
