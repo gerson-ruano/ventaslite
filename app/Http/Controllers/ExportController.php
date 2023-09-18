@@ -27,7 +27,6 @@ class ExportController extends Controller
         }
 
         if($userId == 0){
-
             $data = Sale::join('users as u','u.id','sales.user_id')
             ->select('sales.*','u.name as user')
             ->whereBetween('sales.created_at', [$from, $to])
@@ -41,7 +40,7 @@ class ExportController extends Controller
         }
 
         $user = $userId == 0 ? 'Todos' : User::find($userId)->name;
-        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf.reporte', compact('data', 'reportType','user','dateFrom','dateTo'));
+        $pdf = PDF\Pdf::loadView('pdf.reporte', compact('data', 'reportType','user','dateFrom','dateTo'));
 
         return $pdf->stream('salesReport.pdf'); //visualizar
         //return $pdf->download('salesReport.pdf'); //descargar

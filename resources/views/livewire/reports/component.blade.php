@@ -64,7 +64,7 @@
                             <table class="table table-bordered table-striped mt-1">
                                 <thead class="text-white" style="background: #3B3F5C">
                                     <tr>
-                                        <th class="table-th text-white text-center">FOLIO</th>
+                                        <th class="table-th text-white text-center">VENTA</th>
                                         <th class="table-th text-white text-center">TOTAL</th>
                                         <th class="table-th text-white text-center">ITEMS</th>
                                         <th class="table-th text-white text-center">ESTATUS</th>
@@ -96,7 +96,7 @@
                                                 <h6>{{ $d->user }}</h6>
                                             </td>
                                             <td class="text-center">
-                                                <h6>{{ \Carbon\Carbon::parse($d->created_at)->format('d-m-Y') }}</h6>
+                                                <h6>{{ \Carbon\Carbon::parse($d->created_at)->format('d-m-Y H:i:s') }}</h6>
                                             </td>
                                             <td class="text-center" width="50px">
                                                 <button wire:click.prevent="getDetails({{$d->id}})"

@@ -58,7 +58,7 @@
                             <thead class="text-white" style="background: #3B3F5C">
                                 <tr>
                                     <th class="table-th text-center text-white">
-                                        FOLIO
+                                        VENTA
                                     </th>
                                     <th class="table-th text-center text-white">
                                         TOTAL
@@ -67,7 +67,7 @@
                                         ITEMS
                                     </th>
                                     <th class="table-th text-center text-white">
-                                        FECHA
+                                        FECHA Y HORA
                                     </th>
                                     <th class="table-th text-center text-white">
 
@@ -95,7 +95,7 @@
                                     </td>
 
                                     <td class="text-center">
-                                        <h6>{{$row->created_at}}</h6>
+                                        <h6>{{$row->created_at->format('d-m-Y H:i:s')}}</h6>
                                     </td>
 
                                     <td class="text-center">

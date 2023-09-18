@@ -35,7 +35,7 @@
                             {{($dateTo)}}</strong></span>
                     @else
                     <span style="font-size: 16px"><strong>Fecha de consulta:
-                            {{\Carbon\Carbon::now()->format('d-M-Y')}}</strong></span>
+                            {{\Carbon\Carbon::now()->format('d-m-Y')}}</strong></span>
                     @endif
                     <br>
                     <span style="font-size: 14px">Usuario: {{$user}}</span>
@@ -53,7 +53,7 @@
                     <th width="10%">ITEMS</th>
                     <th width="12%">ESTATUS</th>
                     <th>USUARIO</th>
-                    <th width="22%">FECHA</th>
+                    <th width="22%">FECHA Y HORA</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,7 +64,7 @@
                     <td align="center">{{($item->items)}}</td>
                     <td align="center">{{($item->status)}}</td>
                     <td align="center">{{($item->user)}}</td>
-                    <td align="center">{{($item->created_at)}}</td>
+                    <td align="center">{{($item->created_at)->format('d-m-Y H:i:s')}}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -79,7 +79,7 @@
         </table>
     </section>
 
-    <section class="footer" style="margin-top: 730px">
+    <section class="footer" style="margin-top: 720px">
         <table cellpadding="0" cellspacing="0" class="" width="100%">
             <tr>
                 <td width="20%">
