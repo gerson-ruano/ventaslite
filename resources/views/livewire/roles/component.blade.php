@@ -17,11 +17,7 @@
                         <button class="tabmenu bg-dark btn" data-toggle="modal" data-target="#theModal">Agregar</button>
                     </li>
                 </ul-->
-                <ul class="tabs tab-pills">
-                    <li>
-                        <button class="tabmenu bg-dark btn" data-toggle="modal" data-target="#theModal">Agregar</button>
-                    </li>
-                </ul>
+                @include('livewire.Agregar', ['textButton' => 'Agregar'])
             </div>
             @include('common.searchbox')
 

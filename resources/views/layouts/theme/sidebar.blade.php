@@ -4,7 +4,6 @@
 <nav id="compactSidebar">
 
     <ul class="menu-categories">
-
         <li class="active">
             <a href="{{url('categories')}}" class="menu-toggle" data-active="true">
                 <div class="base-menu">
@@ -35,6 +34,7 @@
                 </div>
             </a>
         </li>
+        @role('Admin')
         <li class="">
             <a href="{{ url('roles') }}" class="menu-toggle" data-active="false">
                 <div class="base-menu">
@@ -45,6 +45,8 @@
                 </div>
             </a>
         </li>
+        @endcan
+        @role('Admin')
         <li class="">
             <a href="{{ url('permisos') }}" class="menu-toggle" data-active="false">
                 <div class="base-menu">
@@ -55,6 +57,8 @@
                 </div>
             </a>
         </li>
+        @endcan
+        @role('Admin')
         <li class="">
             <a href="{{ url('asignar') }}" class="menu-toggle" data-active="false">
                 <div class="base-menu">
@@ -65,6 +69,8 @@
                 </div>
             </a>
         </li>
+        @endcan
+        @role('Admin')
         <li class="">
             <a href="{{ url('users') }}" class="menu-toggle" data-active="false">
                 <div class="base-menu">
@@ -75,6 +81,7 @@
                 </div>
             </a>
         </li>
+        @endcan
         <li class="">
             <a href="{{url('coins')}}" class="menu-toggle" data-active="false">
                 <div class="base-menu">

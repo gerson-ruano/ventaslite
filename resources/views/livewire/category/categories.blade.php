@@ -6,13 +6,9 @@
                 <h4 class="card-title">
                     <b>{{ $componentName }} | {{ $pageTitle }}</b>
                 </h4>
-                <ul class="tabs tab-pills">
                     @can('Category_Create')
-                    <li>
-                        <button class="tabmenu bg-dark btn" data-toggle="modal" data-target="#theModal">Agregar</button>
-                    </li>
+                    @include('livewire.Agregar', ['textButton' => 'Agregar'])
                     @endcan
-                </ul>
             </div>
             @can('Category_Search')
             @include('common.searchbox')
