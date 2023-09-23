@@ -48,8 +48,8 @@
         <table cellpadding="0" cellspacing="0" class="table-items" width="100%">
             <thead>
                 <tr>
-                    <th width="10%">FOLIO</th>
-                    <th width="12%">IMPORTE</th>
+                    <th width="10%">VENTA</th>
+                    <th width="14%">IMPORTE</th>
                     <th width="10%">ITEMS</th>
                     <th width="12%">ESTATUS</th>
                     <th>USUARIO</th>
@@ -79,25 +79,27 @@
         </table>
     </section>
 
-    <section class="footer" style="margin-top: 720px">
-        <table cellpadding="0" cellspacing="0" class="" width="100%">
-            <tr>
-                <td width="20%">
-                    <span>Sistema VentasLite</span>
-                </td>
-                <td width="60%" class="text-center">
-                    Gerson Ruano
-                </td>
-                <td class="text-center" width="20%">
-                    pagina <span class="pagenum"></span>
-                </td>
-            </tr>
-        </table>
-    </section>
+    <section class="footer">
+    <table cellpadding="0" cellspacing="0" class="" width="100%">
+        <tr>
+            <td width="20%">
+                <span>Sistema VentasLite</span>
+            </td>
+            <td width="60%" class="text-center">
+                Gerson Ruano
+            </td>
+            <td class="text-center" width="20%">
+                página <span class="pagenum"></span>
+            </td>
+        </tr>
+    </table>
+</section>
 
 </body>
 
 </html>
+
+
 <style>
     .table-items {
         width: 100%;
@@ -114,6 +116,21 @@
     .table-items th {
         background-color: #f2f2f2;
     }
+    .footer {
+        position: fixed;
+        bottom: 20px; /* Ajusta la distancia desde la parte inferior según tus necesidades */
+        left: 0;
+        right: 0;
+        text-align: center;
+    }
+
+    script[type="text/php"] {
+            if (isset($pdf)) {
+                $font = $fontMetrics->get_font("Arial, Helvetica, sans-serif", "normal");
+                $size = 10;
+                $pdf->page_text(270, 770, "Página: {PAGE_NUM} de {PAGE_COUNT}", $font, $size);
+            }
+        }
 
     /*.table-items tfoot td {
         background-color: #f2f2f2;
