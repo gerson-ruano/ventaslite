@@ -6,10 +6,13 @@
                 <h4 class="card-title">
                     <b>{{ $componentName }} | {{ $pageTitle }}</b>
                 </h4>
+                @can('Permiso_Create')
                 @include('livewire.Agregar', ['textButton' => 'Agregar'])
+                @endcan
             </div>
+            @can('Permiso_Search')
             @include('common.searchbox')
-
+            @endcan
             <div class="widget-content">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped mt-1">
@@ -29,17 +32,20 @@
                                 <td class="text-center">
                                     <h6>{{$permiso->name}}</h6>
                                 </td>
-
                                 <td class="text-center">
+                                    @can('Permiso_Update')
                                     <a href="javascript:void(0)" wire:click="Edit({{$permiso->id}})"
                                         class="btn btn-dark mtmobile" title="Editar Registro">
                                         <i class="fas fa-edit"></i>
+                                        @endcan
                                     </a>
+                                    
+                                    @can('Permiso_Destroy')
                                     <a href="javascript:void(0)" onclick="Confirm('{{$permiso->id}}')"
                                         class="btn btn-dark " title="Eliminar Registro">
                                         <i class="fas fa-trash"></i>
                                     </a>
-
+                                    @endcan
                                 </td>
                             </tr>
                             @endforeach

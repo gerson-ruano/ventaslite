@@ -19,7 +19,7 @@
                                     </span>
                                 </span>
                             </div>
-                            <input type="text" wire:model.lazy="permissionName" class="form-control" placeholder="Ej. Category_index" maxlength="255">
+                            <input type="text" wire:model.lazy="permissionName" class="form-control" placeholder="Ej. Category_Index" maxlength="255">
                         </div>
                         @error('permissionName') <span class="text danger er">{{$message}}</span>@enderror
                     </div>

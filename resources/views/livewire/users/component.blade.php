@@ -6,10 +6,13 @@
                 <h4 class="card-title">
                     <b>{{ $componentName }} | {{ $pageTitle }}</b>
                 </h4>
+                @can('User_Create')
                 @include('livewire.Agregar', ['textButton' => 'Agregar'])
+                @endcan
             </div>
+            @can('User_Search')
             @include('common.searchbox')
-
+            @endcan
             <div class="widget-content">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped mt-1">
@@ -49,17 +52,21 @@
                                         class="card-img-top img-fluid">
                                     @endif
                                 </td>
-
+                                
                                 <td class="text-center">
+                                    @can('User_Update')
                                     <a href="javascript:void(0)" wire:click="edit({{$r->id}})"
                                         class="btn btn-dark mtmobile" title="Edit">
                                         <i class="fas fa-edit"></i>
+                                        @endcan
                                     </a>
+                                    
+                                    @can('User_Destroy')
                                     <a href="javascript:void(0)" onclick="Confirm('{{$r->id}}')" class="btn btn-dark "
                                         title="Delete">
                                         <i class="fas fa-trash"></i>
                                     </a>
-
+                                    @endcan
                                 </td>
                             </tr>
                             @endforeach

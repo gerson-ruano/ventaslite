@@ -6,10 +6,13 @@
                 <h4 class="card-title">
                     <b>{{ $componentName }} | {{ $pageTitle }}</b>
                 </h4>
+                @can('Denominaciones_Create')
                 @include('livewire.Agregar', ['textButton' => 'Agregar'])
+                @endcan
             </div>
-
+            @can('Denominaciones_Search')
             @include('common.searchbox')
+            @endcan
 
             <div class="widget-content">
                 <div class="table-responsive">
@@ -38,19 +41,20 @@
                                         </span>
                                     </td>
                                     <td class="text-center">
+                                    @can('Denominaciones_Update')
                                         <a href="javascript:void(0)" wire:click="Edit({{ $coin->id }})"
                                             class="btn btn-dark mtmobile" title="Edit">
                                             <i class="fas fa-edit"></i>
+                                            @endcan
                                         </a>
 
-
+                                        @can('Denominaciones_Destroy')
                                         <a href="javascript:void(0)" onclick="Confirm('{{ $coin->id }}')"
                                             class="btn btn-dark " title="Delete">
                                             <i class="fas fa-trash"></i>
                                         </a>
-
+                                        @endcan
                                         {{-- $category->imagen --}}
-
                                     </td>
                                 </tr>
                             @endforeach

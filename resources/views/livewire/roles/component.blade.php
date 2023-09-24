@@ -17,9 +17,13 @@
                         <button class="tabmenu bg-dark btn" data-toggle="modal" data-target="#theModal">Agregar</button>
                     </li>
                 </ul-->
+                @can('Role_Create')
                 @include('livewire.Agregar', ['textButton' => 'Agregar'])
+                @endcan
             </div>
+            @can('Role_Search')
             @include('common.searchbox')
+            @endcan
 
             <div class="widget-content">
                 <div class="table-responsive">
@@ -40,17 +44,21 @@
                                 <td class="text-center">
                                     <h6>{{$role->name}}</h6>
                                 </td>
-
+                                
                                 <td class="text-center">
+                                    @can('Role_Update')
                                     <a href="javascript:void(0)" wire:click="Edit({{$role->id}})"
                                         class="btn btn-dark mtmobile" title="Editar Registro">
                                         <i class="fas fa-edit"></i>
+                                        @endcan
                                     </a>
+                                    
+                                    @can('Role_Destroy')
                                     <a href="javascript:void(0)" onclick="Confirm('{{$role->id}}')"
                                         class="btn btn-dark " title="Eliminar Registro">
                                         <i class="fas fa-trash"></i>
                                     </a>
-
+                                    @endcan
                                 </td>
                             </tr>
                             @endforeach

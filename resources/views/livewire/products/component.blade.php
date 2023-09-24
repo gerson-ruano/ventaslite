@@ -6,10 +6,13 @@
                 <h4 class="card-title">
                     <b>{{ $componentName }} | {{ $pageTitle }}</b>
                 </h4>
+                @can('Product_Create')
                 @include('livewire.Agregar', ['textButton' => 'Agregar'])
+                @endcan
             </div>
+            @can('Product_Search')
             @include('common.searchbox')
-
+            @endcan
             <div class="widget-content">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped mt-1">
@@ -53,16 +56,21 @@
                                                 alt="imagen de ejemplo" height="70" width="80" class="rounded">
                                         </span>
                                     </td>
+                                    
                                     <td class="text-center">
+                                        @can('Product_Update')
                                         <a href="javascript:void(0)" wire:click.prevent="Edit({{ $product->id }})"
                                             class="btn btn-dark mtmobile" title="Edit">
                                             <i class="fas fa-edit"></i>
+                                            @endcan
                                         </a>
+                                        
+                                        @can('Product_Destroy')
                                         <a href="javascript:void(0)" onclick="Confirm('{{ $product->id }}')"
                                             class="btn btn-dark " title="Delete">
                                             <i class="fas fa-trash"></i>
                                         </a>
-
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach
