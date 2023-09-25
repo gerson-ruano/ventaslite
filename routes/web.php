@@ -56,4 +56,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('report/excel/{user}/{type}/{f1}/{f2}', [ExportController::class, 'reportExcel']);
     Route::get('report/excel/{user}/{type}', [ExportController::class, 'reportExcel']);  
 
+    //REPORTES VENTAS
+    Route::get('report/venta/{cart}', [ExportController::class, 'reportVenta']);
+    //Route::get('report/venta/{total}/{itemQuantity}/{efectivo}/{change}/{cart}', [ExportController::class, 'reportVenta']);
+    //Route::get('report/venta/{user}/{type}', [ExportController::class, 'reportVenta']);
+
+    //Route::get('/imprimir-venta/{sale}', 'pos@printTicket')->name('printTicket');
+    //$total, $itemsQuantity, $efectivo, $change;
+
 });

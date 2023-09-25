@@ -108,6 +108,8 @@
                                         @endforeach
                                 </tbody>
                             </table>
+                            {{--$data->links()--}}
+                            {{--dd($sales)--}}
                         </div>
                     </div>
                 </div>

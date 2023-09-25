@@ -33,10 +33,13 @@ class Pos extends Component
         return view('livewire.pos.component', [
             'denominations' => Denomination::orderBy('value','desc')->get(),
             'cart' => Cart::getContent()->sortBy('name')
+            
         ])
         ->extends('layouts.theme.app')
         ->section('content');
     }
+
+    
 
     public function ACash($value)
     {

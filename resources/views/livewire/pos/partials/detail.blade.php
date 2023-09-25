@@ -3,7 +3,6 @@
     <div class="connect-sortint-contect">
         <div class="card simple-title-task">
             <div class="class-card-body">
-
                 @if($total > 0)
                 <div class="table-responsive-tblscroll" style="max-height: 650px
             overflow: hidden">
@@ -70,12 +69,13 @@
                 @else
                 <h5 class="text-center text-muted">Agrega productos a la venta</h5>
                 @endif
-                @can('Venta_Create')
+                
                 <div wire:loading.inline wire:target="saveSale">
                     <h4 class="text-danger text-center">Guardando Venta...</h4>
                 </div>
-                @endcan
+                
             </div>
         </div>
     </div>
 </div>
+

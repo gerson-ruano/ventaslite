@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exports\SalesExport;
+//use Barryvdh\DomPDF\Facade\Pdf;
+use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
@@ -51,5 +53,27 @@ class ExportController extends Controller
     {
         $reportName = 'Reporte de Ventas_' . uniqid() . '.xlsx';
         return Excel::download(new SalesExport($userId, $reportType, $dateFrom, $dateTo),$reportName);
+    }
+
+    public function reportVenta($cart){
+
+        $cart = Cart::getContent();
+
+        
+        /*$data = [];
+
+            $data = Sale::join('users as u','u.id','sales.user_id')
+            ->select('sales.*','u.name as user')
+            //->whereBetween('sales.created_at', [$from, $to])
+            ->get();
+
+        $carts = json_decode($cart, true);
+
+        //$user = $userId == 0 ? 'Todos' : User::find($userId)->name;
+        $pdf = PDF\Pdf::loadView('pdf.reporteventa', compact('data', 'total','itemsQuantity','efectivo','change', ['carts' => $carts]));
+        return $pdf->stream('venta.pdf');*/
+
+        $pdf = PDF\Pdf::loadView('pdf.reporteventa', ['cart' => $cart]);
+        return $pdf->stream('VentaReport.pdf'); //visualizar
     }
 }

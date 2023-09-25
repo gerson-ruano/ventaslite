@@ -54,9 +54,20 @@
 
                         <div class="col-sm-12 col-md-12 col-lg-6">
                             @if($efectivo >= $total && $total > 0)
-                            <button wire:click.prevent="saveSale" class="btn btn-dark btn-md btn-block">
+                            @can('Venta_Create')
+                            {{--<button wire:click.prevent="saveSale" class="btn btn-dark btn-md btn-block">
                                 GUARDAR F6
-                            </button>
+                            </button>--}}
+                            @endcan
+
+                            {{--<a class="btn btn-dark btn-block "
+                                    href="{{ url('report/venta' . '/' . $total . '/' . $itemsQuantity . '/' . $efectivo . '/' . $change . '/' . $cart) }}"
+                                    target="_blank">Generar VENTA</a>--}}
+
+                                    <a class="btn btn-dark btn-block "
+                                    href="{{ url('report/venta' . '/' . $cart) }}"
+                                    target="_blank">Generar VENTA</a>
+
                             @endif
                         </div>
                     </div>
