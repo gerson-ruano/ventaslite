@@ -39,7 +39,7 @@
                                         <i class="fas fa-edit"></i>
                                         @endcan
                                     </a>
-                                    
+
                                     @can('Permiso_Destroy')
                                     <a href="javascript:void(0)" onclick="Confirm('{{$permiso->id}}')"
                                         class="btn btn-dark " title="Eliminar Registro">

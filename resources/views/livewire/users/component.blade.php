@@ -52,7 +52,7 @@
                                         class="card-img-top img-fluid">
                                     @endif
                                 </td>
-                                
+
                                 <td class="text-center">
                                     @can('User_Update')
                                     <a href="javascript:void(0)" wire:click="edit({{$r->id}})"
@@ -60,7 +60,7 @@
                                         <i class="fas fa-edit"></i>
                                         @endcan
                                     </a>
-                                    
+
                                     @can('User_Destroy')
                                     <a href="javascript:void(0)" onclick="Confirm('{{$r->id}}')" class="btn btn-dark "
                                         title="Delete">
