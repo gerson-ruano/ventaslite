@@ -4,13 +4,13 @@
         <ul class="navbar-item flex-row">
             <li class="nav-item theme-logo">
                 <a href="home">
-                    <img src="assets/img/ventas.png" class="navbar-logo" alt="logo"><b style="font-size: 19px: color:#3B3F5C">VentasLite</b>
+                    <img src="assets/img/ventaslite_logo.png" class="navbar-logo" alt="logo"><b style="font-size: 30px: color:#3B3F5C">VentasLite</b>
                 </a>
             </li>
         </ul>
 
-        {{--<a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3" y2="6"></line><line x1="3" y1="12" x2="3" y2="12"></line><line x1="3" y1="18" x2="3" y2="18"></line></svg>
-        </a>--}}
+        <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3" y2="6"></line><line x1="3" y1="12" x2="3" y2="12"></line><line x1="3" y1="18" x2="3" y2="18"></line></svg>
+        </a>
 
         <livewire:search>
         <ul class="navbar-item flex-row navbar-dropdown">
@@ -18,13 +18,13 @@
 
             <li class="nav-item dropdown user-profile-dropdown  order-lg-0 order-1">
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <!--img src="assets/img/ca.png" alt="admin-profile" class="img-fluid"-->
+                    <!--img src="assets/img/ventaslite_logo.png" alt="admin-profile" class="img-fluid"-->
                     <i class="fas fa-user text-dark"></i>
                 </a>
                 <div class="dropdown-menu position-absolute animated fadeInUp" aria-labelledby="userProfileDropdown">
                     <div class="user-profile-section">
                         <div class="media mx-auto">
-                            <img src="assets/img/lara.png" class="img-fluid mr-2" alt="avatar">
+                            <img src="assets/img/ventas2.png" class="img-fluid mr-2" alt="avatar">
 
                             <div class="media-body">
                                 <h5>Mi Perfil</h5>
@@ -40,14 +40,15 @@
                             @if(auth()->check())
                             <a href="home">
                                 <!--svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg-->
-                                <i class="fas fa-user"></i>
-                                <span>{{ auth()->user()->name }}</span>
+                                <i class="fas fa-home"></i> Home
+                            </a>
+                                {{--<span>{{ auth()->user()->name }}</span>--}}
                             @else
                             <a href="register">
                                 <!--svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg-->
-                                <i class="fas fa-user-slash"></i> Registrarse<a href="register"></a>
+                                <i class="fas fa-user-slash"></i> Registrarse
+                                </a>
                             @endif
-                        </a>
                     </div>
                     <div class="dropdown-item">
                         <a href="{{ route('logout') }}"
