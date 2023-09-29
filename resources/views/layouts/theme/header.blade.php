@@ -25,7 +25,6 @@
                     <div class="user-profile-section">
                         <div class="media mx-auto">
                             <img src="assets/img/ventas2.png" class="img-fluid mr-2" alt="avatar">
-
                             <div class="media-body">
                                 <h5>Mi Perfil</h5>
                                 @if(auth()->check())
@@ -38,16 +37,21 @@
                     </div>
                     <div class="dropdown-item">
                             @if(auth()->check())
+                            <a href="">
+                                <i class="fas fa-user-shield"></i><span> {{ auth()->user()->profile }}</span>
+                                </a>
                             <a href="home">
                                 <!--svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg-->
                                 <i class="fas fa-home"></i> Home
-                            </a>
                                 {{--<span>{{ auth()->user()->name }}</span>--}}
                             @else
                             <a href="register">
                                 <!--svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg-->
                                 <i class="fas fa-user-slash"></i> Registrarse
                                 </a>
+                                <a href="login">
+                                    <!--svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg-->
+                                    <i class="fas fa-arrow-alt-circle-left"></i> Login
                             @endif
                     </div>
                     <div class="dropdown-item">
