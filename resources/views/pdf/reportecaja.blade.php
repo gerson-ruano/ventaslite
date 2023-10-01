@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reporte de Venta</title>
+    <title>Reporte de Cierre de Caja</title>
     <link rel="stylesheet" href="{{ asset('css/custom_pdf.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom_page.css') }}">
 </head>
@@ -24,57 +24,59 @@
                 </td>
                 <td width="70%" class="text-left text-company" style="vertical-align: top; padding-top: 30px">
 
-                    <span style="font-size: 16px"><strong>Reporte de Venta</strong></span>
-
+                    <span style="font-size: 16px"><strong>Reporte de Cierre de Caja</strong></span><br>
+                    <span style="font-size: 16px"><strong>Fecha de consulta: {{$fromDate}} al
+                            {{($toDate)}}</strong></span><br>
+                    
+                    <span style="font-size: 16px"><strong>Fecha de Reporte:
+                            {{\Carbon\Carbon::now()->format('d-m-Y')}}</strong></span>
                     <br>
-
-                    <span style="font-size: 16px"><strong>Fecha de venta:
-                            {{\Carbon\Carbon::now()->format('d-m-Y H:i:s')}}</strong></span>
-
-                    <br>
-                    <span style="font-size: 14px">Usuario: </span>
+                    <span style="font-size: 14px">Usuario: {{$user}} </span>
                 </td>
             </tr>
         </table>
     </section>
 
-    
-    
-
     <section class="header" style="top: -287px;">
 
-    <h3>Detalle de la Venta #</h3>
+    <h3>Detalle de las ventas realizadas</h3>
     
     <table cellpadding="0" cellspacing="0" width="100%" class="table-items">
-        <thead>
+    {{--dd($data)--}}
+    <thead>
             <tr>
                 <th align="center">No.</th>
-                <th align="center">Nombre</th>
-                <th align="center">Precio</th>
-                <th align="center">Cantidad</th>
-                <th align="center">Imagen</th>
+                <th align="center">Total</th>
+                <th align="center">Unidad</th>
+                <th align="center">Efectivo</th>
+                <th align="center">Cambio</th>
+                <th align="center">Estado</th>
+                <th align="center">Usuario</th>
+                <th align="center">Fecha y hora</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($cart as $item)
+            @foreach($data as $item)
             <tr>
                 <td align="center">{{ $item->id }}</td>
-                <td align="center">{{ $item->name }}</td>
-                <td align="center">{{ $item->price }}</td>
-                <td align="center">{{ $item->quantity }}</td>
-                <!--td align="center">{{ $item->attributes }}</td-->
-                <td align="center"><img src="{{ asset('storage/products/' . $item->attributes[0])}}" alt="imagen de producto" height="50"
-                    width="50" class="rounded"></td>
+                <td align="center">{{ $item->total }}</td>
+                <td align="center">{{ $item->items }}</td>
+                <td align="center">{{ $item->cash }}</td>
+                <td align="center">{{ $item->change }}</td>
+                <td align="center">{{ $item->status }}</td>
+                <td align="center">{{ $user}}</td>
+                <td align="center">{{ $item->created_at }}</td>
             </tr>
             @endforeach
         </tbody>
         <tfoot>
                 <tr>
                     <td align="center"><span><b>TOTALES:</b></span></td>
-                    <td colspan="1"></td>
-                    <td align="center"  colspan="1" class="text-center"><span><strong> Q. {{ number_format($cart->sum('price'),2) }}</strong></span></td>
-                    <td  align="center" class="text-center" style=""> {{ $cart->sum('quantity')}}</td>
-                    <td colspan="1"></td>
+                    <td align="center"  colspan="1" class="text-center"><span><strong> Q. {{ number_format($data->sum('total'),2) }}</strong></span></td>
+                    <td align="center"  colspan="1" class="text-center"><span><strong>{{ $data->sum('items') }}</strong></span></td>
+                    <td align="center"  colspan="1" class="text-center"><span><strong> Q. {{ number_format($data->sum('cash'),2) }}</strong></span></td>
+                    <td align="center"  colspan="1" class="text-center"><span><strong> Q. {{ number_format($data->sum('change'),2) }}</strong></span></td>
+                    <td colspan="3"></td>
                 </tr>
             </tfoot>
     </table>

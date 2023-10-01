@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reporte de Ventas</title>
+    <title>Reportes</title>
     <link rel="stylesheet" href="{{ asset('css/custom_pdf.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom_page.css') }}">
 </head>
@@ -48,10 +48,10 @@
         <table cellpadding="0" cellspacing="0" class="table-items" width="100%">
             <thead>
                 <tr>
-                    <th width="10%">VENTA</th>
+                    <th width="10%"># VENTA</th>
                     <th width="14%">IMPORTE</th>
-                    <th width="10%">ITEMS</th>
-                    <th width="12%">ESTATUS</th>
+                    <th width="10%">UNIDAD</th>
+                    <th width="12%">ESTADO</th>
                     <th>USUARIO</th>
                     <th width="22%">FECHA Y HORA</th>
                 </tr>

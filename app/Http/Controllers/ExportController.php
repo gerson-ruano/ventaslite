@@ -76,4 +76,20 @@ class ExportController extends Controller
         $pdf = PDF\Pdf::loadView('pdf.reporteventa', ['cart' => $cart]);
         return $pdf->stream('VentaReport.pdf'); //visualizar
     }
+
+    public function reportCaja($userid, $fromDate = null, $toDate = null){
+
+        $from = Carbon::parse($fromDate)->format('Y-m-d') . ' 00:00:00';
+        $to = Carbon::parse($toDate)->format('Y-m-d') . ' 23:59:59';
+
+        $data = Sale::join('users as u', 'u.id','sales.user_id')
+        ->select('sales.*','u.name as user')
+        ->where('sales.user_id', $userid)
+        ->whereBetween('sales.created_at', [$from, $to])
+        ->get();
+
+        $user = User::find($userid)->name;
+        $pdf = PDF\Pdf::loadView('pdf.reportecaja', compact('data','user','fromDate','toDate'));
+        return $pdf->stream('CajaReport.pdf'); //visualizar
+    }
 }

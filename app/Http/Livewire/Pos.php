@@ -71,9 +71,10 @@ class Pos extends Component
                 return;
             }
 
-            Cart::add($product->id, $product->name, $product->price, 1, $product->image);
+            Cart::add($product->id, $product->name, $product->price, $cant, $product->image);
             $this->total = Cart::getTotal();
-
+            $this->itemsQuantity = Cart::getTotalQuantity();
+            
             $this->emit('scan-ok', 'Producto Agregado');
         }
         
@@ -90,17 +91,13 @@ class Pos extends Component
 
     public function increaseQty($productId, $cant = 1)
     {
-        $title = '';
+        $title='';
         $product = Product::find($productId);
         $exist = Cart::get($productId);
         if($exist)
-        
             $title = 'Cantidad Actualizada';
-
         else
             $title = 'Producto agregado';
-        
-            
         if($exist)
         {
             if($product->stock < ($cant + $exist->quantity))
@@ -137,6 +134,7 @@ class Pos extends Component
         }
 
         $this->removeItem($productId);
+        
         if($cant > 0)
         {
             Cart::add($product->id, $product->name, $product->price, $cant, $product->image);
@@ -146,6 +144,8 @@ class Pos extends Component
 
             $this->emit('scan-ok', $title);
         }
+
+        //definir else para notificar al usuario que debe ser mayor a 0
 
     }
 
@@ -240,7 +240,7 @@ class Pos extends Component
             $this->total = Cart::getTotal();
             $this->itemsQuantity = Cart::getTotalQuantity();
             $this->emit('sale-ok','Venta registrada con exito');
-            $this->emit('print-ticket', $sale->id);
+            //$this->emit('print-ticket', $sale->id);
 
         }catch (Exception $e){
             DB::rollback();

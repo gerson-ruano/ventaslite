@@ -39,7 +39,9 @@
                         <button wire:click.prevent="Consultar()" type="button" class="btn btn-dark">Consultar</button>
                         @endif
                         @if($total > 0)
-                        <button wire:click.prevent="Print()" type="button" class="btn btn-dark">Imprimir</button>
+                            <a class="btn btn-dark btn-md mtmobile"
+                                    href="{{ url('report/caja' . '/' . $userid . '/' . $fromDate . '/' . $toDate) }}"
+                            target="_blank">ver PDF</a>
                         @endif
                     </div>
                 </div>

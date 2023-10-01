@@ -6,6 +6,7 @@ use App\Models\Sale;
 use Carbon\Carbon;
 use Livewire\Component;
 
+
 class Cashout extends Component
 {
 
@@ -64,6 +65,6 @@ class Cashout extends Component
 
     public function Print()
     {
-        //Code
+        //code
     }
 }

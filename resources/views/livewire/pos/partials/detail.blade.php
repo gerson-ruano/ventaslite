@@ -71,7 +71,7 @@
                 @endif
                 
                 <div wire:loading.inline wire:target="saveSale">
-                    <h4 class="text-danger text-center">Guardando Venta...</h4>
+                    <h3 class="text-danger text-center">Guardando Venta...</h3>
                 </div>
                 
             </div>
