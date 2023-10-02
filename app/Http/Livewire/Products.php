@@ -16,7 +16,7 @@ class Products extends Component
 
     public $name, $barcode, $cost, $price, $stock, $alerts, $categoryid, $search, $image, $selected_id, $pageTitle, $componentName;
 
-    private $pagination = 3;
+    private $pagination = 5;
     
     public function paginationView()
     {

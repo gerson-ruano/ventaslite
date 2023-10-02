@@ -14,7 +14,7 @@ class Coins extends Component
 
     public $type, $value, $componentName, $pageTitle, $selected_id, $image, $search;
 
-    private $pagination = 3;
+    private $pagination = 5;
     
     public function paginationView()
     {

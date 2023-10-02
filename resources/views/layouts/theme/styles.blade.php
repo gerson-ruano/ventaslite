@@ -75,6 +75,7 @@
             box-shadow: none;
             border-radius: 30px;
         }
+        
     </style>
 
 <link href="{{ asset('plugins/flatpickr/flatpickr.dark.css')}}" rel="stylesheet" type="text/css"/>
