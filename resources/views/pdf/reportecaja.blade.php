@@ -27,7 +27,7 @@
                     <span style="font-size: 16px"><strong>Reporte de Cierre de Caja</strong></span><br>
                     <span style="font-size: 16px"><strong>Fecha de consulta: {{$fromDate}} al
                             {{($toDate)}}</strong></span><br>
-                    
+
                     <span style="font-size: 16px"><strong>Fecha de Reporte:
                             {{\Carbon\Carbon::now()->format('d-m-Y')}}</strong></span>
                     <br>
@@ -40,14 +40,14 @@
     <section class="header" style="top: -287px;">
 
     <h3>Detalle de las ventas realizadas</h3>
-    
+
     <table cellpadding="0" cellspacing="0" width="100%" class="table-items">
     {{--dd($data)--}}
     <thead>
             <tr>
-                <th align="center">No.</th>
+                <th align="center">No. Venta</th>
+                <th align="center">Cantidad</th>
                 <th align="center">Total</th>
-                <th align="center">Unidad</th>
                 <th align="center">Efectivo</th>
                 <th align="center">Cambio</th>
                 <th align="center">Estado</th>
@@ -59,10 +59,10 @@
             @foreach($data as $item)
             <tr>
                 <td align="center">{{ $item->id }}</td>
-                <td align="center">{{ $item->total }}</td>
                 <td align="center">{{ $item->items }}</td>
-                <td align="center">{{ $item->cash }}</td>
-                <td align="center">{{ $item->change }}</td>
+                <td style="text-align: right;">{{ $item->total }}</td>
+                <td style="text-align: right;">{{ $item->cash }}</td>
+                <td style="text-align: right;">{{ $item->change }}</td>
                 <td align="center">{{ $item->status }}</td>
                 <td align="center">{{ $user}}</td>
                 <td align="center">{{ $item->created_at }}</td>
@@ -72,10 +72,10 @@
         <tfoot>
                 <tr>
                     <td align="center"><span><b>TOTALES:</b></span></td>
-                    <td align="center"  colspan="1" class="text-center"><span><strong> Q. {{ number_format($data->sum('total'),2) }}</strong></span></td>
                     <td align="center"  colspan="1" class="text-center"><span><strong>{{ $data->sum('items') }}</strong></span></td>
-                    <td align="center"  colspan="1" class="text-center"><span><strong> Q. {{ number_format($data->sum('cash'),2) }}</strong></span></td>
-                    <td align="center"  colspan="1" class="text-center"><span><strong> Q. {{ number_format($data->sum('change'),2) }}</strong></span></td>
+                    <td style="text-align: right;"  colspan="1" class="text-center"><span><strong> Q. {{ number_format($data->sum('total'),2) }}</strong></span></td>
+                    <td style="text-align: right;"  colspan="1" class="text-center"><span><strong> Q. {{ number_format($data->sum('cash'),2) }}</strong></span></td>
+                    <td style="text-align: right;"  colspan="1" class="text-center"><span><strong> Q. {{ number_format($data->sum('change'),2) }}</strong></span></td>
                     <td colspan="3"></td>
                 </tr>
             </tfoot>

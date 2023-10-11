@@ -2,7 +2,13 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header bg-dark">
-                <h5 class="modal-title text-white"><b>Detalle de ventas</b></h5>
+                <h5 class="modal-title text-white">
+                    <b>Detalle de ventas
+                        {{--@foreach ($sales as $sale)
+                        #{{ $sale->id }}
+                        @endforeach--}}
+                    </b>
+                </h5>
                 <button class="close" data-dismiss="modal" type="button" aria-label="Close">
                     <span class="text-white">&times;</span>
                 </button>
@@ -35,15 +41,15 @@
                                 <td class="text-center">
                                     <h6>{{$d->product}}</h6>
                                 </td>
-                            
+
                                 <td class="text-center">
                                     <h6>{{$d->quantity}}</h6>
                                 </td>
-                            
+
                                 <td class="text-center">
                                     <h6>{{number_format($d->price,2)}}</h6>
                                 </td>
-                            
+
                                 <td class="text-center">
                                     <h6>{{number_format($d->quantity * $d->price,2)}}</h6>
                                 </td>

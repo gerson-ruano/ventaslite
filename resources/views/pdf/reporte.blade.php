@@ -19,7 +19,7 @@
                 </td>
             </tr>
             <tr>
-                <td width="30%" 
+                <td width="30%"
                 style="vertical-align: top; padding-top: 10px; padding-left: 30px; position: relative">
                     <img src="{{ asset('assets/img/ventaslite_logo.png') }}" alt="" class="invoice-logo">
                 </td>
@@ -38,7 +38,7 @@
                             {{\Carbon\Carbon::now()->format('d-m-Y')}}</strong></span>
                     @endif
                     <br>
-                    <span style="font-size: 14px">Usuario: {{$user}}</span>
+                    <span style="font-size: 14px">{{__('Usuario')}}: {{$user}}</span>
                 </td>
             </tr>
         </table>
@@ -48,9 +48,9 @@
         <table cellpadding="0" cellspacing="0" class="table-items" width="100%">
             <thead>
                 <tr>
-                    <th width="10%"># VENTA</th>
+                    <th width="10%">VENTA</th>
                     <th width="14%">IMPORTE</th>
-                    <th width="10%">UNIDAD</th>
+                    <th width="10%">CANTIDAD</th>
                     <th width="12%">ESTADO</th>
                     <th>USUARIO</th>
                     <th width="22%">FECHA Y HORA</th>
@@ -60,7 +60,7 @@
                 @foreach($data as $item)
                 <tr>
                     <td align="center">{{($item->id)}}</td>
-                    <td align="center">{{number_format($item->total,2)}}</td>
+                    <td style="text-align: right;">{{ number_format($item->total, 2) }}</td>
                     <td align="center">{{($item->items)}}</td>
                     <td align="center">{{($item->status)}}</td>
                     <td align="center">{{($item->user)}}</td>
@@ -71,7 +71,7 @@
             <tfoot>
                 <tr>
                     <td align="center"><span><b>TOTALES:</b></span></td>
-                    <td align="center"  colspan="1" class="text-center"><span><strong> Q. {{ number_format($data->sum('total'),2) }}</strong></span></td>
+                    <td style="text-align: right;" colspan="1" class="text-center"><span><strong> Q. {{ number_format($data->sum('total'),2) }}</strong></span></td>
                     <td  align="center" class="text-center" style=""> {{ $data->sum('items')}}</td>
                     <td colspan="3"></td>
                 </tr>

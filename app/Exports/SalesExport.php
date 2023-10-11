@@ -10,15 +10,17 @@ use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Carbon\Carbon;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class SalesExport implements FromCollection, WithHeadings, WithCustomStartCell, WithTitle, 
+
+class SalesExport implements FromCollection, WithHeadings, WithCustomStartCell, WithTitle,
 WithStyles
 {
     /**
     * @return \Illuminate\Support\Collection
     */
 
-    protected $userid, $dateFrom, $dateTo, $reportType;
+    protected $userId, $dateFrom, $dateTo, $reportType;
 
     function __construct($userId, $reportType, $f1, $f2){
         $this->userId = $userId;
@@ -47,12 +49,21 @@ WithStyles
             ->select('sales.id','sales.total','sales.items','sales.status','u.name as user','sales.created_at')
             ->whereBetween('sales.created_at', [$from, $to])
             ->get();
+            foreach ($data as $sale) {
+                $sale->created_at = date('Y-m-d H:i:s', strtotime($sale->created_at));
+            }
+
         }else{
             $data = Sale::join('users as u', 'u.id','sales.user_id')
             ->select('sales.id','sales.total','sales.items','sales.status','u.name as user','sales.created_at')
             ->whereBetween('sales.created_at', [$from, $to])
             ->where('user_id', $this->userId)
             ->get();
+            foreach ($data as $sale) {
+                $sale->created_at = date('Y-m-d H:i:s', strtotime($sale->created_at));
+            }
+
+
        }
 
        return $data;
@@ -61,7 +72,7 @@ WithStyles
 
     public function headings() : array
     {
-        return [ "VENTA", "IMPORTE", "ITEMS","ESTATUS","USUARIO","FECHA"];
+        return [ "VENTA", "IMPORTE", "ITEMS","ESTADO","USUARIO","FECHA"];
     }
 
     public function startcell() : string
@@ -76,7 +87,7 @@ WithStyles
         ];
     }
 
-    public function title() : string 
+    public function title() : string
     {
         return 'Reporte de Ventas';
     }
