@@ -67,16 +67,14 @@
                                         <th class="table-th text-white text-center">VENTA</th>
                                         <th class="table-th text-white text-center">TOTAL</th>
                                         <th class="table-th text-white text-center">ITEMS</th>
-                                        <th class="table-th text-white text-center">ESTATUS</th>
+                                        <th class="table-th text-white text-center">ESTADO</th>
                                         <th class="table-th text-white text-center">USUARIO</th>
-                                        <th class="table-th text-white text-center">FECHA</th>
-                                        <th class="table-th text-white text-center" width="50px"></th>
+                                        <th class="table-th text-white text-center">FECHA Y HORA</th>
+                                        <th class="table-th text-white text-center">DETALLES</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if(count($data) < 1) 
-                                        <tr><td colspan="7"><h5 class="text-center mt-2">Sin Resultados</h5></td></tr>
-                                        @endif
+                                @include('partials.result', ['result' => $data, 'name' => $componentName])
                                     
                                         @foreach($data as $d)
                                         <tr>

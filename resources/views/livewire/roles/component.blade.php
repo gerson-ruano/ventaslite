@@ -18,7 +18,7 @@
                     </li>
                 </ul-->
                 @can('Role_Create')
-                @include('livewire.Agregar', ['textButton' => 'Agregar'])
+                @include('partials.agregar', ['textButton' => 'Agregar'])
                 @endcan
             </div>
             @can('Role_Search')
@@ -36,6 +36,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                        @include('partials.result', ['result' => $roles, 'name' => $componentName])
                             @foreach($roles AS $role)
                             <tr>
                                 <td>

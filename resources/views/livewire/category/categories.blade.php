@@ -7,7 +7,7 @@
                     <b>{{ $componentName }} | {{ $pageTitle }}</b>
                 </h4>
                     @can('Category_Create')
-                    @include('livewire.Agregar', ['textButton' => 'Agregar'])
+                    @include('partials.agregar', ['textButton' => 'Agregar'])
                     @endcan
             </div>
             @can('Category_Search')
@@ -19,11 +19,13 @@
                         <thead class="text-white" style="background: #3B3F5C">
                             <tr>
                                 <th class="table-th text-white">DESCRIPCION</th>
-                                <th class="table-th text-white">IMAGEN</th>
-                                <th class="table-th text-white">ACCION</th>
+                                <th class="table-th text-white text-center">IMAGEN</th>
+                                <th class="table-th text-white text-center">ACCION</th>
                             </tr>
                         </thead>
                         <tbody>
+                        @include('partials.result', ['result' => $categories, 'name' => $componentName])
+                        
                             @foreach($categories as $category)
                                 <tr>
                                     <td>
@@ -56,6 +58,7 @@
                                     </td>
                                 </tr>
                             @endforeach
+                            
                         </tbody>
                     </table>
                     {{ $categories->links() }}

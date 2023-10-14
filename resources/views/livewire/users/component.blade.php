@@ -7,7 +7,7 @@
                     <b>{{ $componentName }} | {{ $pageTitle }}</b>
                 </h4>
                 @can('User_Create')
-                @include('livewire.Agregar', ['textButton' => 'Agregar'])
+                @include('partials.agregar', ['textButton' => 'Agregar'])
                 @endcan
             </div>
             @can('User_Search')
@@ -28,6 +28,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                        @include('partials.result', ['result' => $data, 'name' => $componentName])
                             @foreach($data as $r)
                             <tr>
                                 <td>

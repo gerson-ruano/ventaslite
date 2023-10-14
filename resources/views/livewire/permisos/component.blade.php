@@ -7,7 +7,7 @@
                     <b>{{ $componentName }} | {{ $pageTitle }}</b>
                 </h4>
                 @can('Permiso_Create')
-                @include('livewire.Agregar', ['textButton' => 'Agregar'])
+                @include('partials.agregar', ['textButton' => 'Agregar'])
                 @endcan
             </div>
             @can('Permiso_Search')
@@ -24,6 +24,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                        @include('partials.result', ['result' => $permisos, 'name' => $componentName])
                             @foreach($permisos AS $permiso)
                             <tr>
                                 <td>

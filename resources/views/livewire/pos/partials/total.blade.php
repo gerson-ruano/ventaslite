@@ -4,7 +4,7 @@
         <div>
             <div class="connect-sorting">
 
-                <h5 class="text-center mb-3">Resumen de ventas</h5>
+                <h5 class="text-center mb-3">Resumen de venta</h5>
 
                 <div class="connect-sorting-content">
                     <div class="car simple-ttle-task ui-sortable-handle">

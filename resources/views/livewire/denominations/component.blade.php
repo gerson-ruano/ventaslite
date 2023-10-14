@@ -7,7 +7,7 @@
                     <b>{{ $componentName }} | {{ $pageTitle }}</b>
                 </h4>
                 @can('Denominaciones_Create')
-                @include('livewire.Agregar', ['textButton' => 'Agregar'])
+                @include('partials.agregar', ['textButton' => 'Agregar'])
                 @endcan
             </div>
             @can('Denominaciones_Search')
@@ -26,6 +26,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                        @include('partials.result', ['result' => $data, 'name' => $componentName])
                             @foreach ($data as $coin)
                                 <tr>
                                     <td>

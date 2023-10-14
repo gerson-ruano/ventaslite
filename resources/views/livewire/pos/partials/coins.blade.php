@@ -3,7 +3,7 @@
     <div class="col-sm-12">
         <div class="connect-sorting">
 
-            <h5 class="text-center mb-2">DENOMINACIONES</h5>
+            <h5 class="text-center mb-2">BILLETES</h5>
 
             <div class="container">
                 <div class="row">

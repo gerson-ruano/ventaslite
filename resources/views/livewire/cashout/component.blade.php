@@ -72,12 +72,12 @@
                                         FECHA Y HORA
                                     </th>
                                     <th class="table-th text-center text-white">
-
+                                        DETALLES
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if($total < 0) <tr>
+                                @if($total < 1) <tr>
                                     <td colspan="5">
                                         <h6 class="text-center">No hay ventas en la fecha seleccionada</h6>
                                     </td>

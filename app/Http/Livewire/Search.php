@@ -11,7 +11,7 @@ class Search extends Component
     
     public function render()
     {
-        return view('livewire.search');
+        return view('partials.search');
     }
 
     public function submitSearch()

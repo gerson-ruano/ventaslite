@@ -12,9 +12,9 @@
                                 <th width="10%"></th>
                                 <th class="table-th text-left text-white">DESCRIPCION</th>
                                 <th class="table-th text-left text-white">PRECIO</th>
-                                <th width="13%" class="table text-center text-white">CANT</th>
+                                <th width="13%" class="table text-center text-white">CANTIDAD</th>
                                 <th class="table-th text-center text-white">IMPORTE</th>
-                                <th class="table-th text-center text-white">ACCTION</th>
+                                <th class="table-th text-center text-white">ACCION</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -52,11 +52,11 @@
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                     <button wire:click.prevent="increaseQty({{$item->id}})"
-                                        class="btn btn-dark mbmobile">
+                                        class="btn btn-dark mbmobile mt-1">
                                         <i class="fas fa-plus-square"></i>
                                     </button>
                                     <button wire:click.prevent="decreaseQty({{$item->id}})"
-                                        class="btn btn-dark mbmobile">
+                                        class="btn btn-dark mbmobile mt-1">
                                         <i class="fas fa-minus-square"></i>
                                     </button>
                                 </td>
