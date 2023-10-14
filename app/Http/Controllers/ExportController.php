@@ -51,8 +51,9 @@ class ExportController extends Controller
 
     public function reportExcel($userId, $reportType, $dateFrom = null, $dateTo = null)
     {
-        $reportName = 'Reporte de Ventas_' . uniqid() . '.xlsx';
-        return Excel::download(new SalesExport($userId, $reportType, $dateFrom, $dateTo),$reportName);
+        //$reportName = 'Reporte de Ventas_' . uniqid() . '.xlsx';
+        $reportName = 'Reporte de Ventas_'. now()->format('Y:m:d H:i:s') . '.xlsx';
+        return Excel::download(new SalesExport($userId, $reportType, $dateFrom, $dateTo), $reportName);
     }
 
     public function reportVenta($cart){

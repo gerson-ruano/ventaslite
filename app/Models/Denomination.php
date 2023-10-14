@@ -11,12 +11,16 @@ class Denomination extends Model
 
     protected $fillable = ['type', 'value','image'];
 
-    public function getImagenAttribute(){
+    /*public function getImagenAttribute(){
 
         if($this->image != null) 
             return (file_exists('storage/denominations/' . $this->image)? 'denominations/' .$this->image : 'noimg.jpg')
             ;
         else
             return 'noimg.jpg';
+    }*/
+
+    public function getImagenAttribute() {
+        return asset('storage/denominations/' . ($this->image ? $this->image : 'noimg.jpg'));
     }
 }

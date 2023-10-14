@@ -16,11 +16,15 @@ class Category extends Model
         return $this->hasMany(Product::class);
     } 
 
-    public function getImagenAttribute(){
+    /*public function getImagenAttribute(){
 
         if(file_exists('storage/categories/' . $this->image))
             return $this->image;
         else
             return 'noimg.jpg';
+    }*/
+
+    public function getImagenAttribute() {
+        return asset('storage/categories/' . ($this->image ? $this->image : 'noimg.jpg'));
     }
 }

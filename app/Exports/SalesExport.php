@@ -10,15 +10,27 @@ use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use Maatwebsite\Excel\Concerns\Exportable;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use Maatwebsite\Excel\Concerns\WithMapping;
+
+
 
 
 class SalesExport implements FromCollection, WithHeadings, WithCustomStartCell, WithTitle,
-WithStyles
+WithStyles, WithColumnWidths, WithMapping, WithColumnFormatting
 {
     /**
     * @return \Illuminate\Support\Collection
     */
+
+    //use Exportable;
 
     protected $userId, $dateFrom, $dateTo, $reportType;
 
@@ -27,6 +39,7 @@ WithStyles
         $this->reportType = $reportType;
         $this->dateFrom = $f1;
         $this->dateTo = $f2;
+        //$this->fileName = 'reporte_ventas_' . now()->format('Y-m-d_H-i-s') . '.xlsx';
     }
 
     public function collection()
@@ -36,8 +49,8 @@ WithStyles
        $data = [];
        if($this->reportType == 1)
        {
-            $from = Carbon::parse($this->dateFrom)->format('Y-m-d') . ' 00:00:00';
-            $to = Carbon::parse($this->dateTo)->format('Y-m-d') . ' 23:59:59';
+            $from = Carbon::parse($this->dateFrom)->format('Y-m-d H:i:s') . ' 00:00:00';
+            $to = Carbon::parse($this->dateTo)->format('Y-m-d H:i:s') . ' 23:59:59';
         }else{
             $from = Carbon::parse($this->dateFrom)->format('Y-m-d') . ' 00:00:00';
             $to = Carbon::parse($this->dateTo)->format('Y-m-d') . ' 23:59:59';
@@ -49,9 +62,8 @@ WithStyles
             ->select('sales.id','sales.total','sales.items','sales.status','u.name as user','sales.created_at')
             ->whereBetween('sales.created_at', [$from, $to])
             ->get();
-            foreach ($data as $sale) {
-                $sale->created_at = date('Y-m-d H:i:s', strtotime($sale->created_at));
-            }
+           
+            //dd($data);
 
         }else{
             $data = Sale::join('users as u', 'u.id','sales.user_id')
@@ -59,10 +71,6 @@ WithStyles
             ->whereBetween('sales.created_at', [$from, $to])
             ->where('user_id', $this->userId)
             ->get();
-            foreach ($data as $sale) {
-                $sale->created_at = date('Y-m-d H:i:s', strtotime($sale->created_at));
-            }
-
 
        }
 
@@ -70,27 +78,113 @@ WithStyles
     }
 
 
-    public function headings() : array
+    public function headings() : array // Etiqueta nuestros encabezados o titulos
     {
         return [ "VENTA", "IMPORTE", "ITEMS","ESTADO","USUARIO","FECHA"];
     }
 
-    public function startcell() : string
+    public function startcell() : string // Inicio de nuestro archivo o reporte
     {
         return 'A2';
     }
 
-    public function styles(Worksheet $sheet)
+    public function styles(Worksheet $sheet) // Personaliza nuestras columnas 
     {
+            /*return [
+                2 => [ 'font' => ['bold' => true],
+                'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
+                'borders' => [
+                    'allBorders' => [
+                        'borderStyle' => Border::BORDER_THIN,
+                    ],
+                ],
+            ],
+            'C' => [ // Centrar Columna C
+                'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
+            ],
+            'D' => [ // Centrar Columna D
+                'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
+            ],
+            'E' => [ // Centrar Columna E
+                'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
+            ],
+            '*' => [ // Todas las demás filas
+                'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
+                'borders' => [
+                    'allBorders' => [
+                        'borderStyle' => Border::BORDER_THIN,
+                    ],
+                ],
+            ],
+        ];*/
+
+        $sheet->getStyle('A2:F2')->applyFromArray([
+            'font' => ['bold' => true],
+            'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'startColor' => [
+                    'argb' => 'D6D6D6', // Color de fondo GRIS
+                ],
+            ],
+        ]);
+
+
         return [
-            2 => [ 'font' => ['bold' => true]],
+            
+            'A2:F' . $sheet->getHighestRow() => [
+                'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
+                'borders' => [
+                    'allBorders' => [
+                        'borderStyle' => Border::BORDER_THIN,
+                    ],
+                ],
+            ],
         ];
+
     }
 
-    public function title() : string
+    public function title() : string // coloca el nombre de nuestro archivo
     {
         return 'Reporte de Ventas';
     }
 
+    public function columnWidths(): array // Coloca el ancho de cada columna
+    {
+        return [
+            'A' => 15,
+            'B' => 15,
+            'C' => 15,
+            'D' => 15,
+            'E' => 20,
+            'F' => 20,            
+        ];
+    }
+
+    public function map($row): array // Formatea la fecha antes de incluirla en el array
+    {
+        $formattedDate = Date::dateTimeToExcel($row->created_at);
+
+        return [
+            $row->id,
+            $row->total,
+            $row->items,
+            $row->status,
+            $row->user,
+            $formattedDate,
+        ];
+    }
+
+    public function columnFormats(): array //Formato para cada columna
+    {
+        return [
+            'A' => NumberFormat::FORMAT_NUMBER, 
+            'B' => NumberFormat::FORMAT_NUMBER, 
+            'C' => NumberFormat::FORMAT_NUMBER, 
+            'D' => NumberFormat::FORMAT_TEXT, 
+            'E' => NumberFormat::FORMAT_TEXT, 
+            'F' => 'dd/mm/yyyy hh:mm', // 'F' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+        ];
+    }
 
 }
