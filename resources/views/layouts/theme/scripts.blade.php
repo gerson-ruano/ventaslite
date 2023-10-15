@@ -6,9 +6,9 @@
 <script src="{{ asset('assets/js/app.js') }}"></script>
 
 <script>
-    $(document).ready(function() {
-        App.init();
-    });
+$(document).ready(function() {
+    App.init();
+});
 </script>
 
 <script src="{{ asset('assets/js/custom.js') }}"></script>
@@ -20,16 +20,16 @@
 <script src="{{ asset('plugins/currency/currency.js') }}"></script>
 
 <script>
-    function noty(msg, option = 1){
-        Snackbar.show({
-            text: msg.toUpperCase(),
-            actionText: 'CERRAR',
-            actionTextColor: '#fff',
-            backgroundColor: option == 1 ? '#3b3f5c' : '#e75115a',
-            pos: 'top-right'
+function noty(msg, option = 1) {
+    Snackbar.show({
+        text: msg.toUpperCase(),
+        actionText: 'CERRAR',
+        actionTextColor: '#fff',
+        backgroundColor: option == 1 ? '#3b3f5c' : '#e75115a',
+        pos: 'top-right'
 
-        });
-    }
+    });
+}
 </script>
 
 <script src="{{ asset('plugins/flatpickr/flatpickr.js') }}"></script>

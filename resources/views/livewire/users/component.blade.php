@@ -21,7 +21,7 @@
                                 <th class="table-th text-white">USUARIO</th>
                                 <th class="table-th text-white text-center">TELEFONO</th>
                                 <th class="table-th text-white text-center">EMAIL</th>
-                                <th class="table-th text-white text-center">ESTATUS</th>
+                                <th class="table-th text-white text-center">ESTADO</th>
                                 <th class="table-th text-white text-center">PERFIL</th>
                                 <th class="table-th text-white text-center">IMAGEN</th>
                                 <th class="table-th text-white text-center">ACCION</th>
@@ -35,7 +35,11 @@
                                     <h6>{{ $r->name }}</h6>
                                 </td>
                                 <td class="text-center">
+                                @if($r->phone > 0)
                                     <h6>{{ $r->phone }}</h6>
+                                    @else
+                                    <h6>Sin numero</h6>
+                                @endif
                                 </td>
                                 <td class="text-center">
                                     <h6>{{ $r->email }}</h6>
@@ -45,13 +49,14 @@
                                         class="badge {{ $r->status == 'Active' ? 'badge-success' : 'badge-danger'}} text-uppercase">{{ $r->status }}</span>
                                 </td>
                                 <td class="text-center text-uppercase">
-                                    <h6>{{ $r->profile }}</h6>
+                                    <h6><B>{{ $r->profile }}<B></h6>
                                 </td>
                                 <td class="text-center">
-                                    @if($r->image != null)
-                                    <img src="{{ asset('storage/users/' . $r->image ) }}" alt="imagen"
+                                    {{--@if($r->imagen != null)
+                                    <img src="{{ asset('storage/users/' . $r->imagen ) }}" alt="imagen"
                                         class="card-img-top img-fluid">
-                                    @endif
+                                    @endif--}}
+                                    <img src="{{ $r->imagen }}" alt="imagen de ejemplo" height="70" width="80" class="rounded">
                                 </td>
 
                                 <td class="text-center">
