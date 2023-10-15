@@ -5,12 +5,12 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card">
-                <div class="card-header text-center btn-dark">
-                    <h4 class="text-white">{{ __('Login') }}</h4>
+            <div class="card ml-30" style="margin-top: 120px;">
+                <div class="card-header text-center custom-color">
+                    <h4 class="text-white">{{ __('VentasLite') }}</h4>
                 </div>
 
-                <div class="card-body">
+                <div class="card-body custom-color text-center">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -42,7 +42,7 @@
                         </div>
 
                         <div class="d-grid text-center">
-                            <button type="submit" class="btn btn-dark">{{ __('Login') }}</button>
+                            <button type="submit" class="btn btn-blue">{{ __('Login') }}</button>
                         </div>
 
                         {{--@if (Route::has('password.request'))

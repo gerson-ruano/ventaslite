@@ -87,6 +87,18 @@ aside {
         display: none;
     }
 }
+
+
+.custom-color {
+    background-color: #2c3e50;
+    /* Cambia esto al color de fondo deseado */
+}
+
+
+.card {
+    border: none;
+    /* Quita el borde blanco del elemento .card */
+}
     </style>
 
     <link href="{{ asset('plugins/flatpickr/flatpickr.dark.css')}}" rel="stylesheet" type="text/css" />
