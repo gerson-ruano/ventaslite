@@ -26,14 +26,25 @@
                 <li class="nav-item dropdown user-profile-dropdown  order-lg-0 order-1">
                     <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <!--img src="assets/img/ventaslite_logo.png" alt="admin-profile" class="img-fluid"-->
-                        <i class="fas fa-user text-dark"></i>
+                {{--<img src="assets/img/ventaslite_logo.png" alt="admin-profile" class="img-fluid">--}}
+
+                @if(auth()->check() && auth()->user()->image)
+                    <img src="{{ asset('storage/users/' . auth()->user()->image) }}" class="img-fluid mr-2" alt="avatar">
+                @else
+                    <i class="fas fa-user text-dark"></i>
+                @endif
+
                     </a>
                     <div class="dropdown-menu position-absolute animated fadeInUp"
                         aria-labelledby="userProfileDropdown">
                         <div class="user-profile-section">
                             <div class="media mx-auto">
-                                <img src="assets/img/ventas2.png" class="img-fluid mr-2" alt="avatar">
+                                {{--<img src="assets/img/ventas2.png" class="img-fluid mr-2" alt="avatar">--}}
+                                @if(auth()->check() && auth()->user()->image)
+                                    <img src="{{ asset('storage/users/' . auth()->user()->image) }}" class="img-fluid mr-2" alt="avatar">
+                                @else
+                                    <img src="{{ asset('storage/users/noimg.jpg') }}" class="img-fluid mr-2" alt="avatar">
+                                @endif
                                 <div class="media-body">
                                     <h5>Mi Perfil</h5>
                                     @if(auth()->check())
@@ -83,6 +94,6 @@
                 </li>
             </ul>
     </header>
-    
+
 </div>
 <!--  END NAVBAR  -->

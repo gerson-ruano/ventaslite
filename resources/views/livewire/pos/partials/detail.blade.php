@@ -23,8 +23,13 @@
                                 <td class="text-center table-th">
                                     @if(count($item->attributes) > 0)
                                     <span>
-                                        <img src="{{ asset('storage/products/' . $item->attributes[0])}}"
-                                            alt="imagen de producto" height="90" width="90" class="rounded">
+                                        @if (file_exists(public_path('storage/products/' . $item->attributes[0])))
+                                            <img src="{{ asset('storage/products/' . $item->attributes[0])}}"
+                                                alt="imagen de producto" height="90" width="90" class="rounded">
+                                                @else
+                                            <img src="{{ asset('storage/products/noimg.jpg') }}"
+                                                alt="imagen predeterminada" height="90" width="90" class="rounded">
+                                        @endif
                                     </span>
                                     @endif
                                 </td>
@@ -69,11 +74,11 @@
                 @else
                 <h5 class="text-center text-muted">Agrega productos a la venta</h5>
                 @endif
-                
+
                 <div wire:loading.inline wire:target="saveSale">
                     <h3 class="text-danger text-center">Guardando Venta...</h3>
                 </div>
-                
+
             </div>
         </div>
     </div>

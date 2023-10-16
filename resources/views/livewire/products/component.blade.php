@@ -58,7 +58,7 @@
                                                 <img src="{{ $product->imagen }}" alt="imagen de ejemplo" height="70" width="80" class="rounded">
                                         </span>
                                     </td>
-                                    
+
                                     <td class="text-center">
                                         @can('Product_Update')
                                         <a href="javascript:void(0)" wire:click.prevent="Edit({{ $product->id }})"
@@ -66,7 +66,7 @@
                                             <i class="fas fa-edit"></i>
                                             @endcan
                                         </a>
-                                        
+
                                         @can('Product_Destroy')
                                         <a href="javascript:void(0)" onclick="Confirm('{{ $product->id }}')"
                                             class="btn btn-dark " title="Delete">

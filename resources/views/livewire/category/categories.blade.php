@@ -25,7 +25,7 @@
                         </thead>
                         <tbody>
                         @include('partials.result', ['result' => $categories, 'name' => $componentName])
-                        
+
                             @foreach($categories as $category)
                                 <tr>
                                     <td>
@@ -38,7 +38,7 @@
                                                 <img src="{{ $category->imagen }}" alt="imagen de ejemplo" height="70" width="80" class="rounded">
                                         </span>
                                     </td>
-                                    
+
                                     <td class="text-center">
                                     @can('Category_Update')
                                         <a href="javascript:void(0)" wire:click="Edit({{ $category->id }})"
@@ -46,7 +46,7 @@
                                             <i class="fas fa-edit"></i>
                                             @endcan
                                         </a>
-                                        
+
                                         @can('Category_Destroy')
                                         <a href="javascript:void(0)"
                                             onclick="Confirm('{{ $category->id }}','{{ $category->products->count() }}')"
@@ -58,7 +58,7 @@
                                     </td>
                                 </tr>
                             @endforeach
-                            
+
                         </tbody>
                     </table>
                     {{ $categories->links() }}
