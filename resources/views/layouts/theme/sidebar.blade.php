@@ -21,38 +21,6 @@
                 </a>
             </li>
             @endcan
-            @can('Cashout_Index')
-            <li class="">
-                <a href="{{ url('cashout')}}" class="menu-toggle" data-active="false">
-                    <div class="base-menu">
-                        <div class="base-icons">
-                            {{--<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                <path
-                                    d="M64 0C46.3 0 32 14.3 32 32V96c0 17.7 14.3 32 32 32h80v32H87c-31.6 0-58.5 23.1-63.3 54.4L1.1 364.1C.4 368.8 0 373.6 0 378.4V448c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V378.4c0-4.8-.4-9.6-1.1-14.4L488.2 214.4C483.5 183.1 456.6 160 425 160H208V128h80c17.7 0 32-14.3 32-32V32c0-17.7-14.3-32-32-32H64zM96 48H256c8.8 0 16 7.2 16 16s-7.2 16-16 16H96c-8.8 0-16-7.2-16-16s7.2-16 16-16zM64 432c0-8.8 7.2-16 16-16H432c8.8 0 16 7.2 16 16s-7.2 16-16 16H80c-8.8 0-16-7.2-16-16zm48-216c13.3 0 24 10.7 24 24s-10.7 24-24 24s-24-10.7-24-24s10.7-24 24-24zm72 24c0-13.3 10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24s-24-10.7-24-24zm-24 56c13.3 0 24 10.7 24 24s-10.7 24-24 24s-24-10.7-24-24s10.7-24 24-24zm120-56c0-13.3 10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24s-24-10.7-24-24zm-24 56c13.3 0 24 10.7 24 24s-10.7 24-24 24s-24-10.7-24-24s10.7-24 24-24zm120-56c0-13.3 10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24s-24-10.7-24-24zm-24 56c13.3 0 24 10.7 24 24s-10.7 24-24 24s-24-10.7-24-24s10.7-24 24-24z" />
-                            </svg>--}}
-                            <i class="fas fa-cash-register fa-3x text-muted"></i>
-                        </div>
-                        <span>CIERRE DE CAJA</span>
-                    </div>
-                </a>
-            </li>
-            @endcan
-            @can('Report_Index')
-            <li class="">
-                <a href="{{ url('reports') }}" class="menu-toggle" data-active="false">
-                    <div class="base-menu">
-                        <div class="base-icons">
-                            {{--<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                <path
-                                    d="M64 0C28.7 0 0 28.7 0 64V288H112c6.1 0 11.6 3.4 14.3 8.8L144 332.2l49.7-99.4c2.7-5.4 8.2-8.8 14.3-8.8s11.6 3.4 14.3 8.8L249.9 288H320c8.8 0 16 7.2 16 16s-7.2 16-16 16H240c-6.1 0-11.6-3.4-14.3-8.8L208 275.8l-49.7 99.4c-2.7 5.4-8.3 8.8-14.3 8.8s-11.6-3.4-14.3-8.8L102.1 320H0V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0z" />
-                            </svg>--}}
-                            <i class="fas fa-file-medical-alt fa-3x text-muted"></i>
-                        </div>
-                        <span>REPORTES</span>
-                    </div>
-                </a>
-            </li>
-            @endcan
             <li class="mt-2">
                 <a href="#homeSubmenuStock" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div class="text-center">
@@ -117,6 +85,36 @@
                     <li class="mt-2">
                         <a class="text-white text-left" href="{{ url('users') }}">USUARIOS</a>
                         <i class="fa fa-user fa-1x text-muted pl-3" aria-hidden="true" style="vertical-align: middle;"></i>
+                    </li>
+                    @endcan
+                </ul>
+            </li>
+            <li class="mt-5">
+                @role('Admin')
+                <a href="#homeSubmenuReport" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <div class="text-center">
+                        <i class="fas fa-file-medical-alt fa-3x text-muted" aria-hidden="true"></i>
+                        <div class=" text-center">
+                            <span class="text-white">REPORTERIA</span>
+                        </div>
+                    </div>
+                </a>
+                @endcan
+                <ul class="collapse list-unstyled text-white text-lg" id="homeSubmenuReport">
+                    @can('Cashout_Index')
+                    <li class="mt-2">
+                        <a class="text-white text-left" href="{{ url('cashout') }}">CIERRE CAJA</a>
+                        <i class="fas fa-cash-register fa-1x text-muted  pl-2" aria-hidden="true" style="vertical-align: middle;"></i>
+                    </li>
+                    @endcan
+                    @can('Report_Index')
+                    <li class="mt-2">
+                        <a class="text-white text-left" href="{{ url('reports') }}">REPORTES</a>
+                        <i class="fas fa-file-contract fa-1x text-muted pl-4" aria-hidden="true" style="vertical-align: middle;"></i>
+                    </li>
+                    <li class="mt-2">
+                        <a class="text-white text-left" href="{{ url('graficas') }}">ESTADISTICA</a>
+                        <i class="fas fa-chart-bar fa-1x text-muted pl-2" aria-hidden="true" style="vertical-align: middle;"></i>
                     </li>
                     @endcan
                 </ul>

@@ -33,13 +33,13 @@ class Pos extends Component
         return view('livewire.pos.component', [
             'denominations' => Denomination::orderBy('value','desc')->get(),
             'cart' => Cart::getContent()->sortBy('name')
-            
+
         ])
         ->extends('layouts.theme.app')
         ->section('content');
     }
 
-    
+
 
     public function ACash($value)
     {
@@ -74,10 +74,10 @@ class Pos extends Component
             Cart::add($product->id, $product->name, $product->price, $cant, $product->image);
             $this->total = Cart::getTotal();
             $this->itemsQuantity = Cart::getTotalQuantity();
-            
+
             $this->emit('scan-ok', 'Producto Agregado');
         }
-        
+
     }
 
     public function InCart($productId)
@@ -85,7 +85,7 @@ class Pos extends Component
         $exist = Cart::get($productId);
         if($exist)
             return true;
-        else 
+        else
             return false;
     }
 
@@ -134,7 +134,7 @@ class Pos extends Component
         }
 
         $this->removeItem($productId);
-        
+
         if($cant > 0)
         {
             Cart::add($product->id, $product->name, $product->price, $cant, $product->image);
@@ -163,17 +163,36 @@ class Pos extends Component
 
     public function decreaseQty($productId)
     {
-        $item = Cart::get($productId);
+        /*$item = Cart::get($productId);
         Cart::remove($productId);
 
         $newQty = ($item->quantity) - 1;
         if($newQty > 0)
-        
+
         Cart::add($item->id, $item->name, $item->price, $newQty, $item->attributes[0]);
-        
+
         $this->total = Cart::getTotal();
         $this->itemsQuantity = Cart::getTotalQuantity();
-        $this->emit('scan-ok', 'Cantidad Actualizada');
+        $this->emit('scan-ok', 'Cantidad Actualizada');*/
+
+        $item = Cart::get($productId);
+
+    if ($item) {
+        Cart::remove($productId);
+
+        $newQty = ($item->quantity) - 1;
+
+        if ($newQty > 0) {
+            // Asegúrate de que `attributes` esté definido y tenga elementos antes de acceder a su índice 0
+            $attributes = isset($item->attributes) && is_array($item->attributes) ? $item->attributes : [];
+
+            Cart::add($item->id, $item->name, $item->price, $newQty, $attributes);
+
+            $this->total = Cart::getTotal();
+            $this->itemsQuantity = Cart::getTotalQuantity();
+            $this->emit('scan-ok', 'Cantidad Actualizada');
+        }
+    }
     }
 
     public function clearCart()

@@ -23,13 +23,16 @@
                                 <td class="text-center table-th">
                                     @if(count($item->attributes) > 0)
                                     <span>
-                                        @if (file_exists(public_path('storage/products/' . $item->attributes[0])))
-                                            <img src="{{ asset('storage/products/' . $item->attributes[0])}}"
-                                                alt="imagen de producto" height="90" width="90" class="rounded">
-                                                @else
-                                            <img src="{{ asset('storage/products/noimg.jpg') }}"
-                                                alt="imagen predeterminada" height="90" width="90" class="rounded">
-                                        @endif
+                                        @php
+        $imagenPath = public_path('storage/products/' . $item->attributes[0]);
+        @endphp
+
+        @if (is_file($imagenPath))
+            <img src="{{ asset('storage/products/' . $item->attributes[0]) }}"
+                alt="imagen de producto" height="90" width="90" class="rounded">
+        @else
+            <img src="{{ asset('storage/products/noimg.jpg') }}" alt="imagen de ejemplo" height="70" width="80" class="rounded">
+        @endif
                                     </span>
                                     @endif
                                 </td>

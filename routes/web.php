@@ -48,6 +48,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('cashout', Cashout::class);
     Route::get('reports', Reports::class);
 
+    Route::get('graficas', function () {
+        return view('livewire.reports.graficas');
+    });
+
     //REPORTES PDF
     Route::get('report/pdf/{user}/{type}/{f1}/{f2}', [ExportController::class, 'reportPDF']);
     Route::get('report/pdf/{user}/{type}', [ExportController::class, 'reportPDF']);

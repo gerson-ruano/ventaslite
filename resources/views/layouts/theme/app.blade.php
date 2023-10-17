@@ -8,8 +8,6 @@
     <title>VENTASLITE </title>
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
 
-
-
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     @include('layouts.theme.styles')
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->

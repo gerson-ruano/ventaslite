@@ -1,6 +1,8 @@
     <link href="{{ asset('assets/css/loader.css') }}" rel="stylesheet" type="text/css" />
     <script src="{{ asset('assets/js/loader.js') }}"></script>
     <script src="{{ asset('assets/js/keypress.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> //LIBRERIA CHARJS HABRA QUE INSTALARLA
+
 
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap" rel="stylesheet">

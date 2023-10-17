@@ -5,11 +5,14 @@
 <script src="{{ asset('plugins/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
 <script src="{{ asset('assets/js/app.js') }}"></script>
 
+
+
 <script>
 $(document).ready(function() {
     App.init();
 });
 </script>
+
 
 <script src="{{ asset('assets/js/custom.js') }}"></script>
 <!-- END GLOBAL MANDATORY SCRIPTS -->
@@ -18,6 +21,7 @@ $(document).ready(function() {
 <script src="{{ asset('plugins/notification/snackbar/snackbar.min.js') }}"></script>
 <script src="{{ asset('plugins/nicescroll/nicescroll.js') }}"></script>
 <script src="{{ asset('plugins/currency/currency.js') }}"></script>
+
 
 <script>
 function noty(msg, option = 1) {
@@ -33,6 +37,7 @@ function noty(msg, option = 1) {
 </script>
 
 <script src="{{ asset('plugins/flatpickr/flatpickr.js') }}"></script>
+
 
 @livewireScripts
 
