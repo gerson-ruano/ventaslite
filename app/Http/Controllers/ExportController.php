@@ -60,7 +60,7 @@ class ExportController extends Controller
 
         $cart = Cart::getContent();
 
-        
+
         /*$data = [];
 
             $data = Sale::join('users as u','u.id','sales.user_id')
@@ -93,4 +93,5 @@ class ExportController extends Controller
         $pdf = PDF\Pdf::loadView('pdf.reportecaja', compact('data','user','fromDate','toDate'));
         return $pdf->stream('CajaReport.pdf'); //visualizar
     }
+
 }

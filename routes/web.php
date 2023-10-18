@@ -11,6 +11,7 @@ use App\Http\Livewire\Coins;
 use App\Http\Livewire\Pos;
 use App\Http\Livewire\Asignar;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\GraficasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,10 +48,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('coins', Coins::class);
     Route::get('cashout', Cashout::class);
     Route::get('reports', Reports::class);
+    Route::get('graficas', [GraficasController::class, 'index']);
 
-    Route::get('graficas', function () {
+    /*Route::get('graficas', function () {
         return view('livewire.reports.graficas');
-    });
+    });*/
 
     //REPORTES PDF
     Route::get('report/pdf/{user}/{type}/{f1}/{f2}', [ExportController::class, 'reportPDF']);
@@ -63,9 +65,8 @@ Route::middleware(['auth'])->group(function () {
     //REPORTES CAJA
     Route::get('report/caja/{user}/{f1}/{f2}', [ExportController::class, 'reportCaja']);
 
+    //REPORTES CIERRE DE CAJA
     //Route::get('/ver-pdf', 'App\Http\Livewire\Cashout@Print')->name('ver-pdf');
-
-
 
     //Route::get('report/venta/{total}/{itemQuantity}/{efectivo}/{change}/{cart}', [ExportController::class, 'reportVenta']);
     //Route::get('report/venta/{user}/{type}', [ExportController::class, 'reportVenta']);

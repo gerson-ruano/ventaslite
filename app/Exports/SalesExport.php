@@ -62,7 +62,7 @@ WithStyles, WithColumnWidths, WithMapping, WithColumnFormatting
             ->select('sales.id','sales.total','sales.items','sales.status','u.name as user','sales.created_at')
             ->whereBetween('sales.created_at', [$from, $to])
             ->get();
-           
+
             //dd($data);
 
         }else{
@@ -88,7 +88,7 @@ WithStyles, WithColumnWidths, WithMapping, WithColumnFormatting
         return 'A2';
     }
 
-    public function styles(Worksheet $sheet) // Personaliza nuestras columnas 
+    public function styles(Worksheet $sheet) // Personaliza nuestras columnas
     {
             /*return [
                 2 => [ 'font' => ['bold' => true],
@@ -131,7 +131,7 @@ WithStyles, WithColumnWidths, WithMapping, WithColumnFormatting
 
 
         return [
-            
+
             'A2:F' . $sheet->getHighestRow() => [
                 'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
                 'borders' => [
@@ -157,7 +157,7 @@ WithStyles, WithColumnWidths, WithMapping, WithColumnFormatting
             'C' => 15,
             'D' => 15,
             'E' => 20,
-            'F' => 20,            
+            'F' => 20,
         ];
     }
 
@@ -178,11 +178,11 @@ WithStyles, WithColumnWidths, WithMapping, WithColumnFormatting
     public function columnFormats(): array //Formato para cada columna
     {
         return [
-            'A' => NumberFormat::FORMAT_NUMBER, 
-            'B' => NumberFormat::FORMAT_NUMBER, 
-            'C' => NumberFormat::FORMAT_NUMBER, 
-            'D' => NumberFormat::FORMAT_TEXT, 
-            'E' => NumberFormat::FORMAT_TEXT, 
+            'A' => NumberFormat::FORMAT_NUMBER,
+            'B' => NumberFormat::FORMAT_NUMBER,
+            'C' => NumberFormat::FORMAT_NUMBER,
+            'D' => NumberFormat::FORMAT_TEXT,
+            'E' => NumberFormat::FORMAT_TEXT,
             'F' => 'dd/mm/yyyy hh:mm', // 'F' => NumberFormat::FORMAT_DATE_DDMMYYYY,
         ];
     }

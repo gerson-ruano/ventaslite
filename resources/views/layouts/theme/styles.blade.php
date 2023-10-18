@@ -1,7 +1,8 @@
     <link href="{{ asset('assets/css/loader.css') }}" rel="stylesheet" type="text/css" />
     <script src="{{ asset('assets/js/loader.js') }}"></script>
     <script src="{{ asset('assets/js/keypress.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> //LIBRERIA CHARJS HABRA QUE INSTALARLA
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {{--LIBRERIA CHARJS HABRA QUE INSTALARLA--}}
 
 
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
