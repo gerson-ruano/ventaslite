@@ -109,8 +109,8 @@
                     @endcan
                     @can('Report_Index')
                     <li class="mt-2">
-                        <a class="text-white text-left" href="{{ url('reports') }}">REPORTES</a>
-                        <i class="fas fa-file-contract fa-1x text-muted pl-4" aria-hidden="true" style="vertical-align: middle;"></i>
+                        <a class="text-white text-left" href="{{ url('reports') }}">VENTAS</a>
+                        <i class="fas fa-file-contract fa-1x text-muted pl-5" aria-hidden="true" style="vertical-align: middle;"></i>
                     </li>
                     <li class="mt-2">
                         <a class="text-white text-left" href="{{ url('graficas') }}">ESTADISTICA</a>

@@ -15,14 +15,19 @@ class GraficasController extends Controller
 
         $salesData = $this->ultimasVentas();
         $totalStock = Product::sum('stock');
-        $totalSales = Sale::sum('id');
+        $totalSales = Sale::count();
         $totalMoney = Sale::sum('total');
-        $productSales = $this->productTop();
-        $productNames = $productSales->pluck('name');
-        $productQuantities = $productSales->pluck('total_quantity');
 
-        return view('livewire.reports.graficas', compact('salesData',
-        'totalStock','totalSales','totalMoney','productNames','productQuantities'));
+        $productSales = $this->productTop();
+        //$productNames = $productSales->pluck('name');
+        //$productQuantities = $productSales->pluck('total_quantity');
+
+        $stockProducts = $this->productosConMenosExistencias();
+        $datosDeVentas = $this->obtenerDatosDeVentas();
+        
+
+        return view('livewire.reports.graficas', compact('salesData','totalStock',
+        'totalSales','totalMoney','productSales','datosDeVentas','stockProducts'));
     }
 
     public function ultimasVentas(){
@@ -53,4 +58,30 @@ class GraficasController extends Controller
         ->get();
     return $productSales;
     }
+
+    public function ProductTop2()
+    {
+        $products = Product::select('name')
+        ->selectRaw('COUNT(*) as total_sales')
+        ->join('sale_details', 'products.id', '=', 'sale_details.product_id')
+        ->groupBy('products.name')
+        ->orderByDesc('total_sales')
+        ->take(5) // Obtener los 5 productos más vendidos
+        ->get();
+
+        return $products;
+    }
+
+    public function productosConMenosExistencias() {
+
+        return Product::where('stock', '<', 10)->get();
+    }
+
+    public function obtenerDatosDeVentas() {
+        return  Sale::join('sale_details', 'sales.id', '=', 'sale_details.sale_id')
+        ->select('sale_details.product_id', DB::raw('SUM(sale_details.quantity) as total_quantity'))
+        ->groupBy('sale_details.product_id')
+        ->get(); 
+    }
+    
 }
