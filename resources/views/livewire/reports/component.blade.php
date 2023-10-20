@@ -69,13 +69,14 @@
                                         <th class="table-th text-white text-center">ITEMS</th>
                                         <th class="table-th text-white text-center">ESTADO</th>
                                         <th class="table-th text-white text-center">USUARIO</th>
+                                        <th class="table-th text-white text-center">VENDEDOR</th>
                                         <th class="table-th text-white text-center">FECHA Y HORA</th>
                                         <th class="table-th text-white text-center">DETALLES</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @include('partials.result', ['result' => $data, 'name' => $componentName])
-                                    
+                                    {{--dd($data)--}}
                                         @foreach($data as $d)
                                         <tr>
                                             <td class="text-center">
@@ -92,6 +93,9 @@
                                             </td>
                                             <td class="text-center">
                                                 <h6>{{ $d->user }}</h6>
+                                            </td>
+                                            <td class="text-center">
+                                                <h6>{{ $d->vendedor }}</h6>
                                             </td>
                                             <td class="text-center">
                                                 <h6>{{ \Carbon\Carbon::parse($d->created_at)->format('d-m-Y H:i:s') }}</h6>

@@ -43,10 +43,6 @@ class GraficasController extends Controller
         return $salesData;
     }
 
-    public function ventasAnual(){
-
-    }
-
     public function productTop(){
 
     $productSales = DB::table('sale_details')
@@ -73,7 +69,6 @@ class GraficasController extends Controller
     }
 
     public function productosConMenosExistencias() {
-
         return Product::where('stock', '<', 10)->get();
     }
 

@@ -24,15 +24,16 @@
                                     @if(count($item->attributes) > 0)
                                     <span>
                                         @php
-        $imagenPath = public_path('storage/products/' . $item->attributes[0]);
-        @endphp
+                                        $imagenPath = public_path('storage/products/' . $item->attributes[0]);
+                                        @endphp
 
-        @if (is_file($imagenPath))
-            <img src="{{ asset('storage/products/' . $item->attributes[0]) }}"
-                alt="imagen de producto" height="90" width="90" class="rounded">
-        @else
-            <img src="{{ asset('storage/products/noimg.jpg') }}" alt="imagen de ejemplo" height="70" width="80" class="rounded">
-        @endif
+                                        @if (is_file($imagenPath))
+                                        <img src="{{ asset('storage/products/' . $item->attributes[0]) }}"
+                                            alt="imagen de producto" height="90" width="90" class="rounded">
+                                        @else
+                                        <img src="{{ asset('storage/products/noimg.jpg') }}" alt="imagen de ejemplo"
+                                            height="70" width="80" class="rounded">
+                                        @endif
                                     </span>
                                     @endif
                                 </td>
@@ -86,4 +87,3 @@
         </div>
     </div>
 </div>
-

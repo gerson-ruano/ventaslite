@@ -54,31 +54,32 @@
 
                         {{--<div class="col-sm-12 col-md-12 col-lg-6">
                         @if($efectivo >= $total && $total > 0)
-                        <a href="{{ url('report/venta' . '/' . $cart) }}" target="_blank" class="btn btn-dark btn-md mtmobile">
-                                IMPRIMIR VENTA
-                            </a>
+                        <a href="{{ url('report/venta' . '/' . $cart) }}" target="_blank" class="btn btn-dark btn-md
+                        mtmobile">
+                        IMPRIMIR VENTA
+                        </a>
                         @endif
-                        </div>--}}
+                    </div>--}}
 
-                        <div class="col-sm-12 col-md-12 col-lg-6">
-                            @if($efectivo >= $total && $total > 0)
-                            @can('Ventas_Create')
-                            <button wire:click.prevent="saveSale"  class="btn btn-dark btn-md btn-block">
-                                GUARDAR F6
-                            </button>
-                            @endcan
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        @if($efectivo >= $total && $total > 0)
+                        @can('Ventas_Create')
+                        <button wire:click.prevent="saveSale" class="btn btn-dark btn-md btn-block">
+                            GUARDAR F6
+                        </button>
+                        @endcan
 
-                            {{--<a class="btn btn-dark btn-block "
+                        {{--<a class="btn btn-dark btn-block "
                                     href="{{ url('report/venta' . '/' . $total . '/' . $itemsQuantity . '/' . $efectivo . '/' . $change . '/' . $cart) }}"
-                            target="_blank">Generar VENTA</a>--}}
+                        target="_blank">Generar VENTA</a>--}}
 
-                            @endif
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <script>

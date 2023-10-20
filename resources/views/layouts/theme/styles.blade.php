@@ -5,9 +5,7 @@
 
     {{--<script src="{{ asset('chart.js/dist/chart.umd.js') }}"></script>--}}
     {{--<script type="module" src="chart.js/dist/chart.js"></script>--}}
-
     {{--LIBRERIA CHARJS HABRA QUE INSTALARLA--}}
-
 
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap" rel="stylesheet">
@@ -105,6 +103,19 @@ aside {
 .card {
     border: none;
     /* Quita el borde blanco del elemento .card */
+}
+
+.chart-canvas {
+    width: 100%;
+    height: 40vh;
+}
+
+/* Estilo para pantallas grandes (ancho mínimo de 992px) */
+@media (min-width: 992px) {
+    .chart-canvas {
+        width: 80vw;
+        height: 60vh;
+    }
 }
     </style>
 

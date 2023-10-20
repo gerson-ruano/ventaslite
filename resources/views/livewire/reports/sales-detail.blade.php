@@ -22,7 +22,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        {{--($details)--}}
+                        {{--dd($details)--}}
                             @foreach($details as $d)
                             {{--($d)--}}
                             <tr>

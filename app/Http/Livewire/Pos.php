@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Sale;
+use App\Models\User;
 use App\Models\SaleDetails;
 use Exception;
 use Illuminate\Support\Facades\Redirect;
@@ -17,14 +18,17 @@ class Pos extends Component
 
 {
 
-    public $total, $itemsQuantity, $efectivo, $change;
-
+    public $total, $itemsQuantity, $efectivo, $change, $tipoPago, $vendedorSeleccionado;
+    public $vendedores = [];
+    
+    
     public function mount()
     {
         $this->efectivo = 0;
         $this->change = 0;
         $this->total = Cart::getTotal();
         $this->itemsQuantity = Cart::getTotalQuantity();
+        $this->vendedores = User::where('profile', 'vendedor')->get();
     }
 
 
@@ -38,8 +42,6 @@ class Pos extends Component
         ->extends('layouts.theme.app')
         ->section('content');
     }
-
-
 
     public function ACash($value)
     {
@@ -203,6 +205,8 @@ class Pos extends Component
         $this->change = 0;
         $this->total = Cart::getTotal();
         $this->itemsQuantity = Cart::getTotalQuantity();
+        $this->tipoPago = 0;
+        $this->vendedorSeleccionado = '';
         $this->emit('scan-ok', 'Carrito vacio');
     }
 
@@ -223,6 +227,22 @@ class Pos extends Component
             $this->emit('sale-error','EL EFECTIVO DEBE SER MAYOR O IGUAL AL TOTAL');
             return;
         }
+        if($this->tipoPago > 0)
+        {
+            $tipoPagoSeleccionado = $this->tipoPago;
+        }
+        if($this->tipoPago == 0)
+        {
+            $this->emit('sale-error','DEBE SELECCIONAR UN ESTADO DE PAGO');
+            return;
+        }
+        if(isset($this->vendedorSeleccionado)) {
+            $vendedorAgregado = $this->vendedorSeleccionado;  
+        }else{
+            $this->emit('sale-error','DEBE SELECCIONAR UN VENDEDOR O CLIENTE');
+            return;
+        }
+             
         DB::beginTransaction();
 
         try {
@@ -230,13 +250,16 @@ class Pos extends Component
                 'total' => $this->total,
                 'items' => $this->itemsQuantity,
                 'cash' => $this->efectivo,
+                'status' => $tipoPagoSeleccionado,
                 'change' => $this->change,
+                'vendedor' => $vendedorAgregado,
                 'user_id' => Auth()->user()->id
             ]);
 
             if($sale)
             {
                 $items = Cart::getContent();
+                //dd($items);
                 foreach ($items as $item){
                     SaleDetails::create([
                         'price' => $item->price,
@@ -258,6 +281,8 @@ class Pos extends Component
             $this->change =0;
             $this->total = Cart::getTotal();
             $this->itemsQuantity = Cart::getTotalQuantity();
+            $this->tipoPago = 0;
+            $this->vendedorSeleccionado = '';
             $this->emit('sale-ok','Venta registrada con exito');
             //$this->emit('print-ticket', $sale->id);
 

@@ -1,12 +1,9 @@
-
 <script>
-    //import Chart from 'chart.js/auto'; 
+//import Chart from 'chart.js/auto'; 
 // Datos para el gráfico de Barras ULTIMOS DIAS / VENTAS
 var daysOfWeek = @json($salesData->pluck('date'));
 var salesData = @json($salesData->pluck('sales'));
-
 var trendline = calculateTrendline(daysOfWeek, salesData);
-
 var barData = {
     labels: daysOfWeek,
     datasets: [{
@@ -62,7 +59,6 @@ function calculateTrendline(x, y) {
 
     return trendline;
 }
-
 
 
 // Datos para el gráfico de línea TENDENCIA DE VENTAS ANUAL
@@ -129,7 +125,6 @@ productLabels.push(item.name);
 productQuantities.push(item.total_quantity);
 });
 
-// Renderiza el gráfico 
 var pieCtx = document.getElementById('pieChart2').getContext('2d');
 new Chart(pieCtx, {
     type: 'pie',
@@ -158,25 +153,17 @@ new Chart(pieCtx, {
     
 });
 
-
-        
+    
 // Renderiza el gráfico de barras BAJA EXISTENCIA Y VENTAS
 var datosDeVentas = @json($datosDeVentas);
-//var ventasData = datosDeVentas.data;
-
-// Obtener los datos de productos con menos existencias
 var productosConMenosExistencias = @json($stockProducts);
 
 //var labels = datosDeVentas.map(venta => venta.name); // Asegúrate de usar el nombre correcto de la columna
 var ventas = datosDeVentas.map(venta => venta.total_quantity); 
-
 var labels = productosConMenosExistencias.map(products => products.name); 
 var existencias = productosConMenosExistencias.map(products => products.stock); 
 
-        // Crea un contexto para el elemento canvas
         var ctx = document.getElementById('customChart').getContext('2d');
-
-        // Crea los datos para la gráfica de barras
         var data = {
             labels: labels,
             datasets: [{
@@ -196,8 +183,6 @@ var existencias = productosConMenosExistencias.map(products => products.stock);
             ]
         };
         
-
-        // Crea y muestra la gráfica
         new Chart(ctx, {
             type: 'bar',
             data: data,
@@ -217,7 +202,5 @@ var existencias = productosConMenosExistencias.map(products => products.stock);
         }
     
     });
-
-
 
 </script>
