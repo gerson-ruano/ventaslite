@@ -1,18 +1,36 @@
 <div class="row sales layout-top-spacing">
     <div class="col-sm-12">
-
         <div class="widget widget-chart-one">
-            <div class="widget-heading">
-                <h4 class="card-title">
-                    <b>{{ $componentName }} | {{ $pageTitle }}</b>
-                </h4>
-                @can('User_Create')
-                @include('partials.agregar', ['textButton' => 'Agregar'])
-                @endcan
+            <h4 class="card-title mb-4 mb-md-0">
+                <b>{{ $componentName }} | {{ $pageTitle }}</b>
+            </h4>
+            <div class="widget-heading mb-4">
+                <div class="d-flex flex-wrap justify-content-between align-items-center">
+                    <div class="col-md-6 mb-md-4" style="width: 1200px;">
+                        @can('User_Search')
+                        @include('common.searchbox')
+                        @endcan  
+                    </div>
+                    <div class="col-md-3 mb-3 mb-md-2">
+                        <h6 class="text-center">Filtrar Perfil</h6>
+                        <div class="form-group">
+                            <select wire:model="perfilSeleccionado" class="form-control">
+                                <option value="0">Seleccionar</option>
+                                <option value="Admin">ADMINISTRADOR</option>
+                                <option value="Employee">EMPLEADO</option>
+                                <option value="Vendedor">VENDEDOR</option>
+                                <option value="Soporte">SOPORTE</option>
+                                <option value="Invitado">INVITADO</option>
+                            </select>
+                        </div>
+                    </div>
+                    @can('User_Create')
+                    <div class="mb-3 mb-md-0">
+                        @include('partials.agregar', ['textButton' => 'Agregar'])
+                    </div>
+                    @endcan
+                </div>
             </div>
-            @can('User_Search')
-            @include('common.searchbox')
-            @endcan
             <div class="widget-content">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped mt-1">
@@ -28,18 +46,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @include('partials.result', ['result' => $data, 'name' => $componentName])
+                            @include('partials.result', ['result' => $data, 'name' => $componentName])
                             @foreach($data as $r)
                             <tr>
                                 <td>
                                     <h6>{{ $r->name }}</h6>
                                 </td>
                                 <td class="text-center">
-                                @if($r->phone > 0)
+                                    @if($r->phone > 0)
                                     <h6>{{ $r->phone }}</h6>
                                     @else
                                     <h6>Sin numero</h6>
-                                @endif
+                                    @endif
                                 </td>
                                 <td class="text-center">
                                     <h6>{{ $r->email }}</h6>
@@ -54,9 +72,10 @@
                                 <td class="text-center">
                                     {{--@if($r->imagen != null)
                                     <img src="{{ asset('storage/users/' . $r->imagen ) }}" alt="imagen"
-                                        class="card-img-top img-fluid">
+                                    class="card-img-top img-fluid">
                                     @endif--}}
-                                    <img src="{{ $r->imagen }}" alt="imagen de ejemplo" height="70" width="80" class="rounded">
+                                    <img src="{{ $r->imagen }}" alt="imagen de ejemplo" height="70" width="80"
+                                        class="rounded">
                                 </td>
 
                                 <td class="text-center">

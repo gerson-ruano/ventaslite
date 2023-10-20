@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="text-center">
-    <h1>GRAFICAS DE REPORTES DE VENTAS</h1>
+    <h1>REPORTES GRAFICOS</h1>
 </div>
 <div class="container text-center text-black mt-4">
     <div class="row">
@@ -12,7 +12,7 @@
                 <div class="item">
                     <div class="card">
                         <div class="card-body">
-                            <canvas id="barChart" class="chart-canvas"></canvas>
+                            <canvas id="chartUltimosDias" class="chart-canvas"></canvas>
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                 <div class="item">
                     <div class="card">
                         <div class="card-body">
-                            <canvas id="customChart" class="chart-canvas"></canvas>
+                            <canvas id="chartStock" class="chart-canvas"></canvas>
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                 <div class="item">
                     <div class="card">
                         <div class="card-body">
-                            <canvas id="pieChart2" class="chart-canvas"></canvas>
+                            <canvas id="chartProductTop" class="chart-canvas"></canvas>
                         </div>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                 <div class="item">
                     <div class="card">
                         <div class="card-body">
-                            <canvas id="donutChart" class="chart-canvas"></canvas>
+                            <canvas id="chartReport" class="chart-canvas"></canvas>
                         </div>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                 <div class="item">
                     <div class="card">
                         <div class="card-body">
-                            <canvas id="lineChart" class="chart-canvas"></canvas>
+                            <canvas id="chartTendenciaAnual" class="chart-canvas"></canvas>
                         </div>
                     </div>
                 </div>
@@ -93,6 +93,24 @@
             @if(count($salesData) == 0)
             <div class="alert alert-warning">
                 <strong>No hay datos de ventas anuales.</strong> ¡Puedes crear ventas para comenzar a ver datos en la
+                gráfica!
+            </div>
+            @endif
+        </div>
+        <!-- Gráfica 6 -->
+        <div class="col-12 col-md-6 mt-1">
+            <div class="owl-carousel">
+                <div class="item">
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="chartTipoPago" class="chart-canvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if(count($ventasTipoPago) == 0)
+            <div class="alert alert-warning mt-4">
+                <strong>No hay reportes de ventas Tipo Pago recientes.</strong> ¡Puedes crear ventas para comenzar a ver datos en la
                 gráfica!
             </div>
             @endif

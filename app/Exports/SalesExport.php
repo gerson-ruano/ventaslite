@@ -49,8 +49,8 @@ WithStyles, WithColumnWidths, WithMapping, WithColumnFormatting
        $data = [];
        if($this->reportType == 1)
        {
-            $from = Carbon::parse($this->dateFrom)->format('Y-m-d H:i:s') . ' 00:00:00';
-            $to = Carbon::parse($this->dateTo)->format('Y-m-d H:i:s') . ' 23:59:59';
+            $from = Carbon::parse($this->dateFrom)->format('Y-m-d') . ' 00:00:00';
+            $to = Carbon::parse($this->dateTo)->format('Y-m-d') . ' 23:59:59';
         }else{
             $from = Carbon::parse($this->dateFrom)->format('Y-m-d') . ' 00:00:00';
             $to = Carbon::parse($this->dateTo)->format('Y-m-d') . ' 23:59:59';
@@ -59,7 +59,7 @@ WithStyles, WithColumnWidths, WithMapping, WithColumnFormatting
        if($this->userId == 0)
        {
         $data = Sale::join('users as u','u.id','sales.user_id')
-            ->select('sales.id','sales.total','sales.items','sales.status','u.name as user','sales.created_at')
+            ->select('sales.id','sales.total','sales.items','sales.status', 'sales.vendedor','u.name as user','sales.created_at')
             ->whereBetween('sales.created_at', [$from, $to])
             ->get();
 
@@ -67,7 +67,7 @@ WithStyles, WithColumnWidths, WithMapping, WithColumnFormatting
 
         }else{
             $data = Sale::join('users as u', 'u.id','sales.user_id')
-            ->select('sales.id','sales.total','sales.items','sales.status','u.name as user','sales.created_at')
+            ->select('sales.id','sales.total','sales.items','sales.status', 'sales.vendedor','u.name as user','sales.created_at')
             ->whereBetween('sales.created_at', [$from, $to])
             ->where('user_id', $this->userId)
             ->get();
@@ -80,7 +80,7 @@ WithStyles, WithColumnWidths, WithMapping, WithColumnFormatting
 
     public function headings() : array // Etiqueta nuestros encabezados o titulos
     {
-        return [ "VENTA", "IMPORTE", "ITEMS","ESTADO","USUARIO","FECHA"];
+        return [ "VENTA", "IMPORTE", "ITEMS","ESTADO", "CLIENTE","USUARIO","FECHA"];
     }
 
     public function startcell() : string // Inicio de nuestro archivo o reporte
@@ -118,7 +118,7 @@ WithStyles, WithColumnWidths, WithMapping, WithColumnFormatting
             ],
         ];*/
 
-        $sheet->getStyle('A2:F2')->applyFromArray([
+        $sheet->getStyle('A2:G2')->applyFromArray([
             'font' => ['bold' => true],
             'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
             'fill' => [
@@ -132,7 +132,7 @@ WithStyles, WithColumnWidths, WithMapping, WithColumnFormatting
 
         return [
 
-            'A2:F' . $sheet->getHighestRow() => [
+            'A2:G' . $sheet->getHighestRow() => [
                 'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
                 'borders' => [
                     'allBorders' => [
@@ -158,6 +158,7 @@ WithStyles, WithColumnWidths, WithMapping, WithColumnFormatting
             'D' => 15,
             'E' => 20,
             'F' => 20,
+            'G' => 20,
         ];
     }
 
@@ -170,6 +171,7 @@ WithStyles, WithColumnWidths, WithMapping, WithColumnFormatting
             $row->total,
             $row->items,
             $row->status,
+            $row->vendedor,
             $row->user,
             $formattedDate,
         ];
@@ -183,7 +185,8 @@ WithStyles, WithColumnWidths, WithMapping, WithColumnFormatting
             'C' => NumberFormat::FORMAT_NUMBER,
             'D' => NumberFormat::FORMAT_TEXT,
             'E' => NumberFormat::FORMAT_TEXT,
-            'F' => 'dd/mm/yyyy hh:mm', // 'F' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            'F' => NumberFormat::FORMAT_TEXT,
+            'G' => 'dd/mm/yyyy hh:mm', // 'F' => NumberFormat::FORMAT_DATE_DDMMYYYY,
         ];
     }
 

@@ -39,31 +39,33 @@
 
     <section class="header" style="top: -287px;">
 
-    <h3>Detalle de las ventas realizadas</h3>
+    <h3>Detalle de las ventas realizadas<h2>PAGADO</h2></h3>
 
     <table cellpadding="0" cellspacing="0" width="100%" class="table-items">
     {{--dd($data)--}}
     <thead>
             <tr>
-                <th align="center">No. Venta</th>
-                <th align="center">Cantidad</th>
-                <th align="center">Total</th>
-                <th align="center">Efectivo</th>
-                <th align="center">Cambio</th>
-                <th align="center">Estado</th>
-                <th align="center">Usuario</th>
-                <th align="center">Fecha y hora</th>
+                <th align="center">No.</th>
+                <th align="center">VENTA</th>
+                <th align="center">CANT</th>
+                <th align="center">TOTAL</th>
+                <th align="center">EFECTIVO</th>
+                <th align="center">CAMBIO</th>
+                <th align="center">CLIENTE</th>
+                <th align="center">USUARIO</th>
+                <th align="center">FECHA/HORA</th>
             </tr>
         </thead>
         <tbody>
             @foreach($data as $item)
             <tr>
+                <td align="center">{{ $loop->iteration }}</td>
                 <td align="center">{{ $item->id }}</td>
                 <td align="center">{{ $item->items }}</td>
                 <td style="text-align: right;">{{ $item->total }}</td>
                 <td style="text-align: right;">{{ $item->cash }}</td>
                 <td style="text-align: right;">{{ $item->change }}</td>
-                <td align="center">{{ $item->status }}</td>
+                <td align="center">{{ $item->vendedor }}</td>
                 <td align="center">{{ $user}}</td>
                 <td align="center">{{ $item->created_at }}</td>
             </tr>
@@ -71,7 +73,7 @@
         </tbody>
         <tfoot>
                 <tr>
-                    <td align="center"><span><b>TOTALES:</b></span></td>
+                    <td align="center" colspan="2"><span><b>TOTALES:</b></span></td>
                     <td align="center"  colspan="1" class="text-center"><span><strong>{{ $data->sum('items') }}</strong></span></td>
                     <td style="text-align: right;"  colspan="1" class="text-center"><span><strong> Q. {{ number_format($data->sum('total'),2) }}</strong></span></td>
                     <td style="text-align: right;"  colspan="1" class="text-center"><span><strong> Q. {{ number_format($data->sum('cash'),2) }}</strong></span></td>

@@ -15,7 +15,8 @@ class Users extends Component
     use WithPagination;
 
     public $name, $phone, $email, $status, $image, $password, $selected_id, $fileLoaded, $profile;
-    public $pageTitle, $componentName, $search;
+    public $pageTitle, $componentName, $search, $perfilSeleccionado;
+
     private $pagination = 5;
 
     public function paginationView()
@@ -31,17 +32,36 @@ class Users extends Component
     }
     public function render()
     {
-        if(strlen($this->search) > 0)
-        $data = User::where('name','like', '%' . $this->search . '%')
-        ->select('*')->orderBy('name','asc')->paginate($this->pagination);
-        else
-            $data = User::select('*')->orderBy('name','asc')->paginate($this->pagination);
+       
+    $query = User::query();
 
-        return view('livewire.users.component',[
-            'roles' =>  Role::orderBy('name','asc')->get(),
-            'data' => $data,
-        ])->extends('layouts.theme.app')
-        ->section('content');
+    if (!empty($this->perfilSeleccionado)) {
+        $query->where('profile', $this->perfilSeleccionado);
+    }
+
+    if (strlen($this->search) > 0) {
+        $query->where('name', 'like', '%' . $this->search . '%');
+    }
+
+    $data = $query->select('*')->orderBy('name', 'asc')->paginate($this->pagination);
+
+    return view('livewire.users.component', [
+        'roles' => Role::orderBy('name', 'asc')->get(),
+        'data' => $data,
+    ])->extends('layouts.theme.app')
+      ->section('content');
+
+    }
+
+
+    public function seleccionarPerfil(){
+            $query = User::query();
+
+        if (!empty($this->perfilSeleccionado)) {
+            $query->where('profile', $this->perfilSeleccionado);
+        }
+
+        $this->usuariosFiltrados = $query->orderBy('name', 'asc')->paginate($this->pagination);
     }
 
     public function resetUI()

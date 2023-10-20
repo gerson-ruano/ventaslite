@@ -48,32 +48,36 @@
         <table cellpadding="0" cellspacing="0" class="table-items" width="100%">
             <thead>
                 <tr>
+                    <th width="5%">No.</th>
                     <th width="10%">VENTA</th>
                     <th width="14%">IMPORTE</th>
-                    <th width="10%">CANTIDAD</th>
+                    <th width="10%">CANT</th>
                     <th width="12%">ESTADO</th>
+                    <th width="12%">CLIENTE</th>
                     <th>USUARIO</th>
-                    <th width="22%">FECHA Y HORA</th>
+                    <th width="22%">FECHA/HORA</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($data as $item)
                 <tr>
+                    <td align="center">{{ $loop->iteration }}</td>
                     <td align="center">{{($item->id)}}</td>
                     <td style="text-align: right;">{{ number_format($item->total, 2) }}</td>
                     <td align="center">{{($item->items)}}</td>
                     <td align="center">{{($item->status)}}</td>
+                    <td align="center">{{($item->vendedor)}}</td>
                     <td align="center">{{($item->user)}}</td>
                     <td align="center">{{($item->created_at)->format('d-m-Y H:i:s')}}</td>
                 </tr>
                 @endforeach
             </tbody>
             <tfoot>
-                <tr>
-                    <td align="center"><span><b>TOTALES:</b></span></td>
+                <tr>                 
+                <td align="center"colspan="2"><span><b>TOTALES:</b></span></td>
                     <td style="text-align: right;" colspan="1" class="text-center"><span><strong> Q. {{ number_format($data->sum('total'),2) }}</strong></span></td>
                     <td  align="center" class="text-center" style=""> {{ $data->sum('items')}}</td>
-                    <td colspan="3"></td>
+                    <td colspan="4"></td>
                 </tr>
             </tfoot>
         </table>

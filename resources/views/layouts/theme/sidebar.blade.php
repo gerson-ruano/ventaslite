@@ -22,6 +22,7 @@
             </li>
             @endcan
             <li class="mt-2">
+            @can('Report_Index')
                 <a href="#homeSubmenuStock" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div class="text-center">
                         <i class="fa fa-boxes fa-3x text-muted" aria-hidden="true"></i>
@@ -30,6 +31,7 @@
                         </div>
                     </div>
                 </a>
+                @endcan
                 <ul class="collapse list-unstyled text-white text-lg mt-2" id="homeSubmenuStock">
                     @can('Category_Index')
                     <li class="">
@@ -90,7 +92,7 @@
                 </ul>
             </li>
             <li class="mt-5">
-                @role('Admin')
+                @can('Report_Index')
                 <a href="#homeSubmenuReport" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <div class="text-center">
                         <i class="fas fa-file-medical-alt fa-3x text-muted" aria-hidden="true"></i>

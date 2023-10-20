@@ -14,9 +14,9 @@ class GraficasController extends Controller
     {
 
         $salesData = $this->ultimasVentas();
-        $totalStock = Product::sum('stock');
-        $totalSales = Sale::count();
-        $totalMoney = Sale::sum('total');
+        $totalStock = $this->productoStock();
+        $totalSales = $this->ventasTotales();
+        $totalMoney = $this->efectivoTotalDeVentas();
 
         $productSales = $this->productTop();
         //$productNames = $productSales->pluck('name');
@@ -25,14 +25,27 @@ class GraficasController extends Controller
         $stockProducts = $this->productosConMenosExistencias();
         $datosDeVentas = $this->obtenerDatosDeVentas();
         
+        $ventasTipoPago = $this->obtenerDatosDeVentasTipoPago();
 
         return view('livewire.reports.graficas', compact('salesData','totalStock',
-        'totalSales','totalMoney','productSales','datosDeVentas','stockProducts'));
+        'totalSales','totalMoney','productSales','datosDeVentas','stockProducts','ventasTipoPago'));
     }
+
+    public function productoStock(){
+        return Product::sum('stock');
+    }
+    public function ventasTotales(){
+        return Sale::count();
+    }
+
+    public function efectivoTotalDeVentas(){
+       return Sale::sum('total');
+    }
+    
 
     public function ultimasVentas(){
         $endDate = Carbon::now(); // Fecha actual
-        $startDate = $endDate->copy()->subDays(30); // Fecha hace 6 días
+        $startDate = $endDate->copy()->subDays(30); // Fecha hace 30 días
 
         $salesData = Sale::whereDate('created_at', '>=', $startDate)
             ->whereDate('created_at', '<=', $endDate)
@@ -78,5 +91,11 @@ class GraficasController extends Controller
         ->groupBy('sale_details.product_id')
         ->get(); 
     }
-    
+
+    public function obtenerDatosDeVentasTipoPago() {
+        return DB::table('sales')
+        ->select('status', DB::raw('COUNT(id) as total_ventas'))
+        ->groupBy('status')
+        ->get();
+    }
 }

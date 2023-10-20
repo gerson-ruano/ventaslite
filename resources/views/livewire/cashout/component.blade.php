@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-3">
                         <div class="form-group">
-                            <label>Usuario</label>
+                            <label class="text-dark">Usuario</label>
                             <select wire:model="userid" class="form-control">
                                 <option value="0" disabled>Elegir</option>
                                 @foreach($users as $u)
@@ -20,7 +20,7 @@
                     </div>
                     <div class="col-sm-12 col-md-3">
                         <div class="form-group">
-                            <label>Fecha inicial</label>
+                            <label class="text-dark">Fecha inicial</label>
                             <input type="date" wire:model.lazy="fromDate" class="form-control">
                             @error('fromDate') <span class="text-danger">{{$message}}</span>@enderror
                         </div>
@@ -28,7 +28,7 @@
 
                     <div class="col-sm-12 col-md-3">
                         <div class="form-group">
-                            <label>Fecha final</label>
+                            <label class="text-dark">Fecha final</label>
                             <input type="date" wire:model.lazy="toDate" class="form-control">
                             @error('toDate') <span class="text-danger">{{$message}}</span>@enderror
                         </div>
@@ -69,6 +69,9 @@
                                         ITEMS
                                     </th>
                                     <th class="table-th text-center text-white">
+                                        VENDEDOR
+                                    </th>
+                                    <th class="table-th text-center text-white">
                                         FECHA Y HORA
                                     </th>
                                     <th class="table-th text-center text-white">
@@ -78,7 +81,7 @@
                             </thead>
                             <tbody>
                                 @if($total < 1) <tr>
-                                    <td colspan="5">
+                                    <td colspan="6">
                                         <h6 class="text-center">No hay ventas en la fecha seleccionada</h6>
                                     </td>
                                     @endif
@@ -94,6 +97,10 @@
 
                                     <td class="text-center">
                                         <h6>{{$row->items}}</h6>
+                                    </td>
+
+                                    <td class="text-center">
+                                        <h6>{{$row->vendedor}}</h6>
                                     </td>
 
                                     <td class="text-center">

@@ -12,13 +12,13 @@ var barData = {
         backgroundColor: 'rgb(45, 76, 110)',
     }, {
         label: 'Línea de Tendencia',
-        data: trendline, // Agrega aquí los valores de la línea de tendencia
+        data: salesData, // Agrega aquí los valores de la línea de tendencia
         type: 'line', // Define el tipo de gráfico como línea
         borderColor: 'rgb(255, 99, 132)', // Color de la línea de tendencia
         fill: false, // Sin relleno
     }],
 };
-var barCtx = document.getElementById('barChart').getContext('2d');
+var barCtx = document.getElementById('chartUltimosDias').getContext('2d');
 new Chart(barCtx, {
     type: 'bar',
     data: barData,
@@ -26,7 +26,7 @@ new Chart(barCtx, {
         plugins: {
             title: {
                 display: true,
-                text: 'ULTIMAS VENTAS / DIA',
+                text: 'ULTIMAS DIAS / VENTAS',
             }
         }
     }
@@ -67,13 +67,13 @@ var lineData = {
         'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
     ],
     datasets: [{
-        label: 'Datos de ejemplo',
+        label: '2023',
         borderColor: 'rgb(45, 76, 110)',
         data: [12, 19, 3, 5, 2, 5, 10, 3, 11, 20, 7, 11, 3, 8],
     }],
 };
 
-var lineCtx = document.getElementById('lineChart').getContext('2d');
+var lineCtx = document.getElementById('chartTendenciaAnual').getContext('2d');
 new Chart(lineCtx, {
     type: 'line',
     data: lineData,
@@ -93,14 +93,14 @@ var totalStock = @json($totalStock);
 var totalSales = @json($totalSales);
 var totalMoney = @json($totalMoney);
 var donutData = {
-    labels: ['INGRESOS', 'PRODUCTOS', 'VENTAS'],
+    labels: ['INGRESOS', 'PRODUCTOS', 'No.VENTAS'],
     datasets: [{
         data: [totalMoney, totalStock, totalSales],
         backgroundColor: ['blue', 'green', 'red'], 
     }],
 };
 
-var donutCtx = document.getElementById('donutChart').getContext('2d');
+var donutCtx = document.getElementById('chartReport').getContext('2d');
 new Chart(donutCtx, {
     type: 'doughnut', 
     data: donutData,
@@ -109,7 +109,7 @@ new Chart(donutCtx, {
         plugins: {
             title: {
                 display: true,
-                text: 'INGRESOS / PRODUCTOS / VENTAS',
+                text: 'REPORTE ESTADISTICO',
             }
         }
     }
@@ -125,7 +125,7 @@ productLabels.push(item.name);
 productQuantities.push(item.total_quantity);
 });
 
-var pieCtx = document.getElementById('pieChart2').getContext('2d');
+var pieCtx = document.getElementById('chartProductTop').getContext('2d');
 new Chart(pieCtx, {
     type: 'pie',
     data: {
@@ -163,7 +163,7 @@ var ventas = datosDeVentas.map(venta => venta.total_quantity);
 var labels = productosConMenosExistencias.map(products => products.name); 
 var existencias = productosConMenosExistencias.map(products => products.stock); 
 
-        var ctx = document.getElementById('customChart').getContext('2d');
+        var ctx = document.getElementById('chartStock').getContext('2d');
         var data = {
             labels: labels,
             datasets: [{
@@ -196,11 +196,63 @@ var existencias = productosConMenosExistencias.map(products => products.stock);
                 },
                 title: {
                     display: true,
-                    text: 'ALERTA STOCK MINIMO'
+                    text: 'STOCK MINIMO'
                 }
             }
         }
     
     });
+
+// Datos para el gráfico de Barras VENTAS / TIPO DE PAGO
+// Obtén los datos de ventas por tipo de pago desde el backend
+var datosVentasPorTipoPago = @json($ventasTipoPago);
+
+// Extrae los nombres de tipo de pago y las cantidades de ventas
+var tipoPago = datosVentasPorTipoPago.map(venta => venta.status);
+var totalVentas = datosVentasPorTipoPago.map(venta => venta.total_ventas);
+
+// Crea un contexto para el elemento canvas de la gráfica
+var ctx = document.getElementById('chartTipoPago').getContext('2d');
+
+// Configura los datos para la gráfica de barras
+var data = {
+    labels: tipoPago,
+    datasets: [{
+        label: 'Ventas por Tipo de Pago',
+        data: totalVentas,
+        backgroundColor: [
+                'rgb(75, 192, 192)',
+                'rgb(255, 99, 132)',
+                'rgb(201, 203, 207)',
+                'rgb(255, 205, 86)',
+                'rgb(201, 203, 207)',
+                'rgb(54, 162, 235)'
+                // Agrega más colores según sea necesario
+            ],
+    }]
+};
+
+// Crea y muestra la gráfica
+new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+            
+        },
+        plugins: {
+            title: {
+                display: true,
+                text: 'ESTADOS DE PAGO',
+            }
+        }
+        
+    }
+});
+
 
 </script>

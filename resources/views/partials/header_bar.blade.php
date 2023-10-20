@@ -9,10 +9,12 @@
                 </a>
             </li>
             @endcan
+            @can('Report_Index')
             <li class="mt-0">
                 <a href="#homeSubmenuStock2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     <span class="text-dark">GESTION DE STOKS</span>
                 </a>
+                @endcan
                 <ul class="collapse list-unstyled text-dark text-lg mt-2" id="homeSubmenuStock2">
                     @can('Category_Index')
                     <li class="">
