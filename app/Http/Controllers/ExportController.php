@@ -80,14 +80,34 @@ class ExportController extends Controller
 
     public function reportCaja($userid, $fromDate = null, $toDate = null){
 
-        $from = Carbon::parse($fromDate)->format('Y-m-d') . ' 00:00:00';
-        $to = Carbon::parse($toDate)->format('Y-m-d') . ' 23:59:59';
+        $from = Carbon::parse($fromDate)->startOfDay();
+        $to = Carbon::parse($toDate)->endOfDay();
+        
+        //$from = Carbon::parse($fromDate)->format('Y-m-d') . ' 00:00:00';
+        //$to = Carbon::parse($toDate)->format('Y-m-d') . ' 23:59:59';
 
-        $data = Sale::join('users as u', 'u.id','sales.user_id')
+        /*$data = Sale::join('users as u', 'u.id','sales.user_id')
         ->select('sales.*','u.name as user')
         ->where('sales.user_id', $userid)
         ->whereBetween('sales.created_at', [$from, $to])
         ->get();
+
+        $data = Sale::join('sale_details as d', 'd.sale_id','sales.id')
+        ->join('products as p', 'p.id','d.product_id')
+        ->select('sales.*','d.quantity','d.price')
+        ->whereBetween('sales.created_at', [$from, $to])
+        ->where('sales.status', 'Paid')
+        ->where('sales.user_id', $userid)
+        ->where('sales.id',$userid)
+        ->get();*/
+
+        $data = Sale::whereBetween('created_at', [$from, $to])
+        ->where('status','Paid')
+        ->where('user_id', $userid)
+        ->get();
+
+        //$this->total = $data ? $data->sum('total') : 0;
+        //$this->items = $data ? $data->sum('items') : 0;
 
         $user = User::find($userid)->name;
         $pdf = PDF\Pdf::loadView('pdf.reportecaja', compact('data','user','fromDate','toDate'));

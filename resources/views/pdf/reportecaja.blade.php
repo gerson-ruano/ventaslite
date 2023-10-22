@@ -39,7 +39,7 @@
 
     <section class="header" style="top: -287px;">
 
-    <h3>Detalle de las ventas realizadas<h2>PAGADO</h2></h3>
+    <h3>Detalle de las ventas realizadas<h2></h2></h3>
 
     <table cellpadding="0" cellspacing="0" width="100%" class="table-items">
     {{--dd($data)--}}
@@ -78,7 +78,8 @@
                     <td style="text-align: right;"  colspan="1" class="text-center"><span><strong> Q. {{ number_format($data->sum('total'),2) }}</strong></span></td>
                     <td style="text-align: right;"  colspan="1" class="text-center"><span><strong> Q. {{ number_format($data->sum('cash'),2) }}</strong></span></td>
                     <td style="text-align: right;"  colspan="1" class="text-center"><span><strong> Q. {{ number_format($data->sum('change'),2) }}</strong></span></td>
-                    <td colspan="3"></td>
+                    <td style=""  colspan="3" class="text-center"><span><strong>PAID</strong></span></td>
+                    <td colspan=""></td>
                 </tr>
             </tfoot>
     </table>

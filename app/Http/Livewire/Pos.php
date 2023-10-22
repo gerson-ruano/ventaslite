@@ -233,13 +233,13 @@ class Pos extends Component
         }
         if($this->tipoPago == 0)
         {
-            $this->emit('sale-error','DEBE SELECCIONAR UN ESTADO DE PAGO');
+            $this->emit('sale-error','DEBE SELECCIONAR UN ESTADO DE LA VENTA');
             return;
         }
         if(isset($this->vendedorSeleccionado)) {
             $vendedorAgregado = $this->vendedorSeleccionado;  
         }else{
-            $this->emit('sale-error','DEBE SELECCIONAR UN VENDEDOR O CLIENTE');
+            $this->emit('sale-error','DEBE SELECCIONAR UN VENDEDOR O CLIENTE FINAL');
             return;
         }
              

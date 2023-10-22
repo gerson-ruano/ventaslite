@@ -75,39 +75,42 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @include('partials.result', ['result' => $data, 'name' => $componentName])
+                                    @include('partials.result', ['result' => $data, 'name' => $componentName])
                                     {{--dd($data)--}}
-                                        @foreach($data as $d)
-                                        <tr>
-                                            <td class="text-center">
-                                                <h6>{{ $d->id }}</h6>
-                                            </td>
-                                            <td class="text-center">
-                                                <h6>Q. {{number_format($d->total,2)}}</h6>
-                                            </td>
-                                            <td class="text-center">
-                                                <h6>{{ $d->items }}</h6>
-                                            </td>
-                                            <td class="text-center">
-                                                <h6>{{ $d->status }}</h6>
-                                            </td>
-                                            <td class="text-center">
-                                                <h6>{{ $d->user }}</h6>
-                                            </td>
-                                            <td class="text-center">
-                                                <h6>{{ $d->vendedor }}</h6>
-                                            </td>
-                                            <td class="text-center">
-                                                <h6>{{ \Carbon\Carbon::parse($d->created_at)->format('d-m-Y H:i:s') }}</h6>
-                                            </td>
-                                            <td class="text-center" width="50px">
-                                                <button wire:click.prevent="getDetails({{$d->id}})"
-                                                    class="bt btn-dark btn-sm">
-                                                    <i class="fas fa-list"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        @endforeach
+                                    @foreach($data as $d)
+                                    <tr>
+                                        <td class="text-center">
+                                            <h6>{{ $d->id }}</h6>
+                                        </td>
+                                        <td class="text-center">
+                                            <h6>Q. {{number_format($d->total,2)}}</h6>
+                                        </td>
+                                        <td class="text-center">
+                                            <h6>{{ $d->items }}</h6>
+                                        </td>
+                                        <td class="text-center">
+                                            <span
+                                                class="badge badge-{{ $d->status === 'PAID' ? 'success' : ($d->status === 'CANCELLED' ? 'danger' : ($d->status === 'PENDING' ? 'primary' : 'secondary')) }} custom-badge text-uppercase">
+                                                {{ $d->status }}
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <h6>{{ $d->user }}</h6>
+                                        </td>
+                                        <td class="text-center">
+                                            <h6>{{ $d->vendedor }}</h6>
+                                        </td>
+                                        <td class="text-center">
+                                            <h6>{{ \Carbon\Carbon::parse($d->created_at)->format('d-m-Y H:i:s') }}</h6>
+                                        </td>
+                                        <td class="text-center" width="50px">
+                                            <button wire:click.prevent="getDetails({{$d->id}})"
+                                                class="bt btn-dark btn-sm">
+                                                <i class="fas fa-list"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                             {{--$data->links()--}}

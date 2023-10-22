@@ -1,5 +1,6 @@
 <script>
-//import Chart from 'chart.js/auto'; 
+//import { Chart, LinearScale, BarElement, BarController, CategoryScale } from 'chart.js/auto';
+//Chart.register(LinearScale, BarElement, BarController, CategoryScale);
 // Datos para el gráfico de Barras ULTIMOS DIAS / VENTAS
 var daysOfWeek = @json($salesData->pluck('date'));
 var salesData = @json($salesData->pluck('sales'));

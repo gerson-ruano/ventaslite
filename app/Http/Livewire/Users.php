@@ -15,7 +15,7 @@ class Users extends Component
     use WithPagination;
 
     public $name, $phone, $email, $status, $image, $password, $selected_id, $fileLoaded, $profile;
-    public $pageTitle, $componentName, $search, $perfilSeleccionado;
+    public $pageTitle, $componentName, $search, $perfilSeleccionado; 
 
     private $pagination = 5;
 
@@ -45,11 +45,21 @@ class Users extends Component
 
     $data = $query->select('*')->orderBy('name', 'asc')->paginate($this->pagination);
 
+    $valores = $this->valoresFiltro();
+
     return view('livewire.users.component', [
         'roles' => Role::orderBy('name', 'asc')->get(),
         'data' => $data,
+        'valores' => $valores,
     ])->extends('layouts.theme.app')
       ->section('content');
+
+    }
+
+    public function valoresFiltro(){
+        $valores = User::pluck('profile')->unique()->toArray();
+
+        return $valores;
 
     }
 

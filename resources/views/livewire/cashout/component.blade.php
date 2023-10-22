@@ -41,7 +41,7 @@
                         @if($total > 0)
                             <a class="btn btn-dark btn-md mtmobile"
                                     href="{{ url('report/caja' . '/' . $userid . '/' . $fromDate . '/' . $toDate) }}"
-                            target="_blank">ver PDF</a>
+                            target="_blank">Imprimir PDF</a>
                         @endif
                     </div>
                 </div>

@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="col-sm-12">
-                    <h6 class="text-center">Elige el tipo de Pago</h6>
+                    <h6 class="text-center">Elige el Estado de la Venta</h6>
                     <div class="form-group">
                         <select wire:model="tipoPago" class="form-control">                 
                             <option value="0">Seleccionar</option>

@@ -117,6 +117,12 @@ aside {
         height: 60vh;
     }
 }
+
+.custom-badge {
+        display: inline-block;
+        width: 100px; /* Establece el ancho deseado */
+        text-align: center; /* Alinea el texto en el centro */
+    }
     </style>
 
     <link href="{{ asset('plugins/flatpickr/flatpickr.dark.css')}}" rel="stylesheet" type="text/css" />
