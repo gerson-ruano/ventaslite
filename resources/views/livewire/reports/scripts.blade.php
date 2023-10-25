@@ -27,7 +27,7 @@ new Chart(barCtx, {
         plugins: {
             title: {
                 display: true,
-                text: 'ULTIMAS DIAS / VENTAS',
+                text: 'ULTIMOS DIAS / VENTAS',
             }
         }
     }
@@ -97,13 +97,13 @@ var donutData = {
     labels: ['INGRESOS', 'PRODUCTOS', 'No.VENTAS'],
     datasets: [{
         data: [totalMoney, totalStock, totalSales],
-        backgroundColor: ['blue', 'green', 'red'], 
+        backgroundColor: ['blue', 'green', 'red'],
     }],
 };
 
 var donutCtx = document.getElementById('chartReport').getContext('2d');
 new Chart(donutCtx, {
-    type: 'doughnut', 
+    type: 'doughnut',
     data: donutData,
     options: {
         cutoutPercentage: 30,
@@ -151,18 +151,18 @@ new Chart(pieCtx, {
             },
         },
     },
-    
+
 });
 
-    
+
 // Renderiza el gráfico de barras BAJA EXISTENCIA Y VENTAS
 var datosDeVentas = @json($datosDeVentas);
 var productosConMenosExistencias = @json($stockProducts);
 
 //var labels = datosDeVentas.map(venta => venta.name); // Asegúrate de usar el nombre correcto de la columna
-var ventas = datosDeVentas.map(venta => venta.total_quantity); 
-var labels = productosConMenosExistencias.map(products => products.name); 
-var existencias = productosConMenosExistencias.map(products => products.stock); 
+var ventas = datosDeVentas.map(venta => venta.total_quantity);
+var labels = productosConMenosExistencias.map(products => products.name);
+var existencias = productosConMenosExistencias.map(products => products.stock);
 
         var ctx = document.getElementById('chartStock').getContext('2d');
         var data = {
@@ -183,7 +183,7 @@ var existencias = productosConMenosExistencias.map(products => products.stock);
                 }
             ]
         };
-        
+
         new Chart(ctx, {
             type: 'bar',
             data: data,
@@ -201,7 +201,7 @@ var existencias = productosConMenosExistencias.map(products => products.stock);
                 }
             }
         }
-    
+
     });
 
 // Datos para el gráfico de Barras VENTAS / TIPO DE PAGO
@@ -243,7 +243,7 @@ new Chart(ctx, {
             y: {
                 beginAtZero: true
             }
-            
+
         },
         plugins: {
             title: {
@@ -251,7 +251,7 @@ new Chart(ctx, {
                 text: 'ESTADOS DE PAGO',
             }
         }
-        
+
     }
 });
 

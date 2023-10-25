@@ -15,7 +15,7 @@ class Users extends Component
     use WithPagination;
 
     public $name, $phone, $email, $status, $image, $password, $selected_id, $fileLoaded, $profile;
-    public $pageTitle, $componentName, $search, $perfilSeleccionado; 
+    public $pageTitle, $componentName, $search, $perfilSeleccionado;
 
     private $pagination = 5;
 
@@ -32,7 +32,7 @@ class Users extends Component
     }
     public function render()
     {
-       
+
     $query = User::query();
 
     if (!empty($this->perfilSeleccionado)) {
@@ -58,13 +58,11 @@ class Users extends Component
 
     public function valoresFiltro(){
         $valores = User::pluck('profile')->unique()->toArray();
-
         return $valores;
-
     }
 
 
-    public function seleccionarPerfil(){
+    /*public function seleccionarPerfil(){
             $query = User::query();
 
         if (!empty($this->perfilSeleccionado)) {
@@ -72,7 +70,7 @@ class Users extends Component
         }
 
         $this->usuariosFiltrados = $query->orderBy('name', 'asc')->paginate($this->pagination);
-    }
+    }*/
 
     public function resetUI()
     {
@@ -86,8 +84,8 @@ class Users extends Component
         $this->selected_id = 0;
         $this->resetValidation();
         $this->resetPage();
-        
-    } 
+
+    }
 
 
     public function edit(User $user)
@@ -95,7 +93,7 @@ class Users extends Component
         $this->selected_id = $user->id;
         $this->name = $user->name;
         $this->phone = $user->phone;
-        $this->profile = $this->profile;
+        $this->profile = $user->profile;
         $this->status = $user->status;
         $this->email = $user->email;
         $this->password = '';
@@ -126,11 +124,11 @@ class Users extends Component
             'email.email' => 'Ingresa un correo valido',
             'phone.min' => 'Ingrese un numero valido',
             'phone.max' => 'El numero telefonico debe tener 8 digitos',
-            'email.unique' => 'El email ya existe en sistema',
-            'status.required' => 'Selecciona el status del usuario',
-            'status.not_in' => 'Selecciona el status',
+            'email.unique' => 'El email ya existe en el sistema',
+            'status.required' => 'Selecciona el Estado del usuario',
+            'status.not_in' => 'Selecciona el Estado',
             'profile.required' => 'Selecciona el Perfil/Rol del usuario',
-            'profile.not_in' => 'Selecciona el Perfil/Rol distinto a elegir',
+            'profile.not_in' => 'Selecciona el Perfil/Rol distinto a Elegir',
             'password.required' => 'Ingresa el Password',
             'password.min' => 'El password debe tener al menos 3 caracteres'
         ];
@@ -157,7 +155,7 @@ class Users extends Component
         }
         $this->resetUI();
         $this->emit('user-added', 'Usuario Registrado');
- 
+
     }
 
     public function Update()
@@ -175,11 +173,11 @@ class Users extends Component
             'name.min' => 'El nombre del usuario debe tener al menos 3 caracteres',
             'email.required' => 'Ingresa un correo',
             'email.email' => 'Ingresa un correo valido',
-            'email.unique' => 'El email ya existe en sistema',
-            'status.required' => 'Selecciona el status del usuario',
-            'status.not_in' => 'Selecciona el status',
+            'email.unique' => 'El email ya existe en el sistema',
+            'status.required' => 'Selecciona el Estado del usuario',
+            'status.not_in' => 'Selecciona el Estado',
             'profile.required' => 'Selecciona el Perfil/Rol del usuario',
-            'profile.not_in' => 'Selecciona el Perfil/Rol distinto a elegir',
+            'profile.not_in' => 'Selecciona el Perfil/Rol distinto a Elegir',
             'password.required' => 'Ingresa el Password',
             'password.min' => 'El password debe tener al menos 3 caracteres'
         ];
@@ -218,7 +216,7 @@ class Users extends Component
         }
         $this->resetUI();
         $this->emit('user-updated', 'Usuario Actualizado');
- 
+
     }
 
     public function Destroy(User $user)

@@ -40,10 +40,10 @@
     </div>
     <div class="col-sm-12 col-md-6">
         <div class="form-group">
-            <label>Estatus</label>
+            <label>Estado</label>
             <select wire:model.lazy="status" class="form-control">
                 <option value="Elegir" selected>Elegir</option>
-                <option value="Active" selected>Active</option>
+                <option value="Active" selected>Activado</option>
                 <option value="Locked" selected>Boqueado</option>
             </select>
             @error('status')

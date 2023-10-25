@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <div class="input-group col-md-6">
+    <div class="col-sm-12 col-md-6">
         <label>Value</label>
         <div class="input-group">
             <div class="input-group-prepend">
@@ -33,11 +33,11 @@
         @enderror
     </div>
 
-    <div class="col-sm-12">
+    <div class="col-sm-12 mt-2">
         <div class="form-group custom-file">
             <input type="file" class="custom-file-input form-control" wire:model="image"
                 accept="image/x-png, image/gif, image/jpg">
-            <label class="custom-file-label">Image {{ $image }}</label>
+            <label class="custom-file-label">Imagen {{ $image }}</label>
             @error('image')
                 <span class="text danger er">{{ $message }}</span>
             @enderror

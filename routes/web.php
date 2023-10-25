@@ -45,14 +45,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('products', Products::class);
     Route::get('pos', Pos::class);
     Route::get('coins', Coins::class);
-    
+
     Route::get('cashout', Cashout::class);
     Route::get('reports', Reports::class);
     Route::get('graficas', [GraficasController::class, 'index']);
-
-    /*Route::get('graficas', function () {
-        return view('livewire.reports.graficas');
-    });*/
 
     //REPORTES PDF
     Route::get('report/pdf/{user}/{type}/{f1}/{f2}', [ExportController::class, 'reportPDF']);

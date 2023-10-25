@@ -9,11 +9,11 @@
                     <div class="col-md-6 mb-md-4" style="width: 1200px;">
                         @can('User_Search')
                         @include('common.searchbox')
-                        @endcan  
+                        @endcan
                     </div>
 
-                    @include('partials.select_filtro', ['title' => 'Filtro de Perfil', 'valores' => $valores])
-                    
+                    @include('partials.select_filtro', ['title' => 'de Perfil', 'model' => 'perfilSeleccionado', 'valores' => $valores])
+
                     @can('User_Create')
                     <div class="mb-3 mb-md-0">
                         @include('partials.agregar', ['textButton' => 'Agregar'])
