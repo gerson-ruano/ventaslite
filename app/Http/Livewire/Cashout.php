@@ -33,6 +33,7 @@ class Cashout extends Component
 
     public function Consultar()
     {
+        
         $fi= Carbon::parse($this->fromDate)->format('Y-m-d') . ' 00:00:00';
         $ff= Carbon::parse($this->toDate)->format('Y-m-d') . ' 23:59:59';
 

@@ -20,27 +20,36 @@ class Pos extends Component
 
     public $total, $itemsQuantity, $efectivo, $change, $tipoPago, $vendedorSeleccionado;
     public $vendedores = [];
-    
-    
+
+
     public function mount()
     {
         $this->efectivo = 0;
         $this->change = 0;
         $this->total = Cart::getTotal();
         $this->itemsQuantity = Cart::getTotalQuantity();
-        $this->vendedores = User::where('profile', 'vendedor')->get();
+        $this->vendedores = User::where('profile', 'vendedor')->pluck('name');
+
     }
 
 
     public function render()
     {
+        $valores = $this->filtroTipoPago();
+
         return view('livewire.pos.component', [
             'denominations' => Denomination::orderBy('value','desc')->get(),
-            'cart' => Cart::getContent()->sortBy('name')
+            'cart' => Cart::getContent()->sortBy('name'),
+            'valores' => $valores,
 
         ])
         ->extends('layouts.theme.app')
         ->section('content');
+    }
+
+    public function filtroTipoPago(){
+        return Sale::pluck('status')->unique()->toArray();
+        //return $valores;
     }
 
     public function ACash($value)
@@ -237,12 +246,14 @@ class Pos extends Component
             return;
         }
         if(isset($this->vendedorSeleccionado)) {
-            $vendedorAgregado = $this->vendedorSeleccionado;  
+            $vendedorAgregado = $this->vendedorSeleccionado;
         }else{
-            $this->emit('sale-error','DEBE SELECCIONAR UN VENDEDOR O CLIENTE FINAL');
-            return;
+            $vendedorAgregado = 'Cliente Final';
+
+            //$this->emit('sale-error','DEBE SELECCIONAR UN VENDEDOR O CLIENTE FINAL');
+            //return;
         }
-             
+
         DB::beginTransaction();
 
         try {

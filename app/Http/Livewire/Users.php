@@ -45,7 +45,7 @@ class Users extends Component
 
     $data = $query->select('*')->orderBy('name', 'asc')->paginate($this->pagination);
 
-    $valores = $this->valoresFiltro();
+    $valores = $this->filtroTipoPerfil();
 
     return view('livewire.users.component', [
         'roles' => Role::orderBy('name', 'asc')->get(),
@@ -56,21 +56,10 @@ class Users extends Component
 
     }
 
-    public function valoresFiltro(){
-        $valores = User::pluck('profile')->unique()->toArray();
-        return $valores;
+    public function filtroTipoPerfil(){
+        return User::pluck('profile')->unique()->toArray();
+        //return $valores;
     }
-
-
-    /*public function seleccionarPerfil(){
-            $query = User::query();
-
-        if (!empty($this->perfilSeleccionado)) {
-            $query->where('profile', $this->perfilSeleccionado);
-        }
-
-        $this->usuariosFiltrados = $query->orderBy('name', 'asc')->paginate($this->pagination);
-    }*/
 
     public function resetUI()
     {

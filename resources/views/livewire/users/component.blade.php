@@ -12,7 +12,7 @@
                         @endcan
                     </div>
 
-                    @include('partials.select_filtro', ['title' => 'de Perfil', 'model' => 'perfilSeleccionado', 'valores' => $valores])
+                    @include('partials.select_filtro', ['tam' => '3 mb-md-0', 'title' => 'de Perfil', 'model' => 'perfilSeleccionado', 'valores' => $valores])
 
                     @can('User_Create')
                     <div class="mb-3 mb-md-0">

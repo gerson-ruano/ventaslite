@@ -19,18 +19,10 @@
                     </div>
                 </div>
 
-                <div class="col-sm-12">
-                    <h6 class="text-center">Elige el Estado de la Venta</h6>
-                    <div class="form-group">
-                        <select wire:model="tipoPago" class="form-control">                 
-                            <option value="0">Seleccionar</option>
-                            <option value="PAID">PAGADO</option>
-                            <option value="PENDING">PENDIENTE</option>
-                            <option value="CANCELLED">CANCELADO</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-12">
+                @include('partials.select_filtro', ['tam' => '12','title' => 'Tipo Pago', 'model' => 'tipoPago', 'valores' => $valores])
+
+                @include('partials.select_filtro', ['tam' => '12','title' => 'Tipo de Cliente', 'model' => 'vendedorSeleccionado', 'valores' => $vendedores])
+                {{--<div class="col-sm-12">
                     <h6 class="text-center">Elige Vendedor o Cliente</h6>
                     <div class="form-group">
                         <select wire:model="vendedorSeleccionado" class="form-control">
@@ -41,7 +33,7 @@
                             @endforeach
                         </select>
                     </div>
-                </div>
+                </div>--}}
             </div>
         </div>
     </div>
