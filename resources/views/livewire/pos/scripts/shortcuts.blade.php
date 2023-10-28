@@ -19,4 +19,23 @@ listener.simple_combo("f4", function() {
         noty('AGREGA PRODUCTOS A LA VENTA')
     }
 })
+
+function clearCash() {
+    document.getElementById('cash').value = '';
+    document.getElementById('cash').focus();
+}
+
+function clearCart() {
+    var total = parseFloat(document.getElementById('hiddenTotal').value);
+    if (total > 0) {
+        ConfirmVaciarCart(0, 'clearCart', 'SEGURO DE ELIMINAR EL CARRITO?');
+        console.log(total);
+    } else {
+        noty('AGREGA PRODUCTOS A LA VENTA');
+    }
+}
+
+
+document.getElementById("clearCash").addEventListener("click", clearCash);
+document.getElementById("clearCart").addEventListener("click", clearCart);
 </script>

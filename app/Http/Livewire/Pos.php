@@ -24,11 +24,12 @@ class Pos extends Component
 
     public function mount()
     {
-        $this->efectivo = 0;
+        $this->efectivo = number_format($this->efectivo, 2); 
         $this->change = 0;
         $this->total = Cart::getTotal();
         $this->itemsQuantity = Cart::getTotalQuantity();
         $this->vendedores = User::where('profile', 'vendedor')->pluck('name');
+        $this->vendedorSeleccionado;
 
     }
 
@@ -52,9 +53,10 @@ class Pos extends Component
         //return $valores;
     }
 
+
     public function ACash($value)
     {
-        $this->efectivo += ($value == 0 ? $this->total : $value);
+        $this->efectivo += ($value == 0 ? $this->total : (float)$value);
         $this->change = ($this->efectivo - $this->total);
     }
 
@@ -247,6 +249,9 @@ class Pos extends Component
         }
         if(isset($this->vendedorSeleccionado)) {
             $vendedorAgregado = $this->vendedorSeleccionado;
+            if($vendedorAgregado == 0){
+                $vendedorAgregado = 'Cliente Final';
+            }
         }else{
             $vendedorAgregado = 'Cliente Final';
 

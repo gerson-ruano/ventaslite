@@ -26,7 +26,7 @@
                     <h6 class="text-center">Elige Vendedor o Cliente</h6>
                     <div class="form-group">
                         <select wire:model="vendedorSeleccionado" class="form-control">
-                            <option value="">Seleccionar</option>
+                            <option value="0">Seleccionar</option>
                             <option value="Cliente">==Cliente Final==</option>
                             @foreach($vendedores as $vendedor)
                             <option value="{{$vendedor->name}}">{{$vendedor->name}}</option>
