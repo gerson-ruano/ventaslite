@@ -8,7 +8,6 @@ use App\Models\Sale;
 use App\Models\SaleDetails;
 use Carbon\Carbon;
 use Livewire\WithPagination;
-use Illuminate\Pagination\Paginator;
 
 
 class Reports extends Component
@@ -16,10 +15,18 @@ class Reports extends Component
 
     use WithPagination;
 
-    public $componentName, $data, $details, $sumDetails, $countDetails, 
-    $reportType, $userId, $dateFrom, $dateTo, $saleId, $datos = null;
+    public $componentName, $details, $sumDetails, $countDetails, 
+    $reportType, $userId, $dateFrom, $dateTo, $saleId, $selectTipoEstado;
 
-    private $pagination = 10;
+    private $pagination = 12;
+    private $data = [];
+    public $currentPage = 1;
+
+    public function paginationView()
+    {
+        return 'vendor.livewire.bootstrap';
+    }
+
 
     public function mount(){
         $this->componentName = 'Reporte de Ventas';
@@ -30,17 +37,18 @@ class Reports extends Component
         $this->reportType = 0;
         $this->userId = 0;
         $this->saleId = 0;
+        $this->currentPage = 1;
+        
     }
     public function render()
     {
-        $this->SalesByDate();
-
-        //$data = $this->data->paginate($this->pagination);
-       // $sales = new Paginator($this->data, $this->pagination);
+        $this->SalesByDate(); 
+        $valores = $this->filtroTipoEstado();
 
         return view('livewire.reports.component',[
             'users' => User::orderBy('name','asc')->get(),
-            //'sales' => $data,
+            'data' => $this->data,
+            'valores' => $valores,
         ])
         ->extends('layouts.theme.app')
         ->section('content');
@@ -70,10 +78,6 @@ class Reports extends Component
             $query->where('user_id', $this->userId);
         }
 
-        //return $query->paginate($this->pagination);
-        //$this->data = $query->get();
-       //$this->data = $query->paginate($this->pagination);
-
         if($this->userId == 0){
 
             $this->data = Sale::join('users as u','u.id','sales.user_id')
@@ -87,12 +91,13 @@ class Reports extends Component
             ->where('user_id', $this->userId)
             ->get();//->paginate($this->pagination);
         }
-        //dd($from);
-        //return $this->data->paginate($this->pagination);
 
-        //$data = $query->paginate($this->pagination)->toArray();
+        if ($this->selectTipoEstado) {
+            $query->where('sales.status', $this->selectTipoEstado);
+        }
 
-       // $this->data = $data['data'];
+       $this->data = $query->paginate($this->pagination);
+      
         
     } 
 
@@ -111,8 +116,6 @@ class Reports extends Component
             return $item->price * $item->quantity;
         });
 
-       
-
         $this->sumDetails = $suma;
         
         $this->countDetails = $this->details->sum('quantity');
@@ -121,6 +124,10 @@ class Reports extends Component
         $this->saleId = $saleId;
 
         $this->emit('show-modal','Detalles Cargados');
+    }
+
+    public function filtroTipoEstado(){
+        return Sale::pluck('status')->unique()->toArray();
     }
     
 }

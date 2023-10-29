@@ -33,14 +33,14 @@
                                 <h6>Fecha desde</h6>
                                 <div class="form-group">
                                     <input type="text" wire:model="dateFrom" class="form-control flatpickr"
-                                        placeholder="Click para elegir">
+                                        placeholder="Click para elegir"  @if ($reportType == 0) disabled @endif>
                                 </div>
                             </div>
                             <div class="col-sm-12 mt-2">
                                 <h6>Fecha hasta</h6>
                                 <div class="form-group">
                                     <input type="text" wire:model="dateTo" class="form-control flatpickr"
-                                        placeholder="Click para elegir">
+                                        placeholder="Click para elegir" @if ($reportType == 0) disabled @endif>
                                 </div>
                             </div>
                             <div class="col-sm-12">
@@ -49,12 +49,13 @@
                                 </button>
 
                                 <a class="btn btn-dark btn-block {{count($data) <1 ? 'disabled' : '' }}"
-                                    href="{{ url('report/pdf' . '/' . $userId . '/' . $reportType . '/' . $dateFrom . '/' . $dateTo) }}"
-                                    target="_blank">Generar PDF</a>
+                                href="{{ url('report/pdf' . '/' . $userId . '/' . $reportType . '/' . $dateFrom . '/' . $dateTo) }}"
+                                target="_blank">Generar PDF</a>
 
-                                <a class="btn btn-dark btn-block {{count($data) <1 ? 'disabled' : '' }}"
+                                <a class="btn btn-dark btn-block {{count($data) <1 ? 'disabled' : '' }} mb-3"
                                     href="{{ url('report/excel' . '/' . $userId . '/' . $reportType . '/' . $dateFrom . '/' . $dateTo) }}"
                                     target="_blank">Exportar a EXCEL</a>
+                                @include('partials.select_filtro', ['tam' => '12 mb-md-0', 'title' => 'Estado de Pago', 'model' => 'selectTipoEstado', 'valores' => $valores])
                             </div>
                         </div>
                     </div>
@@ -76,7 +77,7 @@
                                 </thead>
                                 <tbody>
                                     @include('partials.result', ['result' => $data, 'name' => $componentName])
-                                    {{--dd($data)--}}
+                                    {{--dd($datos)--}}
                                     @foreach($data as $d)
                                     <tr>
                                         <td class="text-center">
@@ -113,8 +114,10 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{--$data->links()--}}
-                            {{--dd($sales)--}}
+                            @if(isset($data) && $data instanceof \Illuminate\Pagination\LengthAwarePaginator &&
+                            $data->total() > 0)
+                            {{ $data->links() }}
+                            @endif
                         </div>
                     </div>
                 </div>

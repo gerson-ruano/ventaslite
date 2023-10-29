@@ -5,12 +5,26 @@ use App\Models\User;
 use App\Models\Sale;
 use Carbon\Carbon;
 use Livewire\Component;
+use Livewire\WithPagination;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 
 class Cashout extends Component
 {
 
-    public $fromDate, $toDate, $userid, $total, $items, $sales, $details;
+    use WithPagination;
+
+    public $fromDate, $toDate, $userid, $total, $items, $details;
+
+    private $pagination = 10; 
+    public $currentPage = 1;
+    private $sales = [];
+
+    public function paginationView()
+    {
+        return 'vendor.livewire.bootstrap';
+    }
+
 
     public function mount()
     {
@@ -24,8 +38,10 @@ class Cashout extends Component
     public function render()
     {
         //$fa = Carbon::now()->format('Y-m-d') . '23:59:59';
+        
         return view('livewire.cashout.component',[
-            'users' => User::orderBy('name','asc')->get()
+            'users' => User::orderBy('name','asc')->get(),
+            'sales' => $this->sales,
         ])
         ->extends('layouts.theme.app')
         ->section('content');
@@ -33,6 +49,7 @@ class Cashout extends Component
 
     public function Consultar()
     {
+        $this->currentPage = 1;
         
         $fi= Carbon::parse($this->fromDate)->format('Y-m-d') . ' 00:00:00';
         $ff= Carbon::parse($this->toDate)->format('Y-m-d') . ' 23:59:59';
@@ -40,10 +57,17 @@ class Cashout extends Component
         $this->sales = Sale::whereBetween('created_at', [$fi, $ff])
         ->where('status','Paid')
         ->where('user_id', $this->userid)
-        ->get();
+        //->get();
+        ->paginate($this->pagination);
+
+
+        //$perPage = 5; // Número de elementos por página
+        //$page = request('page', 1); // Página actual
+        //$results = collect($query)->forPage($page, $perPage);
+        //$this->sales = new LengthAwarePaginator($results, count($query), $perPage, $page);
 
         $this->total = $this->sales ? $this->sales->sum('total') : 0;
-        $this->items = $this->sales ? $this->sales->sum('items') : 0;
+        $this->items = $this->sales ? $this->sales->sum('items') : 0;   
     }
 
 
@@ -63,7 +87,6 @@ class Cashout extends Component
 
         $this->emit('show-modal','open modal');
     }
-
     public function Print()
     {
         //code

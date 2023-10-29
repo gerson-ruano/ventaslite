@@ -21,7 +21,7 @@
                     <div class="col-sm-12 col-md-3">
                         <div class="form-group">
                             <label class="text-dark">Fecha inicial</label>
-                            <input type="date" wire:model.lazy="fromDate" class="form-control">
+                            <input type="date" wire:model.lazy="fromDate" class="form-control" >
                             @error('fromDate') <span class="text-danger">{{$message}}</span>@enderror
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                     <div class="col-sm-12 col-md-3">
                         <div class="form-group">
                             <label class="text-dark">Fecha final</label>
-                            <input type="date" wire:model.lazy="toDate" class="form-control">
+                            <input type="date" wire:model.lazy="toDate" class="form-control" @if ($fromDate == 0) disabled @endif>
                             @error('toDate') <span class="text-danger">{{$message}}</span>@enderror
                         </div>
                     </div>
@@ -39,8 +39,8 @@
                         <button wire:click.prevent="Consultar()" type="button" class="btn btn-dark">Consultar</button>
                         @endif
                         @if($total > 0)
-                            <a class="btn btn-dark btn-md mtmobile"
-                                    href="{{ url('report/caja' . '/' . $userid . '/' . $fromDate . '/' . $toDate) }}"
+                        <a class="btn btn-dark btn-md mtmobile"
+                            href="{{ url('report/caja' . '/' . $userid . '/' . $fromDate . '/' . $toDate) }}"
                             target="_blank">Imprimir PDF</a>
                         @endif
                     </div>
@@ -117,6 +117,10 @@
                                     @endforeach
                             </tbody>
                         </table>
+                        @if(isset($sales) && $sales instanceof \Illuminate\Pagination\LengthAwarePaginator &&
+                        $sales->total() > 0)
+                        {{ $sales->links() }}
+                        @endif
                     </div>
                 </div>
             </div>
