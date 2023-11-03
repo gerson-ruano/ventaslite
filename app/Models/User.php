@@ -48,7 +48,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /*
     public function getImagenAttribute() {
         return asset('storage/users/' . ($this->image ? $this->image : 'noimg.jpg'));
+    }*/
+
+    public function getImagenAttribute()
+    {
+        $imagePath = 'storage/users/' . ($this->image ? $this->image : 'noimg.jpg');
+
+        // Verifica si la imagen existe en la ruta especificada
+        if (file_exists(public_path($imagePath))) {
+            return asset($imagePath);
+        } else {
+            // Si la imagen no existe, muestra la imagen por defecto
+            return asset('assets/img/noimg.jpg');
+        }
     }
+
 }
