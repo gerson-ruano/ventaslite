@@ -21,12 +21,12 @@
                     <div class="card-body">
                         <div class="input-group input-group-md mb-3">
                             <div class="input-group prepend">
-                                <button id="clearCash" class="input-group-text input-gp hideonsm"  style="background: #3B3F5C; 
+                                <button id="clearCash" class="input-group-text input-gp hideonsm" style="background: #3B3F5C; 
                                     color:white">Efectivo F8
                                 </button>
                             </div>
-                             <h2>Q.</h2>
-                             <input type="number" id="cash" wire:model="efectivo" wire:keydown.enter.prevent="savesSale"
+                            <h2>Q.</h2>
+                            <input type="number" id="cash" wire:model="efectivo" wire:keydown.enter.prevent="savesSale"
                                 class="form-control col-sm mt-2 text-center" value="{{number_format($efectivo, 2)}}">
                         </div>
                         <div class="input-group-append">
@@ -46,9 +46,9 @@
                     <div class="row justify-content-between mt-5">
                         <div class="col-sm-12 col-md-12 col-lg-6">
                             @if($total > 0)
-                            <button id="clearCart" class="input-group-text input-gp hideonsm"  style="background: #3B3F5C; 
+                            <button id="clearCart" class="input-group-text input-gp hideonsm" style="background: #3B3F5C; 
                                     color:white">CANCELAR F4
-                                </button>
+                            </button>
                             {{--<button onclick="Confim(0,'clearCart','¿SEGURO DE ELIMINAR EL CARRITO')"
                                 class="btn btn-dark mtmobile">
                                 CANCELAR F4
@@ -67,6 +67,11 @@
 
                     <div class="col-sm-12 col-md-12 col-lg-6">
                         @if($efectivo >= $total && $total > 0)
+                        <div class="text-center mt-3">
+                            <button wire:click="revisarVenta" class="btn btn-primary">
+                                Revisar Venta
+                            </button>
+                        </div>
                         @can('Ventas_Create')
                         <button wire:click.prevent="saveSale" class="btn btn-dark btn-md btn-block">
                             GUARDAR F6

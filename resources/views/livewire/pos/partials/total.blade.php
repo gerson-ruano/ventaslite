@@ -3,7 +3,7 @@
         <div>
             <div class="connect-sorting">
 
-                <h5 class="text-center mb-3">Resumen de venta</h5>
+                {{--<h5 class="text-center mb-3">Resumen de venta</h5>
 
                 <div class="connect-sorting-content">
                     <div class="car simple-ttle-task ui-sortable-handle">
@@ -17,7 +17,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>--}}
 
                 @include('partials.select_filtro', ['tam' => '12','title' => 'Tipo Pago', 'model' => 'tipoPago', 'valores' => $valores])
 

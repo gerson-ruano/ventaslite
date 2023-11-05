@@ -23,6 +23,8 @@ listener.simple_combo("f4", function() {
 function clearCash() {
     document.getElementById('cash').value = '';
     document.getElementById('cash').focus();
+
+    Livewire.emit('clearCash');
 }
 
 function clearCart() {

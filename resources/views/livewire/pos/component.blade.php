@@ -6,16 +6,22 @@
         <div class="col-sm-12 col-md-8">
             {{--Detalles--}}
             @include('livewire.pos.partials.detail')
+            
+            <div class="col-sm-12 col-md-8 mt-4">
+                @include('livewire.pos.revision_venta')
+            </div>
         </div><br>
+        
 
         <div class="col-sm-12 col-md-4">
-           {{--Total--}}
-           @include('livewire.pos.partials.total')
+            {{--Total--}}
+            @include('livewire.pos.partials.total')
 
-           {{--Denominacion--}}
-           @include('livewire.pos.partials.coins')
+            {{--Denominacion--}}
+            @include('livewire.pos.partials.coins')
 
         </div>
+
     </div>
     {{--SCRIPTS--}}
     @include('livewire.pos.scripts.events')

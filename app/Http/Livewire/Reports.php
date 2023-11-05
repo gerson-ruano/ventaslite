@@ -20,7 +20,7 @@ class Reports extends Component
 
     private $pagination = 12;
     private $data = [];
-    public $currentPage = 1;
+    public $page = 1;
 
     public function paginationView()
     {
@@ -37,13 +37,14 @@ class Reports extends Component
         $this->reportType = 0;
         $this->userId = 0;
         $this->saleId = 0;
-        $this->currentPage = 1;
+       
         
     }
     public function render()
     {
         $this->SalesByDate(); 
         $valores = $this->filtroTipoEstado();
+        
 
         return view('livewire.reports.component',[
             'users' => User::orderBy('name','asc')->get(),
@@ -53,10 +54,11 @@ class Reports extends Component
         ->extends('layouts.theme.app')
         ->section('content');
     }
+    
 
     public function SalesByDate()
     {
-
+        
         if($this->reportType == 0)  //VENTAS DEL DIA
         {
             $from = Carbon::parse(Carbon::now())->format('Y-m-d') . ' 00:00:00';
@@ -96,7 +98,9 @@ class Reports extends Component
             $query->where('sales.status', $this->selectTipoEstado);
         }
 
-       $this->data = $query->paginate($this->pagination);
+       $this->data = $query->paginate($this->pagination, ['*'],'page', $this->page);
+
+
       
         
     } 

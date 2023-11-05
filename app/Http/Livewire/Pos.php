@@ -21,6 +21,8 @@ class Pos extends Component
     public $total, $itemsQuantity, $efectivo, $change, $tipoPago, $vendedorSeleccionado;
     public $vendedores = [];
 
+    public $revisionVenta = false;
+
 
     public function mount()
     {
@@ -29,28 +31,48 @@ class Pos extends Component
         $this->total = Cart::getTotal();
         $this->itemsQuantity = Cart::getTotalQuantity();
         $this->vendedores = User::where('profile', 'vendedor')->pluck('name');
-        $this->vendedorSeleccionado;
+        //$this->vendedorSeleccionado = 0;
 
     }
 
 
     public function render()
     {
+        if ($this->revisionVenta) {
+           
+        return view('livewire.pos.revision_venta', [
+            'denominations' => Denomination::orderBy('value','desc')->get(),
+            'cart' => Cart::getContent()->sortBy('name'),
+            ])
+        ->extends('layouts.theme.app')
+        ->section('content');
+        } else {
         $valores = $this->filtroTipoPago();
-
         return view('livewire.pos.component', [
             'denominations' => Denomination::orderBy('value','desc')->get(),
             'cart' => Cart::getContent()->sortBy('name'),
             'valores' => $valores,
-
         ])
         ->extends('layouts.theme.app')
         ->section('content');
+        }
     }
+
 
     public function filtroTipoPago(){
         return Sale::pluck('status')->unique()->toArray();
         //return $valores;
+    }
+
+    public function revisarVenta()
+    {
+        $this->revisionVenta = true;
+    }
+
+    public function clearCash()
+    {
+        $this->efectivo = 0;
+        $this->change = 0;
     }
 
 
@@ -64,7 +86,8 @@ class Pos extends Component
         'scan-code' => 'ScanCode',
         'removeitem' => 'removeItem',
         'clearcart' => 'clearCart',
-        'savesale' => 'saveSale'
+        'savesale' => 'saveSale',
+        'clearCash' => 'clearCash'
     ];
 
     public function ScanCode($barcode, $cant = 1)
@@ -217,7 +240,7 @@ class Pos extends Component
         $this->total = Cart::getTotal();
         $this->itemsQuantity = Cart::getTotalQuantity();
         $this->tipoPago = 0;
-        $this->vendedorSeleccionado = '';
+        $this->vendedorSeleccionado = 0;
         $this->emit('scan-ok', 'Carrito vacio');
     }
 
@@ -298,7 +321,7 @@ class Pos extends Component
             $this->total = Cart::getTotal();
             $this->itemsQuantity = Cart::getTotalQuantity();
             $this->tipoPago = 0;
-            $this->vendedorSeleccionado = '';
+            $this->vendedorSeleccionado = 0;
             $this->emit('sale-ok','Venta registrada con exito');
             //$this->emit('print-ticket', $sale->id);
 
