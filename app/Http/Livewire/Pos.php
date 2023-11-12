@@ -38,16 +38,17 @@ class Pos extends Component
 
     public function render()
     {
+        $valores = $this->filtroTipoPago();
         if ($this->revisionVenta) {
            
         return view('livewire.pos.revision_venta', [
             'denominations' => Denomination::orderBy('value','desc')->get(),
             'cart' => Cart::getContent()->sortBy('name'),
+            'valores' => $valores,
             ])
         ->extends('layouts.theme.app')
         ->section('content');
         } else {
-        $valores = $this->filtroTipoPago();
         return view('livewire.pos.component', [
             'denominations' => Denomination::orderBy('value','desc')->get(),
             'cart' => Cart::getContent()->sortBy('name'),
@@ -69,7 +70,7 @@ class Pos extends Component
         $this->revisionVenta = true;
     }
 
-    public function clearCash()
+    public function clearChange()
     {
         $this->efectivo = 0;
         $this->change = 0;
@@ -87,7 +88,7 @@ class Pos extends Component
         'removeitem' => 'removeItem',
         'clearcart' => 'clearCart',
         'savesale' => 'saveSale',
-        'clearCash' => 'clearCash'
+        'clearChange' => 'clearChange'
     ];
 
     public function ScanCode($barcode, $cant = 1)
@@ -213,22 +214,26 @@ class Pos extends Component
 
         $item = Cart::get($productId);
 
-    if ($item) {
-        Cart::remove($productId);
-
-        $newQty = ($item->quantity) - 1;
-
-        if ($newQty > 0) {
-            // Asegúrate de que `attributes` esté definido y tenga elementos antes de acceder a su índice 0
-            $attributes = isset($item->attributes) && is_array($item->attributes) ? $item->attributes : [];
-
-            Cart::add($item->id, $item->name, $item->price, $newQty, $attributes);
-
+        if ($item) {
+            Cart::remove($productId);
             $this->total = Cart::getTotal();
             $this->itemsQuantity = Cart::getTotalQuantity();
-            $this->emit('scan-ok', 'Cantidad Actualizada');
+            //Reinician los valores de TOTAL y ARTICULOS
+
+        
+            $newQty = ($item->quantity) - 1;
+        
+            if ($newQty > 0) {
+                // Asegúrate de que `attributes` esté definido y sea un array antes de acceder a su índice 0
+                $attributes = isset($item->attributes) && is_array($item->attributes) ? $item->attributes : [];
+        
+                Cart::add($item->id, $item->name, $item->price, $newQty, $attributes);
+        
+                $this->total = Cart::getTotal();
+                $this->itemsQuantity = Cart::getTotalQuantity();
+                $this->emit('scan-ok', 'Cantidad Actualizada');
+            }
         }
-    }
     }
 
     public function clearCart()

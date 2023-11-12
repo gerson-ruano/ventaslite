@@ -30,8 +30,12 @@
                                 class="form-control col-sm mt-2 text-center" value="{{number_format($efectivo, 2)}}">
                         </div>
                         <div class="input-group-append">
-                            <span wire:click="$set('efectivo', 0); $set('change', 0)" class="input-group-text" style="background: #3B3F5C; 
+                            {{--<span wire:click="$set('efectivo', 0); $set('change', 0)" class="input-group-text" style="background: #3B3F5C; 
                                 color:white">
+                                <i class="fas fa-backspace fa-2x"></i>
+                            </span>--}}
+                            <span wire:click="clearChange" class="input-group-text"
+                                style="background: #3B3F5C; color:white">
                                 <i class="fas fa-backspace fa-2x"></i>
                             </span>
                         </div>

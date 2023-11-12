@@ -4,46 +4,47 @@
             <div class="connect-sorting">
                 <h5 class="text-center">Resumen de venta #</h5>
                 <div class="connect-sorting-content">
-                    <div class="car simple-ttle-task ui-sortable-handle">
-                        <div class="card-body">
-                            <div class="task-header">
-                                @if($tipoPago != 0)
-                                <h6>Tipo de Pago: {{$tipoPago}}</h6>
-                                @else
-                                <div style="display: flex; align-items: center;">
-                                    <h6 class="text-center">Tipo de Pago:</h6>
-                                    <h6 class="text-danger" style="margin-left: 10px;">INGRESAR!!</h6>
-                                </div>
-                                @endif
-                                @if($vendedorSeleccionado != 0)
-                                <h6>Nombre: {{$vendedorSeleccionado}}</h6>
-                                @else
-                                <div style="display: flex; align-items: center;">
-                                    <h6>Nombre:</h6>
-                                    <h6 class="text-danger" style="margin-left: 10px;">C/F</h6>
-                                </div>
-                                @endif
-                            </div>
-                            <div>
-                                <h6>Efectivo: Q {{number_format($efectivo, 2)}}</h6>
-                                @if($total > 0)
-                                <h6 class="">Total: Q {{ number_format($total, 2) }}</h6>
-                                @if($change > 0)
-                                <h6 class="">Cambio: Q {{ number_format($change, 2) }}</h6>
-                                @elseif($change == 0)
-                                <h6 class="text-muted">SIN CAMBIO</h6>
-                                @else
-                                <h6 class="text-danger">Falta Q {{ number_format(-$change, 2) }}</h6>
-                                @endif
-                                <h6 class="">Artículos: {{ $itemsQuantity }}</h6>
-                                @else
-                                <h6 class="text-muted">No hay productos en la venta</h6>
-                                @endif
-                            </div>
-                        </div>
-
+    <div class="car simple-ttle-task ui-sortable-handle">
+        <div class="card-body d-flex justify-content-between">
+            <div class="task-header">
+                @if($vendedorSeleccionado != 0)
+                    <h6>Nombre: {{$vendedorSeleccionado}}</h6>
+                @else
+                    <div class="d-flex align-items-center">
+                        <h6 class="mb-0">Nombre:</h6>
+                        <h6 class="text-primary mb-0" style="margin-left: 10px;">C/F</h6>
                     </div>
-                </div>
+                @endif
+                @if($tipoPago != 0)
+                    <h6>Pago: {{$tipoPago}}</h6>
+                @else
+                    <div class="d-flex align-items-center">
+                        <h6 class="text-center mb-0">Pago:</h6>
+                        <h6 class="text-danger mb-0" style="margin-left: 10px;">INGRESAR!!</h6>
+                    </div>
+                @endif
+            </div>
+            <div class="text-right">
+                <h6>Efectivo: Q {{number_format($efectivo, 2)}}</h6>
+                @if($total > 0)
+                    <h6 class="">Total: Q {{ number_format($total, 2) }}</h6>
+                    <input type="hidden" id="hiddenTotal" value="{{$total}}">
+                    @if($change > 0)
+                        <h6 class="">Cambio: Q {{ number_format($change, 2) }}</h6>
+                    @elseif($change == 0)
+                        <h6 class="text-muted">SIN CAMBIO</h6>
+                    @else
+                        <h6 class="text-danger">Falta Q {{ number_format(-$change, 2) }}</h6>
+                    @endif
+                    <h6 class="">Artículos: {{ $itemsQuantity }}</h6>
+                @else
+                    <h6 class="text-muted">No hay productos en la venta</h6>
+                @endif
+            </div>
+        </div>
+    </div>
+</div>
+
                 <table class="table table-striped table-bordered">
                     <thead class="table-secondary">
                         <tr>

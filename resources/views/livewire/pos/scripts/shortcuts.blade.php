@@ -24,7 +24,7 @@ function clearCash() {
     document.getElementById('cash').value = '';
     document.getElementById('cash').focus();
 
-    Livewire.emit('clearCash');
+    Livewire.emit('clearChange');
 }
 
 function clearCart() {
