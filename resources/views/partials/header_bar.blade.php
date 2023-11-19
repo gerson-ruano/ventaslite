@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container d-print-none">
     <div class="header">
         <!-- Contenido del menú en la parte superior -->
         <ul class="menu-categories">

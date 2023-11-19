@@ -62,10 +62,10 @@ class Pos extends Component
 
     public function filtroTipoPago(){
         return Sale::pluck('status')->unique()->toArray();
-        //return $valores;
+        //return $valores; lista de estados
     }
 
-    public function revisarVenta()
+    public function revisarVenta() //Indica que vista utiliza para el index
     {
         $this->revisionVenta = true;
     }
@@ -75,7 +75,6 @@ class Pos extends Component
         $this->efectivo = 0;
         $this->change = 0;
     }
-
 
     public function ACash($value)
     {
@@ -200,7 +199,7 @@ class Pos extends Component
 
     public function decreaseQty($productId)
     {
-        /*$item = Cart::get($productId);
+        $item = Cart::get($productId);
         Cart::remove($productId);
 
         $newQty = ($item->quantity) - 1;
@@ -210,9 +209,9 @@ class Pos extends Component
 
         $this->total = Cart::getTotal();
         $this->itemsQuantity = Cart::getTotalQuantity();
-        $this->emit('scan-ok', 'Cantidad Actualizada');*/
+        $this->emit('scan-ok', 'Cantidad Actualizada');
 
-        $item = Cart::get($productId);
+        /*$item = Cart::get($productId);
 
         if ($item) {
             Cart::remove($productId);
@@ -231,9 +230,9 @@ class Pos extends Component
         
                 $this->total = Cart::getTotal();
                 $this->itemsQuantity = Cart::getTotalQuantity();
-                $this->emit('scan-ok', 'Cantidad Actualizada');
+                $this->emit('scan-ok', 'Cantidad Actualizada 1');
             }
-        }
+        }*/
     }
 
     public function clearCart()
@@ -272,7 +271,7 @@ class Pos extends Component
         }
         if($this->tipoPago == 0)
         {
-            $this->emit('sale-error','DEBE SELECCIONAR UN ESTADO DE LA VENTA');
+            $this->emit('sale-error','DEBE SELECCIONAR UN TIPO DE PAGO');
             return;
         }
         if(isset($this->vendedorSeleccionado)) {
@@ -316,10 +315,11 @@ class Pos extends Component
                     $product->stock = $product->stock - $item->quantity;
                     $product->save();
                 }
+                
             }
-
+            
             DB::commit();
-
+            
             Cart::clear();
             $this->efectivo =0;
             $this->change =0;
@@ -328,7 +328,10 @@ class Pos extends Component
             $this->tipoPago = 0;
             $this->vendedorSeleccionado = 0;
             $this->emit('sale-ok','Venta registrada con exito');
+            return redirect()->to('pos');
             //$this->emit('print-ticket', $sale->id);
+            
+            
 
         }catch (Exception $e){
             DB::rollback();

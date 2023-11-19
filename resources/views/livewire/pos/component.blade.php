@@ -7,12 +7,12 @@
             {{--Detalles--}}
             @include('livewire.pos.partials.detail')
             
-            <div class="col-sm-12 col-md-8 mt-4">
+            {{--<div class="col-sm-12 col-md-8 mt-4">
                 @if($itemsQuantity > 0)
                 @include('livewire.pos.revision_venta')
                 @else
                 @endif
-            </div>
+            </div>--}}
         </div><br>
         
 

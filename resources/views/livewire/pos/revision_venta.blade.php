@@ -1,49 +1,65 @@
 <div class="row mt-2">
     <div class="col-sm-12 justify-content-center d-flex">
         <div class="">
+            <td width="30%" style="vertical-align: top; padding-top: 10px; padding-left: 30px; position: relative">
+                <img src="{{ asset('assets/img/ventaslite_logo.png') }}" alt="" class="invoice-logo mb-2">
+            </td>
+            <tr>
+                <td colspan="2" align="center">
+                    <span style="font-size: 25px; font-weight: bold;"> Sistema VentasLite</span>
+                </td>
+            </tr>
             <div class="connect-sorting">
                 <h5 class="text-center">Resumen de venta #</h5>
                 <div class="connect-sorting-content">
-    <div class="car simple-ttle-task ui-sortable-handle">
-        <div class="card-body d-flex justify-content-between">
-            <div class="task-header">
-                @if($vendedorSeleccionado != 0)
-                    <h6>Nombre: {{$vendedorSeleccionado}}</h6>
-                @else
-                    <div class="d-flex align-items-center">
-                        <h6 class="mb-0">Nombre:</h6>
-                        <h6 class="text-primary mb-0" style="margin-left: 10px;">C/F</h6>
+                    <div class="car simple-ttle-task ui-sortable-handle">
+                        <div class="card-body d-flex justify-content-between">
+                            <div class="task-header">
+                                @if($vendedorSeleccionado != 0)
+                                <h6>Nombre: {{$vendedorSeleccionado}}</h6>
+                                @else
+                                <div class="d-flex align-items-center mb-1">
+                                    <h6 class="mb-0">Nombre:</h6>
+                                    <h6 class="text-primary mb-0" style="margin-left: 10px;">C/F</h6>
+                                </div>
+                                @endif
+                                @if($tipoPago != 0)
+                                <h6>Pago: {{$tipoPago}}</h6>
+                                @else
+                                <div class="d-flex align-items-center">
+                                    <h6 class="text-center mb-0">Pago:</h6>
+                                    <h6 class="text-danger mb-0" style="margin-left: 10px;">INGRESAR!!</h6>
+                                </div>
+                                @endif
+                            </div>
+                            <div class="text-right">
+
+
+                                @if($efectivo == 0 || is_null($efectivo))
+                                <h6 class="text-danger">INGRESAR! EFECTIVO</h6>
+                                @else
+                                <h6>Efectivo: Q {{number_format($efectivo, 2)}}</h6>
+                                @endif
+
+                                @if($total > 0)
+                                <h6 class="">Total: Q {{ number_format($total, 2) }}</h6>
+                                <input type="hidden" id="hiddenTotal" value="{{$total}}">
+                                @if($change > 0)
+                                <h6 class="">Cambio: Q {{ number_format($change, 2) }}</h6>
+                                @elseif($change == 0)
+                                <h6 class="text-muted">SIN CAMBIO</h6>
+                                @else
+                                <h6 class="text-danger">Falta Q {{ number_format(-$change, 2) }}</h6>
+                                @endif
+                                <h6 class="">Artículos: {{ $itemsQuantity }}</h6>
+                                @else
+                                <h6 class="text-muted">No hay productos en la venta</h6>
+                                @endif
+
+                            </div>
+                        </div>
                     </div>
-                @endif
-                @if($tipoPago != 0)
-                    <h6>Pago: {{$tipoPago}}</h6>
-                @else
-                    <div class="d-flex align-items-center">
-                        <h6 class="text-center mb-0">Pago:</h6>
-                        <h6 class="text-danger mb-0" style="margin-left: 10px;">INGRESAR!!</h6>
-                    </div>
-                @endif
-            </div>
-            <div class="text-right">
-                <h6>Efectivo: Q {{number_format($efectivo, 2)}}</h6>
-                @if($total > 0)
-                    <h6 class="">Total: Q {{ number_format($total, 2) }}</h6>
-                    <input type="hidden" id="hiddenTotal" value="{{$total}}">
-                    @if($change > 0)
-                        <h6 class="">Cambio: Q {{ number_format($change, 2) }}</h6>
-                    @elseif($change == 0)
-                        <h6 class="text-muted">SIN CAMBIO</h6>
-                    @else
-                        <h6 class="text-danger">Falta Q {{ number_format(-$change, 2) }}</h6>
-                    @endif
-                    <h6 class="">Artículos: {{ $itemsQuantity }}</h6>
-                @else
-                    <h6 class="text-muted">No hay productos en la venta</h6>
-                @endif
-            </div>
-        </div>
-    </div>
-</div>
+                </div>
 
                 <table class="table table-striped table-bordered">
                     <thead class="table-secondary">
@@ -85,15 +101,22 @@
                         </tr>
                     </tfoot>
                 </table>
-                <button wire:click="saveSale" class="btn btn-dark">Finalizar Venta</button>
-                <button onclick="window.print();" class="btn btn-dark">Imprimir</button>
-                <a href="{{ url('pos') }}" class="btn btn-dark">Retornar</a>
             </div>
+            <div class="text-center mt-2">
+                @can('Ventas_Create')
+                <button wire:click="saveSale" class="btn btn-dark d-print-none">Finalizar
+                    Venta</button>
+                @endcan
+                <button onclick="window.print();" class="btn btn-dark d-print-none">Imprimir</button>
+                {{--<button wire:click="revisarVenta" class="btn btn-dark d-print-none">Detalles Venta</button>--}}
+                <a href="{{ url('pos') }}" class="btn btn-dark d-print-none">Modificar</a>
+            </div>
+            <div wire:loading.inline wire:target="saveSale">
+                    <h3 class="text-danger text-center">Realizando Venta...</h3>
+                </div>
         </div>
-
     </div>
 </div>
-
 
 <!DOCTYPE html>
 <html>

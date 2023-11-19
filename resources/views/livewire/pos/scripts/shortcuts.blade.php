@@ -14,7 +14,7 @@ listener.simple_combo("f4", function() {
     var total = parseFloat(document.getElementById('hiddenTotal').value)
     if (total > 0) {
         ConfirmVaciarCart(0, 'clearCart', 'SEGURO DE ELIMINAR EL CARRITO?')
-        console.log(total)
+        //console.log(total)
     } else {
         noty('AGREGA PRODUCTOS A LA VENTA')
     }
@@ -31,13 +31,19 @@ function clearCart() {
     var total = parseFloat(document.getElementById('hiddenTotal').value);
     if (total > 0) {
         ConfirmVaciarCart(0, 'clearCart', 'SEGURO DE ELIMINAR EL CARRITO?');
-        console.log(total);
+        //console.log(total);
     } else {
         noty('AGREGA PRODUCTOS A LA VENTA');
     }
 }
 
 
-document.getElementById("clearCash").addEventListener("click", clearCash);
-document.getElementById("clearCart").addEventListener("click", clearCart);
+if (document.getElementById("clearCash")) {
+    document.getElementById("clearCash").addEventListener("click", clearCash);
+}
+
+if (document.getElementById("clearCart")) {
+    document.getElementById("clearCart").addEventListener("click", clearCart);
+}
+
 </script>
