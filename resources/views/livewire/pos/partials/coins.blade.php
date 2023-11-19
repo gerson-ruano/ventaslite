@@ -21,18 +21,6 @@
             <div class="connect-sorting-content mt-4">
                 <div class="card simple-title-task ui-sortable-handle">
                     <div class="card-body">
-                        {{---<div class="input-group input-group-md mb-3 justify-content-between">
-                            <div class="input-group-prepend">
-                                <button id="clearCash2" class="input-group-text input-gp hideonsm"
-                                    style="background: #3B3F5C; color:white">
-                                    Efectivo (F8)
-                                </button>
-                            </div>
-                            <span wire:click="clearChange" class="input-group-text"
-                                style="background: #3B3F5C; color:white">
-                                <i class="fas fa-backspace fa-2x"></i>
-                            </span>
-                        </div>--}}
 
                         <div class="d-flex justify-content-center align-items-center">
                             <h2 class="mr-2">Q.</h2>
@@ -117,9 +105,9 @@
 </div>
 
 <script>
-function Confirm(clearCart, text) {
+/*function Confirm(clearCart, text) {
 
-    console.log('Función Confirm llamada');
+    //console.log('Función Confirm llamada');
 
     swal({
         title: "QUE DESEA REALIZAR?",
@@ -135,5 +123,5 @@ function Confirm(clearCart, text) {
         }
     });
 
-}
+}*/
 </script>

@@ -4,9 +4,9 @@
         <div class="card simple-title-task">
             <div class="class-card-body">
                 @if($total > 0)
-                <div class="table-responsive-tblscroll" style="max-height: 650px
+                <div class="table-responsive-tblscroll" id="tbscroll" style="max-height: 650px
             overflow: hidden">
-                    <table class=" table table-bordered table-striped mt-1 mb-0">
+                    <table class=" table table-bordered table-striped mt-1 mb-2">
                         <thead class="text-white" style="background: #3B3F5C">
                             <tr>
                                 <th width="10%"></th>
@@ -17,6 +17,9 @@
                                 <th class="table-th text-center text-white">ACCION</th>
                             </tr>
                         </thead>
+                        @php
+                        $totalProduct = count($cart);
+                        @endphp
                         <tbody>
                             @foreach($cart as $item)
                             <tr>
@@ -104,7 +107,7 @@
                         @else
                         <div class="d-flex align-items-center mb-1">
                             <h6 class="mb-0">Nombre:</h6>
-                            <h6 class="text-primary mb-0" style="margin-left: 10px;">C/F</h6>
+                            <h6 class="text-primary mb-0" style="margin-left: 10px;"> C/F</h6>
                         </div>
                         @endif
                         @if($tipoPago != 0)
@@ -112,7 +115,7 @@
                         @else
                         <div class="d-flex align-items-center">
                             <h6 class="text-center mb-0">Pago:</h6>
-                            <h6 class="text-danger mb-0" style="margin-left: 10px;">INGRESAR!!</h6>
+                            <h6 class="text-danger mb-0" style="margin-left: 10px;">INGRESAR PAGO!!</h6>
                         </div>
                         @endif
                     </div>
@@ -135,11 +138,12 @@
                         @else
                         <h6 class="text-danger">Falta Q {{ number_format(-$change, 2) }}</h6>
                         @endif
+                        <h6 class="">Productos: {{ $totalProduct }}</h6>
                         <h6 class="">Artículos: {{ $itemsQuantity }}</h6>
                         @else
                         <h6 class="text-muted">No hay productos en la venta</h6>
                         @endif
-
+                        
                     </div>
                 </div>
 

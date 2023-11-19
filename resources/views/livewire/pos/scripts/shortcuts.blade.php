@@ -2,7 +2,7 @@
 var listener = new window.keypress.Listener();
 
 listener.simple_combo("f6", function() {
-    livewire.emit('savesSale')
+    livewire.emit('savesale')
 })
 
 listener.simple_combo("f8", function() {

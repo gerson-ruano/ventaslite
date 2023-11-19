@@ -1,3 +1,6 @@
+@php
+$totalProduct = count($cart);
+@endphp
 <div class="row mt-2">
     <div class="col-sm-12 justify-content-center d-flex">
         <div class="">
@@ -51,6 +54,7 @@
                                 @else
                                 <h6 class="text-danger">Falta Q {{ number_format(-$change, 2) }}</h6>
                                 @endif
+                                <h6 class="">Productos: {{ $totalProduct }}</h6>
                                 <h6 class="">Artículos: {{ $itemsQuantity }}</h6>
                                 @else
                                 <h6 class="text-muted">No hay productos en la venta</h6>
@@ -112,8 +116,8 @@
                 <a href="{{ url('pos') }}" class="btn btn-dark d-print-none">Modificar</a>
             </div>
             <div wire:loading.inline wire:target="saveSale">
-                    <h3 class="text-danger text-center">Realizando Venta...</h3>
-                </div>
+                <h3 class="text-danger text-center">Realizando Venta...</h3>
+            </div>
         </div>
     </div>
 </div>

@@ -110,6 +110,7 @@ class Pos extends Component
             Cart::add($product->id, $product->name, $product->price, $cant, $product->image);
             $this->total = Cart::getTotal();
             $this->itemsQuantity = Cart::getTotalQuantity();
+            $this->change = ($this->efectivo - $this->total);
 
             $this->emit('scan-ok', 'Producto Agregado');
         }
@@ -147,7 +148,7 @@ class Pos extends Component
 
         $this->total = Cart::getTotal();
         $this->itemsQuantity = Cart::getTotalQuantity();
-
+        $this->change = ($this->efectivo - $this->total);
         $this->emit('scan-ok','Cantidad Actualizada');
     }
 
@@ -209,8 +210,11 @@ class Pos extends Component
 
         $this->total = Cart::getTotal();
         $this->itemsQuantity = Cart::getTotalQuantity();
+        $this->change = ($this->efectivo - $this->total); //actualiza la cantidad de CAMBIO O CHANGE
         $this->emit('scan-ok', 'Cantidad Actualizada');
 
+
+         //version 2///
         /*$item = Cart::get($productId);
 
         if ($item) {
@@ -233,6 +237,8 @@ class Pos extends Component
                 $this->emit('scan-ok', 'Cantidad Actualizada 1');
             }
         }*/
+
+
     }
 
     public function clearCart()

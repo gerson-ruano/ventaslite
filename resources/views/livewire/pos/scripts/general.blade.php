@@ -1,17 +1,18 @@
 <script>
-$('.tblscroll').nicescroll({
+$('.table-responsive-tblscroll').niceScroll({
     cursorcolor: "#515365",
-    cursorwidth: "30px",
+    cursorwidth: "20px",
     background: "rgba(20,20,20,0.3)",
     cursorborder: "0px",
     cursorborderradius: 3
-})
+});
+
 
 
 function Confirm(id, removeitem, text) {
 
     swal({
-        title: "QUE DESEA REALIZAR?",
+        title: "DESEA QUITAR EL ARTICULO?",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
@@ -29,7 +30,7 @@ function Confirm(id, removeitem, text) {
 function ConfirmVaciarCart(clearcart, text) {
 
     swal({
-        title: "DESEA SALIR Y QUITAR PRODUCTOS?",
+        title: "QUITAR TODOS LOS ARTICULOS?",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
