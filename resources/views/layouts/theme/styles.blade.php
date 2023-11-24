@@ -120,6 +120,13 @@ aside {
         height: 60vh;
     }
 }
+
+.chart-container {
+    width: 100%; /* Ajusta el ancho del contenedor */
+    height: 400px; /* Define una altura predeterminada para el contenedor */
+    position: relative; /* Asegura que el canvas del gráfico se ajuste al tamaño del contenedor */
+}
+
     </style>
 
     <link href="{{ asset('plugins/flatpickr/flatpickr.dark.css')}}" rel="stylesheet" type="text/css" />

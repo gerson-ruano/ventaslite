@@ -12,7 +12,7 @@
                 <div class="item">
                     <div class="card">
                         <div class="card-body">
-                            <canvas id="chartUltimosDias" class="chart-canvas"></canvas>
+                            <canvas id="chartUltimosDias" class="chart-container"></canvas>
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                 <div class="item">
                     <div class="card">
                         <div class="card-body">
-                            <canvas id="chartStock" class="chart-canvas"></canvas>
+                            <canvas id="chartStock" class="chart-container"></canvas>
                         </div>
                     </div>
                 </div>
@@ -43,13 +43,14 @@
             </div>
             @endif
         </div>
+
         <!-- Gráfica 3 -->
         <div class="col-12 col-md-6 mt-1">
             <div class="owl-carousel">
                 <div class="item">
                     <div class="card">
                         <div class="card-body">
-                            <canvas id="chartProductTop" class="chart-canvas"></canvas>
+                            <canvas id="chartProductTop" class="chart-container"></canvas>
                         </div>
                     </div>
                 </div>
@@ -61,13 +62,14 @@
             </div>
             @endif
         </div>
+
         <!-- Gráfica 4 -->
         <div class="col-12 col-md-6 mt-1">
             <div class="owl-carousel">
                 <div class="item">
                     <div class="card">
                         <div class="card-body">
-                            <canvas id="chartReport" class="chart-canvas"></canvas>
+                            <canvas id="chartReport" class="chart-container"></canvas>
                         </div>
                     </div>
                 </div>
@@ -79,13 +81,51 @@
             </div>
             @endif
         </div>
+
         <!-- Gráfica 5 -->
         <div class="col-12 col-md-6 mt-1">
             <div class="owl-carousel">
                 <div class="item">
                     <div class="card">
                         <div class="card-body">
-                            <canvas id="chartTendenciaAnual" class="chart-canvas"></canvas>
+                            <canvas id="chartTopUsers" class="chart-container"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if(count($TopUserData) == 0)
+            <div class="alert alert-warning mt-4">
+                <strong>No hay reportes de ventas de usuarios.</strong> ¡Puedes crear ventas para comenzar a ver datos en la
+                gráfica!
+            </div>
+            @endif
+        </div>
+
+        <!-- Gráfica 6 -->
+        <div class="col-12 col-md-6 mt-1">
+            <div class="owl-carousel">
+                <div class="item">
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="chartIngresos" class="chart-container"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if($totalMoney == 0)
+            <div class="alert alert-warning">
+                <strong>No hay Ingresos.</strong> ¡Puedes agregar ventas para comenzar a ver datos en la
+                gráfica!
+            </div>
+            @endif
+        </div>
+        <!-- Gráfica 7 -->
+        <div class="col-12 col-md-6 mt-1">
+            <div class="owl-carousel">
+                <div class="item">
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="chartTendenciaAnual" class="chart-container"></canvas>
                         </div>
                     </div>
                 </div>
@@ -97,13 +137,13 @@
             </div>
             @endif
         </div>
-        <!-- Gráfica 6 -->
+        <!-- Gráfica 8 -->
         <div class="col-12 col-md-6 mt-1">
             <div class="owl-carousel">
                 <div class="item">
                     <div class="card">
                         <div class="card-body">
-                            <canvas id="chartTipoPago" class="chart-canvas"></canvas>
+                            <canvas id="chartTipoPago" class="chart-container"></canvas>
                         </div>
                     </div>
                 </div>

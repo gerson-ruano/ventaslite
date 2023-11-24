@@ -17,7 +17,11 @@ class GraficasController extends Controller
         $salesData = $this->ultimasVentas();
         $totalStock = $this->productoStock();
         $totalSales = $this->ventasTotales();
-        $totalMoney = $this->efectivoTotalDeVentas();
+        //$totalMoney = $this->efectivoTotalDeVentas();
+        $ingresosPorStatus = $this->ingresoTotalPorStatus();
+        $totalMoney = $ingresosPorStatus->pluck('total_por_status')->toArray();
+
+        $TopUserData = $this->TopUserVentas();
 
         $productSales = $this->productTop();
         //$productNames = $productSales->pluck('name');
@@ -28,7 +32,7 @@ class GraficasController extends Controller
 
         $ventasTipoPago = $this->obtenerDatosDeVentasTipoPago();
 
-        return view('livewire.reports.graficas', compact('salesData','totalStock',
+        return view('livewire.reports.graficas', compact('salesData','totalStock', 'TopUserData',
         'totalSales','totalMoney','productSales','datosDeVentas','stockProducts','ventasTipoPago'));
     }
 
@@ -41,6 +45,12 @@ class GraficasController extends Controller
 
     public function efectivoTotalDeVentas(){
        return Sale::sum('total');
+    }
+
+    public function ingresoTotalPorStatus() {
+        return Sale::select('status', DB::raw('SUM(total) as total_por_status'))
+            ->groupBy('status')
+            ->get();
     }
 
 
@@ -82,6 +92,21 @@ class GraficasController extends Controller
         return $products;
     }
 
+    public function TopUserVentas(){
+        $endDate = Carbon::now(); // Fecha actual
+        $startDate = $endDate->copy()->subDays(30); // Fecha hace 30 días
+
+    $TopUserData = Sale::whereDate('sales.created_at', '>=', $startDate)
+        ->whereDate('sales.created_at', '<=', $endDate)
+        ->join('users', 'sales.user_id', '=', 'users.id')
+        ->selectRaw('users.name as user_name, COUNT(*) as sales_count')
+        ->groupBy('user_name')
+        ->orderBy('user_name')
+        ->get();
+        return $TopUserData;
+    }
+
+
     public function productosConMenosExistencias() {
         return Product::where('stock', '<', 10)->get();
     }
@@ -98,7 +123,7 @@ class GraficasController extends Controller
         ->where('products.stock', '<=', $stockMinimo)
         ->groupBy('product_id') // Agrupar por ID del producto
         ->groupBy('category_name') // También agrupar por nombre de categoría
-        ->get(); 
+        ->get();
     }
 
     public function obtenerDatosDeVentasTipoPago() {

@@ -29,7 +29,9 @@ new Chart(barCtx, {
                 display: true,
                 text: 'ULTIMOS DIAS / VENTAS',
             }
-        }
+        },
+        responsive: true, // Permite que el gráfico sea receptivo
+        maintainAspectRatio: false // Permite que el tamaño se ajuste al contenedor
     }
 });
 function calculateTrendline(x, y) {
@@ -62,6 +64,37 @@ function calculateTrendline(x, y) {
 }
 
 
+// Datos para el gráfico de Barras TOP USUARIOS / VENTAS
+var userNames = @json($TopUserData->pluck('user_name')->toArray());
+var salesCounts = @json($TopUserData->pluck('sales_count')->toArray());
+//var daysOfWeek = salesData.map(item => item.user_name); //OTRA FORMA DE OBTENER
+//var salesData = salesData.map(item => item.sales_count);
+var barData = {
+    labels: userNames,
+    datasets: [{
+        label: 'Ventas por Usuario',
+        data: salesCounts,
+        backgroundColor: 'rgb(45, 76, 110)',
+    }]
+};
+
+var barCtx = document.getElementById('chartTopUsers').getContext('2d');
+new Chart(barCtx, {
+    type: 'bar',
+    data: barData,
+    options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'VENTAS POR USUARIO',
+            }
+        },
+        responsive: true, // Permite que el gráfico sea receptivo
+        maintainAspectRatio: false // Permite que el tamaño se ajuste al contenedor
+    }
+});
+
+
 // Datos para el gráfico de línea TENDENCIA DE VENTAS ANUAL
 var lineData = {
     labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto',
@@ -84,7 +117,9 @@ new Chart(lineCtx, {
                 display: true,
                 text: 'LINEA DE TENDENCIA ANUAL',
             }
-        }
+        },
+        responsive: true, // Permite que el gráfico sea receptivo
+        maintainAspectRatio: false // Permite que el tamaño se ajuste al contenedor
     }
 });
 
@@ -92,7 +127,7 @@ new Chart(lineCtx, {
 // Datos para el gráfico de DONA INGRESOS, PRODUCTOS, VENTAS
 var totalStock = @json($totalStock);
 var totalSales = @json($totalSales);
-var totalMoney = @json($totalMoney);
+//var totalMoney = @json($totalMoney);
 var donutData = {
     labels: ['INGRESOS', 'PRODUCTOS', 'No.VENTAS'],
     datasets: [{
@@ -106,13 +141,43 @@ new Chart(donutCtx, {
     type: 'doughnut',
     data: donutData,
     options: {
-        cutoutPercentage: 30,
+        cutoutPercentage: 50,
         plugins: {
             title: {
                 display: true,
                 text: 'REPORTE ESTADISTICO',
             }
-        }
+        },
+        responsive: true, // Permite que el gráfico sea receptivo
+        maintainAspectRatio: false // Permite que el tamaño se ajuste al contenedor
+    }
+});
+
+// Datos para el gráfico de DONA INGRESOS
+var totalMoney = @json($totalMoney);
+var donutData = {
+    labels: ['PAGADOS', 'PENDIENTES', 'CANCELADOS'],
+    datasets: [{
+        data: totalMoney,
+        backgroundColor: ['blue', 'green', 'red'],
+    }],
+};
+
+var donutCtx = document.getElementById('chartIngresos').getContext('2d');
+
+new Chart(donutCtx, {
+    type: 'doughnut',
+    data: donutData,
+    options: {
+        cutoutPercentage: 30,
+        plugins: {
+            title: {
+                display: true,
+                text: 'REPORTE MONETARIOS',
+            }
+        },
+        responsive: true, // Permite que el gráfico sea receptivo
+        maintainAspectRatio: false
     }
 });
 
@@ -150,7 +215,9 @@ new Chart(pieCtx, {
                 text: 'PRODUCTOS MAS VENDIDOS',
             },
         },
-    },
+        responsive: true, // Permite que el gráfico sea receptivo
+        maintainAspectRatio: false // Permite que el tamaño se ajuste al contenedor
+    }
 
 });
 
@@ -199,7 +266,9 @@ var existencias = productosConMenosExistencias.map(products => products.stock);
                     display: true,
                     text: 'STOCK MINIMO'
                 }
-            }
+            },
+            responsive: true, // Permite que el gráfico sea receptivo
+            maintainAspectRatio: false // Permite que el tamaño se ajuste al contenedor
         }
 
     });
@@ -250,10 +319,11 @@ new Chart(ctx, {
                 display: true,
                 text: 'ESTADOS DE PAGO',
             }
-        }
+        },
+        responsive: true, // Permite que el gráfico sea receptivo
+        maintainAspectRatio: false // Permite que el tamaño se ajuste al contenedor
 
     }
 });
-
 
 </script>
