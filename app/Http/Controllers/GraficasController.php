@@ -12,6 +12,7 @@ class GraficasController extends Controller
 {
     public function index()
     {
+        $stockMinimo = 10;
 
         $salesData = $this->ultimasVentas();
         $totalStock = $this->productoStock();
@@ -23,8 +24,8 @@ class GraficasController extends Controller
         //$productQuantities = $productSales->pluck('total_quantity');
 
         $stockProducts = $this->productosConMenosExistencias();
-        $datosDeVentas = $this->obtenerDatosDeVentas();
-        
+        $datosDeVentas = $this->obtenerDatosDeVentas($stockMinimo);
+
         $ventasTipoPago = $this->obtenerDatosDeVentasTipoPago();
 
         return view('livewire.reports.graficas', compact('salesData','totalStock',
@@ -41,7 +42,7 @@ class GraficasController extends Controller
     public function efectivoTotalDeVentas(){
        return Sale::sum('total');
     }
-    
+
 
     public function ultimasVentas(){
         $endDate = Carbon::now(); // Fecha actual
@@ -85,10 +86,18 @@ class GraficasController extends Controller
         return Product::where('stock', '<', 10)->get();
     }
 
-    public function obtenerDatosDeVentas() {
-        return  Sale::join('sale_details', 'sales.id', '=', 'sale_details.sale_id')
-        ->select('sale_details.product_id', DB::raw('SUM(sale_details.quantity) as total_quantity'))
-        ->groupBy('sale_details.product_id')
+    public function obtenerDatosDeVentas($stockMinimo) {
+        return Sale::join('sale_details', 'sales.id', '=', 'sale_details.sale_id')
+        ->join('products', 'sale_details.product_id', '=', 'products.id')
+        ->join('categories', 'products.category_id', '=', 'categories.id')
+        ->select(
+            'products.id as product_id',
+            'categories.name as category_name',
+            DB::raw('SUM(sale_details.quantity) as total_quantity')
+        )
+        ->where('products.stock', '<=', $stockMinimo)
+        ->groupBy('product_id') // Agrupar por ID del producto
+        ->groupBy('category_name') // También agrupar por nombre de categoría
         ->get(); 
     }
 
