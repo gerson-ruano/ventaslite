@@ -83,7 +83,7 @@
                 @else
                 <div class="alert alert-warning text-center mb-0">
                     <h5><i class="fas fa-info-circle"></i> No hay productos en la venta</h5>
-                    <p>Agrega productos para continuar.</p>
+                    <p>Agrega productos, ingresando el CODIGO respectivo ejem. #205</p>
                 </div>
                 @endif
 
@@ -95,69 +95,69 @@
     </div>
 </div>
 @if($itemsQuantity > 0)
-<div class="col-sm-12 col-md-19 mt-4">
+<div class="col-12 mt-4 mb-3">
     <div class="connect-sorting">
         <h5 class="text-center">Resumen de venta #</h5>
         <div class="connect-sorting-content">
             <div class="car simple-ttle-task ui-sortable-handle">
-                <div class="card-body d-flex justify-content-between">
-                    <div class="task-header">
-                        @if($vendedorSeleccionado != 0)
-                        <h6>Nombre: {{$vendedorSeleccionado}}</h6>
-                        @else
-                        <div class="d-flex align-items-center mb-1">
-                            <h6 class="mb-0">Nombre:</h6>
-                            <h6 class="text-primary mb-0" style="margin-left: 10px;"> C/F</h6>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="task-header">
+                                @if($vendedorSeleccionado != 0)
+                                    <h6>Nombre: {{$vendedorSeleccionado}}</h6>
+                                @else
+                                    <div class="d-flex align-items-center mb-1">
+                                        <h6 class="mb-0">Nombre:</h6>
+                                        <h6 class="text-primary mb-0" style="margin-left: 10px;"> C/F</h6>
+                                    </div>
+                                @endif
+                                @if($tipoPago != 0)
+                                    <h6>Pago: {{$tipoPago}}</h6>
+                                @else
+                                    <div class="d-flex align-items-center">
+                                        <h6 class="text-center mb-0">Pago:</h6>
+                                        <h6 class="text-danger mb-0" style="margin-left: 10px;">INGRESAR PAGO!!</h6>
+                                    </div>
+                                @endif
+                            </div>
                         </div>
-                        @endif
-                        @if($tipoPago != 0)
-                        <h6>Pago: {{$tipoPago}}</h6>
-                        @else
-                        <div class="d-flex align-items-center">
-                            <h6 class="text-center mb-0">Pago:</h6>
-                            <h6 class="text-danger mb-0" style="margin-left: 10px;">INGRESAR PAGO!!</h6>
+                        <div class="col-md-6">
+                            <div class="text-right">
+                                @if($efectivo == 0 || is_null($efectivo))
+                                    <h6 class="text-danger">INGRESAR! EFECTIVO</h6>
+                                @else
+                                    <h6>Efectivo: Q {{number_format($efectivo, 2)}}</h6>
+                                @endif
+                                @if($total > 0)
+                                    <h6 class="">Total: Q {{ number_format($total, 2) }}</h6>
+                                    <input type="hidden" id="hiddenTotal" value="{{$total}}">
+                                    @if($change > 0)
+                                        <h6 class="">Cambio: Q {{ number_format($change, 2) }}</h6>
+                                    @elseif($change == 0)
+                                        <h6 class="text-muted">SIN CAMBIO</h6>
+                                    @else
+                                        <h6 class="text-danger">Falta Q {{ number_format(-$change, 2) }}</h6>
+                                    @endif
+                                    <h6 class="">Productos: {{ $totalProduct }}</h6>
+                                    <h6 class="">Artículos: {{ $itemsQuantity }}</h6>
+                                @else
+                                    <h6 class="text-muted">No hay productos en la venta</h6>
+                                @endif
+                            </div>
                         </div>
-                        @endif
                     </div>
-                    <div class="text-right">
-
-
-                        @if($efectivo == 0 || is_null($efectivo))
-                        <h6 class="text-danger">INGRESAR! EFECTIVO</h6>
-                        @else
-                        <h6>Efectivo: Q {{number_format($efectivo, 2)}}</h6>
-                        @endif
-
-                        @if($total > 0)
-                        <h6 class="">Total: Q {{ number_format($total, 2) }}</h6>
-                        <input type="hidden" id="hiddenTotal" value="{{$total}}">
-                        @if($change > 0)
-                        <h6 class="">Cambio: Q {{ number_format($change, 2) }}</h6>
-                        @elseif($change == 0)
-                        <h6 class="text-muted">SIN CAMBIO</h6>
-                        @else
-                        <h6 class="text-danger">Falta Q {{ number_format(-$change, 2) }}</h6>
-                        @endif
-                        <h6 class="">Productos: {{ $totalProduct }}</h6>
-                        <h6 class="">Artículos: {{ $itemsQuantity }}</h6>
-                        @else
-                        <h6 class="text-muted">No hay productos en la venta</h6>
-                        @endif
-                        
+                    <div class="text-center mt-2">
+                        @can('Ventas_Create')
+                            <button wire:click="saveSale" class="btn btn-dark d-print-none">Finalizar Venta</button>
+                        @endcan
+                        <button wire:click="revisarVenta" class="btn btn-dark d-print-none" 
+                            @if ($tipoPago==0 || $efectivo < $total) disabled @endif>Detalles Venta</button>
                     </div>
                 </div>
-
-                <div class="text-center mt-2">
-                    @can('Ventas_Create')
-                    <button wire:click="saveSale" class="btn btn-dark d-print-none">Finalizar Venta</button>
-                    @endcan
-                    {{--<button onclick="window.print();" class="btn btn-dark d-print-none">Imprimir</button>--}}
-                    <button wire:click="revisarVenta" class="btn btn-dark d-print-none" @if ($tipoPago==0 || $efectivo <
-                        $total) disabled @endif>Detalles Venta</button>
-                </div>
-
             </div>
         </div>
     </div>
 </div>
+
 @endif

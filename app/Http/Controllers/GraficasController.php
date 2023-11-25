@@ -12,12 +12,12 @@ class GraficasController extends Controller
 {
     public function index()
     {
-        $stockMinimo = 10;
+        //$stockMinimo = 10;
 
         $salesData = $this->ultimasVentas();
         $totalStock = $this->productoStock();
         $totalSales = $this->ventasTotales();
-        //$totalMoney = $this->efectivoTotalDeVentas();
+
         $ingresosPorStatus = $this->ingresoTotalPorStatus();
         $totalMoney = $ingresosPorStatus->pluck('total_por_status')->toArray();
 
@@ -28,7 +28,16 @@ class GraficasController extends Controller
         //$productQuantities = $productSales->pluck('total_quantity');
 
         $stockProducts = $this->productosConMenosExistencias();
-        $datosDeVentas = $this->obtenerDatosDeVentas($stockMinimo);
+        
+        $posicion = 0; // Puedes cambiar esta variable para elegir otra posición si es necesario
+        if (isset($stockProducts[$posicion])) {
+            $stock = $stockProducts[$posicion]['alerts'];
+            $datosDeVentas = $this->obtenerDatosDeVentas($stock);
+        } else {
+            $stock = 10; 
+            $datosDeVentas = $this->obtenerDatosDeVentas($stock);
+        }
+        //$datosDeVentas = $this->obtenerDatosDeVentas(10);
 
         $ventasTipoPago = $this->obtenerDatosDeVentasTipoPago();
 
@@ -41,10 +50,6 @@ class GraficasController extends Controller
     }
     public function ventasTotales(){
         return Sale::count();
-    }
-
-    public function efectivoTotalDeVentas(){
-       return Sale::sum('total');
     }
 
     public function ingresoTotalPorStatus() {
@@ -94,7 +99,7 @@ class GraficasController extends Controller
 
     public function TopUserVentas(){
         $endDate = Carbon::now(); // Fecha actual
-        $startDate = $endDate->copy()->subDays(30); // Fecha hace 30 días
+        $startDate = $endDate->copy()->subDays(90); // Fecha hace 30 días
 
     $TopUserData = Sale::whereDate('sales.created_at', '>=', $startDate)
         ->whereDate('sales.created_at', '<=', $endDate)
@@ -107,11 +112,16 @@ class GraficasController extends Controller
     }
 
 
-    public function productosConMenosExistencias() {
-        return Product::where('stock', '<', 10)->get();
-    }
+   /* public function productosConMenosExistencias($stockMinimo) {
+        return Product::where('stock', '<', $stockMinimo)->get();
+    }*/
 
-    public function obtenerDatosDeVentas($stockMinimo) {
+    public function productosConMenosExistencias() {
+        return Product::whereColumn('stock', '<', 'alerts')->get();
+    }
+    
+
+    public function obtenerDatosDeVentas($stock) {
         return Sale::join('sale_details', 'sales.id', '=', 'sale_details.sale_id')
         ->join('products', 'sale_details.product_id', '=', 'products.id')
         ->join('categories', 'products.category_id', '=', 'categories.id')
@@ -120,7 +130,7 @@ class GraficasController extends Controller
             'categories.name as category_name',
             DB::raw('SUM(sale_details.quantity) as total_quantity')
         )
-        ->where('products.stock', '<=', $stockMinimo)
+        ->where('products.stock', '<=', $stock )
         ->groupBy('product_id') // Agrupar por ID del producto
         ->groupBy('category_name') // También agrupar por nombre de categoría
         ->get();
