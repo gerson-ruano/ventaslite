@@ -18,7 +18,8 @@
 
                        
                     </div>
-                    {{ __('Usted esta logueado! en VENTASLITE 2023') }}
+                    <h5 class="text-white">Hola {{ Auth::user()->name }}
+                    {{ __('esta logueado! en VENTASLITE 2023') }}</h5>
 
 
                 </div>

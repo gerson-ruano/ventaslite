@@ -71,3 +71,5 @@ Route::middleware(['auth'])->group(function () {
     //$total, $itemsQuantity, $efectivo, $change;
 
 });
+
+    
