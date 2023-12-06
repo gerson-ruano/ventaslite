@@ -5,7 +5,7 @@
             <li class="nav-item theme-logo">
                 <a href="home">
                     <img src="assets/img/ventaslite_logo.png" class="navbar-logo" alt="logo"><b
-                        style="font-size: 30px: color:#3B3F5C">VentasLite</b>
+                        style="font-size: 30px: color:#3B3F5C">{{ config('app.name') }}</b>
                 </a>
             </li>
         </ul>
@@ -31,7 +31,8 @@
                 @if(auth()->check() && auth()->user()->image)
                     <img src="{{ asset('storage/users/' . auth()->user()->image) }}" class="img-fluid mr-2" alt="avatar">
                 @else
-                    <i class="fas fa-user text-dark"></i>
+                <img src="assets/img/invitado.png" class="img-fluid mr-2" alt="avatar">
+                    {{--<i class="fas fa-user text-dark"></i>--}}
                 @endif
 
                     </a>
@@ -43,7 +44,7 @@
                                 @if(auth()->check() && auth()->user()->image)
                                     <img src="{{ asset('storage/users/' . auth()->user()->image) }}" class="img-fluid mr-2" alt="avatar">
                                 @else
-                                    <img src="{{ asset('storage/users/noimg.jpg') }}" class="img-fluid mr-2" alt="avatar">
+                                    <img src="assets/img/invitado.png" class="img-fluid mr-2" alt="avatar">
                                 @endif
                                 <div class="media-body">
                                     <h5>Mi Perfil</h5>

@@ -24,7 +24,9 @@ class HomeController extends Controller
     public function index()
     {
 
+        $appName = config('app.name');
         $showSidebar = true;
-        return view('home',['showSidebar' => $showSidebar]);
+        return view('home',['showSidebar' => $showSidebar, 'appName'=> $appName]);
     }
+
 }

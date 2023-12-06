@@ -12,6 +12,7 @@ use App\Models\Sale;
 use App\Models\SaleDetails;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\User;
+use Dompdf\Options;
 
 class ExportController extends Controller
 {
@@ -45,6 +46,16 @@ class ExportController extends Controller
         $user = $userId == 0 ? 'Todos' : User::find($userId)->name;
         $pdf = PDF\Pdf::loadView('pdf.reporte', compact('data', 'reportType','user','dateFrom','dateTo'));
 
+        //$options = new Options();
+        //$options->set('isPhpEnabled', true);
+        //$options->set('isHtml5ParserEnabled', true);
+        //$options->set('isFontSubsettingEnabled', true);
+        //$options->set('isJavascriptEnabled', true);
+        //$options->set('script', 'script');
+        
+
+        //$pdf->getDomPDF()->setOptions($options);
+
         return $pdf->stream('salesReport.pdf'); //visualizar
         //return $pdf->download('salesReport.pdf'); //descargar
     }
@@ -75,6 +86,15 @@ class ExportController extends Controller
         return $pdf->stream('venta.pdf');*/
 
         $pdf = PDF\Pdf::loadView('pdf.reporteventa', ['cart' => $cart]);
+
+        $options = new Options();
+        //$options->set('isPhpEnabled', true);
+        $options->set('isHtml5ParserEnabled', true);
+        //$options->set('isFontSubsettingEnabled', true);
+        //$options->set('isJavascriptEnabled', true);
+        //$options->set('script', 'script');
+
+        //$pdf->getDomPDF()->setOptions($options);
         return $pdf->stream('VentaReport.pdf'); //visualizar
     }
 
@@ -111,6 +131,14 @@ class ExportController extends Controller
 
         $user = User::find($userid)->name;
         $pdf = PDF\Pdf::loadView('pdf.reportecaja', compact('data','user','fromDate','toDate'));
+        $options = new Options();
+        //$options->set('isPhpEnabled', true);
+        $options->set('isHtml5ParserEnabled', true);
+       // $options->set('isFontSubsettingEnabled', true);
+        //$options->set('isJavascriptEnabled', true);
+        //$options->set('script', 'script');
+
+        //$pdf->getDomPDF()->setOptions($options);
         return $pdf->stream('CajaReport.pdf'); //visualizar
     }
 

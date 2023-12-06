@@ -7,7 +7,7 @@
         <div class="col-md-8">
             <div class="card ml-30" style="margin-top: 120px;">
                 <div class="card-header text-center custom-color">
-                    <h4 class="text-white">{{ __('Register') }}</h4>
+                    <h4 class="text-white">{{config('app.name')}}</h4>
                 </div>
 
                 <div class="card-body custom-color">

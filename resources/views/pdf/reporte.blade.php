@@ -7,20 +7,67 @@
     <title>Reportes</title>
     <link rel="stylesheet" href="{{ asset('css/custom_pdf.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom_page.css') }}">
+    <style>
+        /* Estilo para el footer */
+        .footer {
+            text-align: center;
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-top: 30px; /* Espacio entre el contenido y el footer */
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+
+    .footer-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .footer-table td {
+        border: 1px solid #ddd;
+        padding: 5px;
+        text-align: center;
+    }
+
+    .footer-table .text-right {
+        text-align: right;
+    }
+
+    .pagenum:before {
+        content: counter(page);
+    }
+
+    .table-items {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    .table-items th,
+    .table-items td {
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
+    .table-items th {
+        background-color: #f2f2f2;
+    }
+    </style>
 </head>
 
 <body>
-
     <section class="header" style="top: -287px;">
         <table cellpadding="0" cellspacing="0" width="100%">
             <tr>
                 <td colspan="2" align="center">
-                    <span style="font-size: 25px; font-weight: bold;"> Sistema VentasLite</span>
+                    <span style="font-size: 25px; font-weight: bold;"> Sistema {{ config('app.name') }}</span>
                 </td>
             </tr>
             <tr>
-                <td width="30%"
-                style="vertical-align: top; padding-top: 10px; padding-left: 30px; position: relative">
+                <td width="30%" style="vertical-align: top; padding-top: 10px; padding-left: 30px; position: relative">
                     <img src="{{ asset('assets/img/ventaslite_logo.png') }}" alt="" class="invoice-logo">
                 </td>
                 <td width="70%" class="text-left text-company" style="vertical-align: top; padding-top: 30px">
@@ -73,10 +120,11 @@
                 @endforeach
             </tbody>
             <tfoot>
-                <tr>                 
-                <td align="center"colspan="2"><span><b>TOTALES:</b></span></td>
-                    <td style="text-align: right;" colspan="1" class="text-center"><span><strong> Q. {{ number_format($data->sum('total'),2) }}</strong></span></td>
-                    <td  align="center" class="text-center" style=""> {{ $data->sum('items')}}</td>
+                <tr>
+                    <td align="center" colspan="2"><span><b>TOTALES:</b></span></td>
+                    <td style="text-align: right;" colspan="1" class="text-center"><span><strong> Q.
+                                {{ number_format($data->sum('total'),2) }}</strong></span></td>
+                    <td align="center" class="text-center" style=""> {{ $data->sum('items')}}</td>
                     <td colspan="4"></td>
                 </tr>
             </tfoot>
@@ -84,60 +132,39 @@
     </section>
 
     <section class="footer">
-    <table cellpadding="0" cellspacing="0" class="" width="100%">
-        <tr>
-            <td width="20%">
-                <span>Sistema VentasLite</span>
-            </td>
-            <td width="60%" class="text-center">
-                Gerson Ruano
-            </td>
-            <td class="text-center" width="20%">
-                página <span class="pagenum"></span>
-            </td>
-        </tr>
-    </table>
-</section>
+        <table cellpadding="0" cellspacing="0" class="footer-table" width="100%">
+            <tr>
+                <td width="20%">
+                    <span>Sistema {{ config('app.name') }}</span>
+                </td>
+                <td class="text-right" width="80%">
+                    Página <span class="pagenum"></span> <span class="pagecount"></span>
+                </td>
+            </tr>
+        </table>
+    </section>
+
+    <script type="text/php">
+        if (isset($pdf)) {
+            $text = "Página {PAGE_NUM} de {PAGE_COUNT}";
+            $size = 14;
+            $color = array(0, 0, 0); // Color en RGB
+            $x = 250; // Ajusta la posición X 
+            $y = 780; // Ajusta la posición Y 
+
+            // Establecer el estilo de paginado para todas las páginas
+            for ($i = 1; $i <= $pdf->get_page_count(); $i++) {
+                $pdf->page_script('
+                    $font = $fontMetrics->get_font("Arial, Helvetica, sans-serif", "normal");
+                    $pdf->text(' . $x . ', ' . $y . ', "' . $text . '", $font, ' . $size . ', ' . var_export($color, true) . ');
+                ');
+            }
+        }
+    </script>
+
+
 
 </body>
 
+
 </html>
-
-
-<style>
-    .table-items {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 10px;
-    }
-
-    .table-items th, .table-items td {
-        /*padding: 2px;*/
-        border: 1px solid #ddd;
-        text-align: center;
-    }
-
-    .table-items th {
-        background-color: #f2f2f2;
-    }
-    .footer {
-        position: fixed;
-        bottom: 20px; /* Ajusta la distancia desde la parte inferior según tus necesidades */
-        left: 0;
-        right: 0;
-        text-align: center;
-    }
-
-    script[type="text/php"] {
-            if (isset($pdf)) {
-                $font = $fontMetrics->get_font("Arial, Helvetica, sans-serif", "normal");
-                $size = 10;
-                $pdf->page_text(270, 770, "Página: {PAGE_NUM} de {PAGE_COUNT}", $font, $size);
-            }
-        }
-
-    /*.table-items tfoot td {
-        background-color: #f2f2f2;
-        font-weight: bold;
-    }*/
-</style>

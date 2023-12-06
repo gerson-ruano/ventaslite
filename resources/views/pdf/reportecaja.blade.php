@@ -15,7 +15,7 @@
         <table cellpadding="0" cellspacing="0" width="100%">
             <tr>
                 <td colspan="2" align="center">
-                    <span style="font-size: 25px; font-weight: bold;"> Sistema VentasLite</span>
+                    <span style="font-size: 25px; font-weight: bold;"> Sistema {{ config('app.name') }}</span>
                 </td>
             </tr>
             <tr>
@@ -88,7 +88,7 @@
         <table cellpadding="0" cellspacing="0" class="" width="100%">
             <tr>
                 <td width="20%">
-                    <span>Sistema VentasLite</span>
+                    <span>Sistema {{ config('app.name') }}</span>
                 </td>
                 <td width="60%" class="text-center">
                     Gerson Ruano
@@ -131,6 +131,10 @@
     right: 0;
     text-align: center;
 }
+
+.pagenum:before {
+        content: counter(page);
+    }
 
 script[type="text/php"] {
     if (isset($pdf)) {

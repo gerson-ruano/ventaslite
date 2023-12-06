@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card custom-color">
-                <div class="card-header text-center">{{ __('VENTASLITE') }}</div>
+                <div class="card-header text-center">{{ __($appName) }}</div>
 
                 <div class="card-body text-center">
 
@@ -19,7 +19,7 @@
                        
                     </div>
                     <h5 class="text-white">Hola {{ Auth::user()->name }}
-                    {{ __('esta logueado! en VENTASLITE 2023') }}</h5>
+                    {{ __('esta logueado en') }} {{$appName}}</h5>
 
 
                 </div>
@@ -34,7 +34,7 @@
             <!-- Aquí puedes colocar información relacionada con el tema o la presentación general -->
             <div class="card bg-red">
                 <div class="card-body">
-                    <h2 class="text-center">VentasLite</h2>
+                    <h2 class="text-center">{{$appName}}</h2>
                     <p>Es tu destino definitivo para encontrar una amplia gama de productos de alta calidad y las
                         últimas tendencias del mercado.
                         Nuestro sitio web ofrece una experiencia de compra conveniente y placentera para aquellos que
