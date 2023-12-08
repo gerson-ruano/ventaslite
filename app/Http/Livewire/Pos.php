@@ -12,6 +12,7 @@ use App\Models\Denomination;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use App\Models\Product;
 use DB;
+use Illuminate\Support\Facades\URL;
 
 
 class Pos extends Component
@@ -76,6 +77,11 @@ class Pos extends Component
         $this->change = 0;
     }
 
+    public function redirectToPos()
+    {
+        return redirect()->to('/pos');
+    }
+
     public function ACash($value)
     {
         $this->efectivo += ($value == 0 ? $this->total : (float)$value);
@@ -87,7 +93,8 @@ class Pos extends Component
         'removeitem' => 'removeItem',
         'clearcart' => 'clearCart',
         'savesale' => 'saveSale',
-        'clearChange' => 'clearChange'
+        'clearChange' => 'clearChange',
+        'redirectPos' => 'redirectToPos'
     ];
 
     public function ScanCode($barcode, $cant = 1)
@@ -206,7 +213,11 @@ class Pos extends Component
         $newQty = ($item->quantity) - 1;
         if($newQty > 0)
 
-        Cart::add($item->id, $item->name, $item->price, $newQty, $item->attributes[0]);
+        if (isset($item->attributes[0])) {
+            Cart::add($item->id, $item->name, $item->price, $newQty, $item->attributes[0]);
+        } else {
+            Cart::add($item->id, $item->name, $item->price, $newQty);
+        }
 
         $this->total = Cart::getTotal();
         $this->itemsQuantity = Cart::getTotalQuantity();
@@ -256,6 +267,7 @@ class Pos extends Component
 
     public function saveSale()
     {
+       
         if($this->total <=0)
         {
             $this->emit('sale-error','AGREGA PRODUCTOS A LA VENTA');
@@ -334,11 +346,9 @@ class Pos extends Component
             $this->tipoPago = 0;
             $this->vendedorSeleccionado = 0;
             $this->emit('sale-ok','Venta registrada con exito');
-            return redirect()->to('pos');
+            //return redirect()->to('pos');
             //$this->emit('print-ticket', $sale->id);
             
-            
-
         }catch (Exception $e){
             DB::rollback();
             $this->emit('sale-error', $e->getMessage());

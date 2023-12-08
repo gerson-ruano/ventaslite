@@ -115,9 +115,6 @@ $totalProduct = count($cart);
                 {{--<button wire:click="revisarVenta" class="btn btn-dark d-print-none">Detalles Venta</button>--}}
                 <a href="{{ url('pos') }}" class="btn btn-dark d-print-none">Modificar</a>
             </div>
-            <div wire:loading.inline wire:target="saveSale">
-                <h3 class="text-danger text-center">Realizando Venta...</h3>
-            </div>
         </div>
     </div>
 </div>

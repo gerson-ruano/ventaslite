@@ -44,4 +44,18 @@ function ConfirmVaciarCart(clearcart, text) {
     });
 
 }
+
+document.addEventListener('livewire:load', function () {
+    Livewire.on('sale-ok', message => {
+        swal({
+            position: "top-end",
+            type: "success",
+            title: message,
+            showConfirmButton: false,
+            timer: 1500 
+        }).then(() => {
+            Livewire.emit('redirectPos');
+        });
+    });
+});
 </script>
