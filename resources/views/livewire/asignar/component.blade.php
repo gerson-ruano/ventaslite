@@ -92,11 +92,13 @@ document.addEventListener('DOMContentLoaded', function() {
 function Revocar() {
 
     swal({
-        title: "CONFIRMAS..?",
+        title: "DESEAS REVOCAR TODOS LOS PERMISOS..?",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
-        confirmButtonText: "REVOCAR TODOS LOS PERMISOS!",
+        confirmButtonText: "SI, CONFIRMO!",
+        cancelButtonColor: "#A9A9A9",
+        cancelButtonText: 'CANCELAR',
         closeOnConfirm: false
     }).then(function(result) {
         if (result.value) {

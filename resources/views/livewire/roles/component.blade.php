@@ -116,11 +116,13 @@ document.addEventListener('DOMContentLoaded', function() {
 function Confirm(id) {
 
     swal({
-        title: "QUE DESEA REALIZAR?",
+        title: "DESEA ELIMINAR EL ROL?",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
-        confirmButtonText: "SI, ELIMINAR!",
+        confirmButtonText: "ELIMINAR!",
+        cancelButtonColor: "#A9A9A9",
+        cancelButtonText: 'CANCELAR',
         closeOnConfirm: false
     }).then(function(result) {
         if (result.value) {

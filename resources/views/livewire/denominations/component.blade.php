@@ -26,39 +26,40 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @include('partials.result', ['result' => $data, 'name' => $componentName])
+                            @include('partials.result', ['result' => $data, 'name' => $componentName])
                             @foreach ($data as $coin)
-                                <tr>
-                                    <td>
-                                        <h6>{{ $coin->type }}</h6>
-                                    </td>
-                                    <td>
-                                        <h6 class="text-center">Q {{ number_format($coin->value, 2) }}</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <span>
-                                            {{--<img src="{{ asset('storage/' . $coin->imagen) }}" alt="imagen de ejemplo"
-                                                height="70" width="80" class="rounded">--}}
-                                                <img src="{{ $coin->imagen }}" alt="imagen de ejemplo" height="70" width="80" class="rounded">
-                                        </span>
-                                    </td>
-                                    <td class="text-center">
+                            <tr>
+                                <td>
+                                    <h6>{{ $coin->type }}</h6>
+                                </td>
+                                <td>
+                                    <h6 class="text-center">Q {{ number_format($coin->value, 2) }}</h6>
+                                </td>
+                                <td class="text-center">
+                                    <span>
+                                        {{--<img src="{{ asset('storage/' . $coin->imagen) }}" alt="imagen de ejemplo"
+                                        height="70" width="80" class="rounded">--}}
+                                        <img src="{{ $coin->imagen }}" alt="imagen de ejemplo" height="70" width="80"
+                                            class="rounded">
+                                    </span>
+                                </td>
+                                <td class="text-center">
                                     @can('Denominaciones_Update')
-                                        <a href="javascript:void(0)" wire:click="Edit({{ $coin->id }})"
-                                            class="btn btn-dark mtmobile" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                            @endcan
-                                        </a>
-
-                                        @can('Denominaciones_Destroy')
-                                        <a href="javascript:void(0)" onclick="Confirm('{{ $coin->id }}')"
-                                            class="btn btn-dark " title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                    <a href="javascript:void(0)" wire:click="Edit({{ $coin->id }})"
+                                        class="btn btn-dark mtmobile" title="Edit">
+                                        <i class="fas fa-edit"></i>
                                         @endcan
-                                        {{-- $category->imagen --}}
-                                    </td>
-                                </tr>
+                                    </a>
+
+                                    @can('Denominaciones_Destroy')
+                                    <a href="javascript:void(0)" onclick="Confirm('{{ $coin->id }}')"
+                                        class="btn btn-dark " title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                    @endcan
+                                    {{-- $category->imagen --}}
+                                </td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -73,49 +74,51 @@
 </div>
 
 <script>
-    function Confirm(id) {
-            swal({
-                title: "QUE DESEA REALIZAR?",
-                //text: "You will not be able to recover this imaginary file!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "SI, ELIMINAR!",
-                closeOnConfirm: false
-            }).then(function(result) {
-                if (result.value) {
-                    window.livewire.emit('deleteRow', id)
-                    //swal("Deleted!", "Your imaginary file has been deleted.", "success");
-                    swal.close()
-                }
-            });
-
+function Confirm(id) {
+    swal({
+        title: "DESEA ELIMINAR LA DENOMINACIÓN?",
+        //text: "You will not be able to recover this imaginary file!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "ELIMINAR!",
+        cancelButtonColor: "#A9A9A9",
+        cancelButtonText: 'CANCELAR',
+        closeOnConfirm: false
+    }).then(function(result) {
+        if (result.value) {
+            window.livewire.emit('deleteRow', id)
+            //swal("Deleted!", "Your imaginary file has been deleted.", "success");
+            swal.close()
         }
-    document.addEventListener('DOMContentLoaded', function() {
-
-        window.livewire.on('item-added', msg => {
-            $('#theModal').modal('hide');
-        });
-        window.livewire.on('item-updated', msg => {
-            $('#theModal').modal('hide');
-        });
-        window.livewire.on('item-deleted', msg => {
-            //notificacion
-        });
-        window.livewire.on('show-modal', msg => {
-            $('#theModal').modal('show');
-        });
-        window.livewire.on('modal-hide', msg => {
-            $('#theModal').modal('hide');
-        });
-
-        $('#theModal').on('hidden.bs.modal', function() {
-            $('.er').css('display', 'none')
-        });
-
-
-        /*window.livewire.on('hidden.bs.modal', msg => {
-            $('.er').css('display', 'none')
-        });*/
     });
+
+}
+document.addEventListener('DOMContentLoaded', function() {
+
+    window.livewire.on('item-added', msg => {
+        $('#theModal').modal('hide');
+    });
+    window.livewire.on('item-updated', msg => {
+        $('#theModal').modal('hide');
+    });
+    window.livewire.on('item-deleted', msg => {
+        //notificacion
+    });
+    window.livewire.on('show-modal', msg => {
+        $('#theModal').modal('show');
+    });
+    window.livewire.on('modal-hide', msg => {
+        $('#theModal').modal('hide');
+    });
+
+    $('#theModal').on('hidden.bs.modal', function() {
+        $('.er').css('display', 'none')
+    });
+
+
+    /*window.livewire.on('hidden.bs.modal', msg => {
+        $('.er').css('display', 'none')
+    });*/
+});
 </script>

@@ -29,52 +29,56 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @include('partials.result', ['result' => $data, 'name' => $componentName])
+                            @include('partials.result', ['result' => $data, 'name' => $componentName])
                             @foreach ($data as $product)
-                                <tr>
-                                    <td>
-                                        <h6 class="text-left">{{ $product->name }}</h6>
-                                    </td>
-                                    <td>
-                                        <h6 class="text-center">{{ $product->barcode }}</h6>
-                                    </td>
-                                    <td>
-                                        <h6 class="text-center">{{ $product->category }}</h6>
-                                    </td>
-                                    <td>
-                                        <h6 class="text-center">{{ $product->price }}</h6>
-                                    </td>
-                                    <td>
-                                        <h6 class="text-center">{{ $product->stock }}</h6>
-                                    </td>
-                                    <td>
-                                        <h6 class="text-center">{{ $product->alerts }}</h6>
-                                    </td>
+                            <tr>
+                                <td>
+                                    <h6 class="text-left">{{ $product->name }}</h6>
+                                </td>
+                                <td>
+                                    <h6 class="text-center">{{ $product->barcode }}</h6>
+                                </td>
+                                <td>
+                                    <h6 class="text-center">{{ $product->category }}</h6>
+                                </td>
+                                <td>
+                                    <h6 class="text-center">{{ $product->price }}</h6>
+                                </td>
+                                <td>
+                                    <h6 class="text-center">{{ $product->stock }}</h6>
+                                </td>
+                                <td>
+                                    <h6 class="text-center">{{ $product->alerts }}</h6>
+                                </td>
 
-                                    <td class="text-center">
-                                        <span>
-                                            {{--<img src="{{ asset('storage/products/' . $product->imagen) }}"
-                                                alt="imagen de ejemplo" height="70" width="80" class="rounded">--}}
-                                                <img src="{{ $product->imagen }}" alt="imagen de ejemplo" height="70" width="80" class="rounded">
-                                        </span>
-                                    </td>
+                                <td class="text-center">
+                                    <span>
+                                        {{--<img src="{{ asset('storage/products/' . $product->imagen) }}"
+                                        alt="imagen de ejemplo" height="70" width="80" class="rounded">--}}
+                                        <img src="{{ $product->imagen }}" alt="imagen de ejemplo" height="70" width="80"
+                                            class="rounded">
+                                    </span>
+                                </td>
 
-                                    <td class="text-center">
-                                        @can('Product_Update')
-                                        <a href="javascript:void(0)" wire:click.prevent="Edit({{ $product->id }})"
-                                            class="btn btn-dark mtmobile" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                            @endcan
-                                        </a>
-
-                                        @can('Product_Destroy')
-                                        <a href="javascript:void(0)" onclick="Confirm('{{ $product->id }}')"
-                                            class="btn btn-dark " title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                <td class="text-center">
+                                    @can('Product_Update')
+                                    <a href="javascript:void(0)" wire:click.prevent="Edit({{ $product->id }})"
+                                        class="btn btn-dark mtmobile" title="Edit">
+                                        <i class="fas fa-edit"></i>
                                         @endcan
-                                    </td>
-                                </tr>
+                                    </a>
+
+                                    @can('Product_Destroy')
+                                    <a href="javascript:void(0)" onclick="Confirm('{{ $product->id }}')"
+                                        class="btn btn-dark " title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+
+
+                                    @endcan
+
+                                </td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -88,50 +92,55 @@
     @include('livewire.products.form')
 </div>
 
+
 <script>
-    function Confirm(id, products) {
+document.addEventListener('DOMContentLoaded', function() {
 
-        if (products > 0) {
-            swal('No se puede eliminar la categoria, porque tiene productos existentes')
-            return;
-        }
-        swal({
-            title: "QUE DESEA REALIZAR?",
-            //text: "You will not be able to recover this imaginary file!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "SI, ELIMINAR!",
-            closeOnConfirm: false
-        }).then(function(result) {
-            if (result.value) {
-                window.livewire.emit('deleteRow', id)
-                //swal("Deleted!", "Your imaginary file has been deleted.", "success");
-                swal.close()
-            }
-        });
-
-    }
-    document.addEventListener('DOMContentLoaded', function() {
-
-        window.livewire.on('product-added', msg => {
-            $('#theModal').modal('hide');
-        });
-        window.livewire.on('product-updated', msg => {
-            $('#theModal').modal('hide');
-        });
-        window.livewire.on('product-deleted', msg => {
-            //notificacion
-        });
-        window.livewire.on('modal-show', msg => {
-            $('#theModal').modal('show');
-        });
-        window.livewire.on('modal-hide', msg => {
-            $('#theModal').modal('hide');
-        });
-        window.livewire.on('hidden.bs.modal', msg => {
-            $('.er').css('display', 'none')
-        });
-
+    window.livewire.on('product-added', msg => {
+        $('#theModal').modal('hide');
     });
+    window.livewire.on('product-updated', msg => {
+        $('#theModal').modal('hide');
+    });
+    window.livewire.on('product-deleted', msg => {
+        //notificacion
+    });
+    window.livewire.on('modal-show', msg => {
+        $('#theModal').modal('show');
+    });
+    window.livewire.on('modal-hide', msg => {
+        $('#theModal').modal('hide');
+    });
+    window.livewire.on('hidden.bs.modal', msg => {
+        $('.er').css('display', 'none')
+    });
+
+
+});
+
+function Confirm(id, products) {
+
+    if (products > 0) {
+        swal('No se puede eliminar la categoria, porque tiene productos existentes')
+        return;
+    }
+    swal({
+        title: "DESEA ELIMINAR EL PRODUCTO?",
+        //text: "You will not be able to recover this imaginary file!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "ELIMINAR!",
+        cancelButtonColor: "#A9A9A9",
+        cancelButtonText: 'CANCELAR',
+        closeOnConfirm: false
+    }).then(function(result) {
+        if (result.value) {
+            window.livewire.emit('deleteRow', id)
+            //swal("Deleted!", "Your imaginary file has been deleted.", "success");
+            swal.close()
+        }
+    });
+
+}
 </script>

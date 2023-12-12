@@ -6,9 +6,9 @@
                 <h4 class="card-title">
                     <b>{{ $componentName }} | {{ $pageTitle }}</b>
                 </h4>
-                    @can('Category_Create')
-                    @include('partials.agregar', ['textButton' => 'Agregar'])
-                    @endcan
+                @can('Category_Create')
+                @include('partials.agregar', ['textButton' => 'Agregar'])
+                @endcan
             </div>
             @can('Category_Search')
             @include('common.searchbox')
@@ -24,39 +24,40 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @include('partials.result', ['result' => $categories, 'name' => $componentName])
+                            @include('partials.result', ['result' => $categories, 'name' => $componentName])
 
                             @foreach($categories as $category)
-                                <tr>
-                                    <td>
-                                        <h6>{{ $category->name }}</h6>
-                                    </td>
-                                    <td class="text-center">
-                                        <span>
-                                            {{--<img src="{{ asset('storage/categories/' . $category->imagen) }}"
-                                                alt="imagen de ejemplo" height="70" width="80" class="rounded">--}}
-                                                <img src="{{ $category->imagen }}" alt="imagen de ejemplo" height="70" width="80" class="rounded">
-                                        </span>
-                                    </td>
+                            <tr>
+                                <td>
+                                    <h6>{{ $category->name }}</h6>
+                                </td>
+                                <td class="text-center">
+                                    <span>
+                                        {{--<img src="{{ asset('storage/categories/' . $category->imagen) }}"
+                                        alt="imagen de ejemplo" height="70" width="80" class="rounded">--}}
+                                        <img src="{{ $category->imagen }}" alt="imagen de ejemplo" height="70"
+                                            width="80" class="rounded">
+                                    </span>
+                                </td>
 
-                                    <td class="text-center">
+                                <td class="text-center">
                                     @can('Category_Update')
-                                        <a href="javascript:void(0)" wire:click="Edit({{ $category->id }})"
-                                            class="btn btn-dark mtmobile" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                            @endcan
-                                        </a>
-
-                                        @can('Category_Destroy')
-                                        <a href="javascript:void(0)"
-                                            onclick="Confirm('{{ $category->id }}','{{ $category->products->count() }}')"
-                                            class="btn btn-dark " title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                    <a href="javascript:void(0)" wire:click="Edit({{ $category->id }})"
+                                        class="btn btn-dark mtmobile" title="Edit">
+                                        <i class="fas fa-edit"></i>
                                         @endcan
-                                        {{--$category->imagen--}}
-                                    </td>
-                                </tr>
+                                    </a>
+
+                                    @can('Category_Destroy')
+                                    <a href="javascript:void(0)"
+                                        onclick="Confirm('{{ $category->id }}','{{ $category->products->count() }}')"
+                                        class="btn btn-dark " title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                    @endcan
+                                    {{--$category->imagen--}}
+                                </td>
+                            </tr>
                             @endforeach
 
                         </tbody>
@@ -72,40 +73,46 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
 
-        window.livewire.on('show-modal', msg => {
-            $('#theModal').modal('show');
+    window.livewire.on('show-modal', msg => {
+        $('#theModal').modal('show');
+    });
+    window.livewire.on('category-added', msg => {
+        $('#theModal').modal('hide');
+    });
+    window.livewire.on('category-updated', msg => {
+        $('#theModal').modal('hide');
+    });
+});
+
+function Confirm(id, products) {
+
+    if (products > 0) {
+        swal.fire({
+            title: 'No se puede eliminar la categoría',
+            text: 'Tiene productos existentes',
+            type: 'warning'
         });
-        window.livewire.on('category-added', msg => {
-            $('#theModal').modal('hide');
-        });
-        window.livewire.on('category-updated', msg => {
-            $('#theModal').modal('hide');
-        });
+        return;
+    }
+    swal({
+        title: "DESEA ELIMINAR LA CATEGORIA?",
+        //text: "You will not be able to recover this imaginary file!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "ELIMINAR!",
+        cancelButtonColor: "#A9A9A9",
+        cancelButtonText: 'CANCELAR',
+        closeOnConfirm: false
+    }).then(function(result) {
+        if (result.value) {
+            window.livewire.emit('deleteRow', id)
+            //swal("Deleted!", "Your imaginary file has been deleted.", "success");
+            swal.close()
+        }
     });
 
-    function Confirm(id, products) {
-
-        if (products > 0) {
-            swal('No se puede eliminar la categoria, porque tiene productos existentes')
-            return;
-        }
-        swal({
-            title: "QUE DESEA REALIZAR?",
-            //text: "You will not be able to recover this imaginary file!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "SI, ELIMINAR!",
-            closeOnConfirm: false
-        }).then(function(result) {
-            if (result.value) {
-                window.livewire.emit('deleteRow', id)
-                //swal("Deleted!", "Your imaginary file has been deleted.", "success");
-                swal.close()
-            }
-        });
-
-    }
+}
 </script>
