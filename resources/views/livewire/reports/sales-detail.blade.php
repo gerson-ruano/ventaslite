@@ -14,7 +14,7 @@
                     <table class="table table-bordered table-striped mt-1">
                         <thead class="text-white" style="background: #3B3F5C">
                             <tr>
-                                <th class="table-th text-white text-center">VENTA</th>
+                                <th class="table-th text-white text-center">ITEM</th>
                                 <th class="table-th text-white text-center">PRODUCTO</th>
                                 <th class="table-th text-white text-center">PRECIO</th>
                                 <th class="table-th text-white text-center">CANT</th>

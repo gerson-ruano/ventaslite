@@ -67,7 +67,7 @@
                                     <tr>
                                         <th class="table-th text-white text-center">VENTA</th>
                                         <th class="table-th text-white text-center">TOTAL</th>
-                                        <th class="table-th text-white text-center">ITEMS</th>
+                                        <th class="table-th text-white text-center">CANTIDAD</th>
                                         <th class="table-th text-white text-center">ESTADO</th>
                                         <th class="table-th text-white text-center">USUARIO</th>
                                         <th class="table-th text-white text-center">VENDEDOR</th>

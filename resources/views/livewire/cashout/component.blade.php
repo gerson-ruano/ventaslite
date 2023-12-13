@@ -66,7 +66,7 @@
                                         TOTAL
                                     </th>
                                     <th class="table-th text-center text-white">
-                                        ITEMS
+                                        CANTIDAD
                                     </th>
                                     <th class="table-th text-center text-white">
                                         VENDEDOR
