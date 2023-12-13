@@ -33,17 +33,20 @@ function clearCart() {
         ConfirmVaciarCart(0, 'clearCart', 'SEGURO DE ELIMINAR EL CARRITO?');
         //console.log(total);
     } else {
-        noty('AGREGA PRODUCTOS A LA VENTA');
+        console.log('No tiene valor total');
+        //noty('AGREGA PRODUCTOS A LA VENTA');
     }
 }
 
 
-if (document.getElementById("clearCash")) {
-    document.getElementById("clearCash").addEventListener("click", clearCash);
-}
 
-if (document.getElementById("clearCart")) {
-    document.getElementById("clearCart").addEventListener("click", clearCart);
-}
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById("clearCash")) {
+        document.getElementById("clearCash").addEventListener("click", clearCash);
+    }
 
+    if (document.getElementById("clearCart")) {
+        document.getElementById("clearCart").addEventListener("click", clearCart);
+    }
+});
 </script>

@@ -10,14 +10,14 @@ $('.table-responsive-tblscroll').niceScroll({
 
 
 function Confirm(id, removeitem, text) {
-
     swal({
         title: "DESEA QUITAR EL ARTICULO?",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
-        confirmButtonText: "SI, ELIMINAR!",
-        closeOnConfirm: false
+        confirmButtonText: "ELIMINAR!",
+        cancelButtonColor: "#A9A9A9",
+        cancelButtonText: 'CANCELAR',
     }).then(function(result) {
         if (result.value) {
             window.livewire.emit('removeitem', id)
@@ -28,34 +28,50 @@ function Confirm(id, removeitem, text) {
 }
 
 function ConfirmVaciarCart(clearcart, text) {
-
     swal({
-        title: "QUITAR TODOS LOS ARTICULOS?",
+        title: "DESEA QUITAR TODOS LOS ARTICULOS?",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
-        confirmButtonText: "SI, ELIMINAR!",
-        closeOnConfirm: false
+        confirmButtonText: "ELIMINAR!",
+        cancelButtonColor: "#A9A9A9",
+        cancelButtonText: 'CANCELAR',
     }).then(function(result) {
         if (result.value) {
             window.livewire.emit('clearcart')
             swal.close()
         }
     });
-
 }
 
-document.addEventListener('livewire:load', function () {
+document.addEventListener('livewire:load', function() {
     Livewire.on('sale-ok', message => {
         swal({
             position: "top-end",
             type: "success",
             title: message,
             showConfirmButton: false,
-            timer: 1500 
+            timer: 1500
+        });
+        
+        setTimeout(() => {
+            Livewire.emit('redirectPos');
+        }, 1200);
+    });
+});
+
+/*
+document.addEventListener('livewire:load', function() {
+    Livewire.on('sale-ok', message => {
+        swal({
+            position: "top-end",
+            type: "success",
+            title: message,
+            showConfirmButton: false,
+            timer: 1500
         }).then(() => {
             Livewire.emit('redirectPos');
         });
     });
-});
+});*/
 </script>

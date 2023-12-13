@@ -103,25 +103,3 @@
 </div>
 
 </div>
-
-<script>
-/*function Confirm(clearCart, text) {
-
-    //console.log('Función Confirm llamada');
-
-    swal({
-        title: "QUE DESEA REALIZAR?",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "SI, ELIMINAR!",
-        closeOnConfirm: false
-    }).then(function(result) {
-        if (result.value) {
-            window.livewire.emit('clearCart');
-            swal.close();
-        }
-    });
-
-}*/
-</script>
