@@ -130,9 +130,8 @@ class GraficasController extends Controller
             'categories.name as category_name',
             DB::raw('SUM(sale_details.quantity) as total_quantity')
         )
-        ->where('products.stock', '<=', $stock )
-        ->groupBy('product_id') // Agrupar por ID del producto
-        ->groupBy('category_name') // También agrupar por nombre de categoría
+        ->where('products.stock', '<=', $stock)
+        ->groupBy('products.id', 'categories.name') // Agrupa por los campos seleccionados
         ->get();
     }
 
