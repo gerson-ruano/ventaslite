@@ -9,7 +9,7 @@ $totalProduct = count($cart);
             </td>
             <tr>
                 <td colspan="2" align="center">
-                    <span style="font-size: 25px; font-weight: bold;"> Sistema VentasLite</span>
+                    <span style="font-size: 25px; font-weight: bold;"> Sistema {{ config('app.name') }}</span>
                 </td>
             </tr>
             <div class="connect-sorting">

@@ -27,7 +27,7 @@
                     <div class="text-center">
                         <i class="fa fa-boxes fa-3x text-muted" aria-hidden="true"></i>
                         <div class=" text-center">
-                            <span class="text-white">GESTION DE STOKS</span>
+                            <span class="text-white">GESTION STOKS</span>
                         </div>
                     </div>
                 </a>
@@ -49,44 +49,6 @@
                     <li class="mt-2">
                         <a class="text-white" href="{{url('coins')}}">MONEDAS</a>
                         <i class="far fa-money-bill-alt fa-1x text-muted pl-3" aria-hidden="true" style="vertical-align: middle;"></i>
-                    </li>
-                    @endcan
-                </ul>
-            </li>
-            <li class="mt-5">
-                @role('Admin')
-                <a href="#homeSubmenuUser" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <div class="text-center">
-                        <i class="fa fa-users fa-3x text-muted" aria-hidden="true"></i>
-                        <div class=" text-center">
-                            <span class="text-white">GESTION DE USUARIOS</span>
-                        </div>
-                    </div>
-                </a>
-                @endcan
-                <ul class="collapse list-unstyled text-white text-lg" id="homeSubmenuUser">
-                    @role('Admin')
-                    <li class="mt-2">
-                        <a class="text-white text-left" href="{{ url('roles') }}">ROLES</a>
-                        <i class="fa fa-street-view fa-1x text-muted  pl-5" aria-hidden="true" style="vertical-align: middle;"></i>
-                    </li>
-                    @endcan
-                    @role('Admin')
-                    <li class="mt-2">
-                        <a class="text-white text-left" href="{{ url('permisos') }}">PERMISOS</a>
-                        <i class="fa fa-unlock-alt fa-1x text-muted pl-4" aria-hidden="true" style="vertical-align: middle;"></i>
-                    </li>
-                    @endcan
-                    @role('Admin')
-                    <li class="mt-2">
-                        <a class="text-white text-left" href="{{ url('asignar') }}">ASIGNAR</a>
-                        <i class="fa fa-check-square fa-1x text-muted pl-4" aria-hidden="true" style="vertical-align: middle;"></i>
-                    </li>
-                    @endcan
-                    @role('Admin')
-                    <li class="mt-2">
-                        <a class="text-white text-left" href="{{ url('users') }}">USUARIOS</a>
-                        <i class="fa fa-user fa-1x text-muted pl-3" aria-hidden="true" style="vertical-align: middle;"></i>
                     </li>
                     @endcan
                 </ul>
@@ -117,6 +79,44 @@
                     <li class="mt-2">
                         <a class="text-white text-left" href="{{ url('graficas') }}">ESTADISTICA</a>
                         <i class="fas fa-chart-bar fa-1x text-muted pl-2" aria-hidden="true" style="vertical-align: middle;"></i>
+                    </li>
+                    @endcan
+                </ul>
+            </li>
+            <li class="mt-5">
+                @role('Admin')
+                <a href="#homeSubmenuUser" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <div class="text-center">
+                        <i class="fa fa-users fa-3x text-muted" aria-hidden="true"></i>
+                        <div class=" text-center">
+                            <span class="text-white">GESTION USUARIOS</span>
+                        </div>
+                    </div>
+                </a>
+                @endcan
+                <ul class="collapse list-unstyled text-white text-lg" id="homeSubmenuUser">
+                    @role('Admin')
+                    <li class="mt-2">
+                        <a class="text-white text-left" href="{{ url('roles') }}">ROLES</a>
+                        <i class="fa fa-street-view fa-1x text-muted  pl-5" aria-hidden="true" style="vertical-align: middle;"></i>
+                    </li>
+                    @endcan
+                    @role('Admin')
+                    <li class="mt-2">
+                        <a class="text-white text-left" href="{{ url('permisos') }}">PERMISOS</a>
+                        <i class="fa fa-unlock-alt fa-1x text-muted pl-4" aria-hidden="true" style="vertical-align: middle;"></i>
+                    </li>
+                    @endcan
+                    @role('Admin')
+                    <li class="mt-2">
+                        <a class="text-white text-left" href="{{ url('asignar') }}">ASIGNAR</a>
+                        <i class="fa fa-check-square fa-1x text-muted pl-4" aria-hidden="true" style="vertical-align: middle;"></i>
+                    </li>
+                    @endcan
+                    @role('Admin')
+                    <li class="mt-2">
+                        <a class="text-white text-left" href="{{ url('users') }}">USUARIOS</a>
+                        <i class="fa fa-user fa-1x text-muted pl-3" aria-hidden="true" style="vertical-align: middle;"></i>
                     </li>
                     @endcan
                 </ul>

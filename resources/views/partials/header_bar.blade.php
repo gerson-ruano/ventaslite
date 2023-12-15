@@ -12,7 +12,7 @@
             @can('Report_Index')
             <li class="mt-0">
                 <a href="#homeSubmenuStock2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <span class="text-dark">GESTION DE STOKS</span>
+                    <span class="text-dark">GESTION STOKS</span>
                 </a>
                 @endcan
                 <ul class="collapse list-unstyled text-dark text-lg mt-2" id="homeSubmenuStock2">
@@ -38,10 +38,35 @@
                     @endcan
                 </ul>
             </li>
+            {{--@role('Admin')--}}
+            <li class="mt-0">
+                <a href="#homeSubmenuReport" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <span class="text-dark">REPORTERIA</span>
+                </a>
+                {{--@endcan--}}
+                <ul class="collapse list-unstyled text-white text-lg" id="homeSubmenuReport">
+                    @can('Cashout_Index')
+                    <li class="mt-2">
+                        <a class="text-left" href="{{ url('cashout') }}">CIERRE CAJA</a>
+                        <i class="fas fa-cash-register fa-1x text-muted  pl-2" aria-hidden="true" style="vertical-align: middle;"></i>
+                    </li>
+                    @endcan
+                    @can('Report_Index')
+                    <li class="mt-2">
+                        <a class="text-left" href="{{ url('reports') }}">VENTAS</a>
+                        <i class="fas fa-file-contract fa-1x text-muted pl-4" aria-hidden="true" style="vertical-align: middle;"></i>
+                    </li>
+                    <li class="mt-2">
+                        <a class="text-left" href="{{ url('graficas') }}">ESTADISTICA</a>
+                        <i class="fas fa-chart-bar fa-1x text-muted pl-2" aria-hidden="true" style="vertical-align: middle;"></i>
+                    </li>
+                    @endcan
+                </ul>
+            </li>
             @role('Admin')
             <li class="mt-0">
                 <a href="#homeSubmenuUser2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <span class="text-dark">GESTION DE USUARIOS</span>
+                    <span class="text-dark">GESTION USUARIOS</span>
                 </a>
                 <ul class="collapse list-unstyled text-white text-lg" id="homeSubmenuUser2">
                     @role('Admin')
@@ -66,31 +91,6 @@
                     <li class="mt-2">
                         <a class="text-dark text-left" href="{{ url('users') }}">USUARIOS</a>
                         <i class="fa fa-user fa-1x text-muted pl-3" aria-hidden="true" style="vertical-align: middle;"></i>
-                    </li>
-                    @endcan
-                </ul>
-            </li>
-            <li class="mt-0">
-                @role('Admin')
-                <a href="#homeSubmenuReport" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <span class="text-dark">REPORTERIA</span>
-                </a>
-                @endcan
-                <ul class="collapse list-unstyled text-white text-lg" id="homeSubmenuReport">
-                    @can('Cashout_Index')
-                    <li class="mt-2">
-                        <a class="text-left" href="{{ url('cashout') }}">CIERRE CAJA</a>
-                        <i class="fas fa-cash-register fa-1x text-muted  pl-2" aria-hidden="true" style="vertical-align: middle;"></i>
-                    </li>
-                    @endcan
-                    @can('Report_Index')
-                    <li class="mt-2">
-                        <a class="text-left" href="{{ url('reports') }}">VENTAS</a>
-                        <i class="fas fa-file-contract fa-1x text-muted pl-4" aria-hidden="true" style="vertical-align: middle;"></i>
-                    </li>
-                    <li class="mt-2">
-                        <a class="text-left" href="{{ url('graficas') }}">ESTADISTICA</a>
-                        <i class="fas fa-chart-bar fa-1x text-muted pl-2" aria-hidden="true" style="vertical-align: middle;"></i>
                     </li>
                     @endcan
                 </ul>
