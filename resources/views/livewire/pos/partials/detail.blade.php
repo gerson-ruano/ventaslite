@@ -1,5 +1,4 @@
 <div class="connect-sorting">
-
     <div class="connect-sortint-contect">
         <div class="card simple-title-task">
             <div class="class-card-body">
@@ -71,12 +70,11 @@
                                             <i class="fas fa-plus-square"></i>
                                         </button>
                                         <button wire:click.prevent="decreaseQty({{$item->id}})"
-                                            class="btn btn-dark mbmobile">
+                                            class="btn btn-dark mbmobile mr-1">
                                             <i class="fas fa-minus-square"></i>
                                         </button>
                                     </div>
                                 </td>
-
                             </tr>
                             @endforeach
                         </tbody>
@@ -88,10 +86,6 @@
                     <p>Agrega productos, ingresando el CODIGO respectivo ejem. #205</p>
                 </div>
                 @endif
-
-                {{--<div wire:loading.inline wire:target="saveSale">
-                    <h3 class="text-danger text-center">Realizando Venta...</h3>
-                </div>--}}
             </div>
         </div>
     </div>

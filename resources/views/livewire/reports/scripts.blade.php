@@ -260,14 +260,22 @@ new Chart(donutCtx, {
 
 ///////////////// GRAFICA 7 ////////////////
 // Datos para el gráfico de línea TENDENCIA DE VENTAS ANUAL
+var salesMonths = @json($salesMonths);
+// Mapeo de números de mes a nombres de mes
+var meses = [
+    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+];
+
+var labelsMonths = salesMonths.map(month => meses[month.month - 1]); // Ajusta para que coincida con el índice del array
+var salesData = salesMonths.map(month => month.sales);
+
 var lineData = {
-    labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto',
-        'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
-    ],
+    labels: labelsMonths, // Utiliza los meses que obtuviste
     datasets: [{
-        label: '2023',
+        label: 'Ventas Totales', // Puedes ajustar el nombre de la leyenda
         borderColor: 'rgb(45, 76, 110)',
-        data: [12, 19, 3, 5, 2, 5, 10, 3, 11, 20, 7, 11, 3, 8],
+        data: salesData, // Utiliza los datos de ventas por mes
     }],
 };
 

@@ -17,11 +17,11 @@
     <link href="{{ asset('assets/css/structure.css') }}" rel="stylesheet" type="text/css" class="structure" />
     <!-- END GLOBAL MANDATORY STYLES -->
 
-    {{--<!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
     <link href="{{ asset('plugins/apex/apexcharts.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/css/dashboard/dash_1.css') }}" rel="stylesheet" type="text/css"
         class="dashboard-analytics" />
-    <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->--}}
+    <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 
     <link href="{{ asset('plugins/font-icons/fontawesome/css/fontawesome.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/fontawesome.css') }}" rel="stylesheet" type="text/css">

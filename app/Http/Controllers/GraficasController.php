@@ -41,8 +41,10 @@ class GraficasController extends Controller
 
         $ventasTipoPago = $this->obtenerDatosDeVentasTipoPago();
 
+        $salesMonths = $this->TendenciaAnual();
+
         return view('livewire.reports.graficas', compact('salesData','totalStock', 'TopUserData',
-        'totalSales','totalMoney','productSales','datosDeVentas','stockProducts','ventasTipoPago'));
+        'totalSales','totalMoney','productSales','datosDeVentas','stockProducts','ventasTipoPago','salesMonths'));
     }
 
     public function productoStock(){
@@ -71,6 +73,8 @@ class GraficasController extends Controller
             ->get();
         return $salesData;
     }
+
+
 
     public function productTop(){
 
@@ -141,4 +145,18 @@ class GraficasController extends Controller
         ->groupBy('status')
         ->get();
     }
+
+    public function TendenciaAnual(){
+    $endDate = Carbon::now(); // Fecha actual
+    $startDate = $endDate->copy()->subDays(365); // Fecha hace 30 días
+
+    $salesMonths = Sale::whereDate('created_at', '>=', $startDate)
+        ->whereDate('created_at', '<=', $endDate)
+        ->selectRaw('MONTH(created_at) as month, COUNT(*) as sales')
+        ->groupBy('month')
+        ->orderBy('month')
+        ->get();  
+    return $salesMonths;
+}
+
 }

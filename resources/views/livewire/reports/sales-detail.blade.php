@@ -62,11 +62,16 @@
 
 
             </div>
+            
             <div class="modal-footer">
                 <button type="button" class="btn btn-dark close-btn text-info" data-dismiss="modal">
                     CERRAR
                 </button>
+                <button onclick="printModalContent()" class="btn btn-dark d-print-none">Imprimir</button>
             </div>
         </div>
     </div>
 </div>
+
+
+

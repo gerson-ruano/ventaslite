@@ -130,7 +130,7 @@
                     </div>
                 </div>
             </div>
-            @if(count($salesData) == 0)
+            @if(count($salesMonths) == 0)
             <div class="alert alert-warning">
                 <strong>No hay datos de ventas anuales.</strong> ¡Puedes crear ventas para comenzar a ver datos en la
                 gráfica!
