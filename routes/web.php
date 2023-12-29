@@ -61,6 +61,12 @@ Route::middleware(['auth'])->group(function () {
     //REPORTES CAJA
     Route::get('report/caja/{user}/{f1}/{f2}', [ExportController::class, 'reportCaja']);
 
+    //REPORTES VENTA
+    //Route::get('report/sale/{cart}/{f1}/{f2}', [ExportController::class, 'reportSale']);
+
+    Route::get('/generar-pdf', 'ExportController@reportSale')->name('generar.pdf');
+
+
     //REPORTES CIERRE DE CAJA
     //Route::get('/ver-pdf', 'App\Http\Livewire\Cashout@Print')->name('ver-pdf');
 

@@ -142,4 +142,12 @@ class ExportController extends Controller
         return $pdf->stream('CajaReport.pdf'); //visualizar
     }
 
+    public function reportSale($cart){
+
+        $pdf = PDF\Pdf::loadView('pdf.reportebusqueda', ['cart' => $cart]);
+
+        return $pdf->stream('SaleReport.pdf');
+
+    }
+
 }
