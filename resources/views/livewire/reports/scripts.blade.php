@@ -168,7 +168,7 @@ if (totalMoney && totalMoney.length > 0) {
     var totalSum = numericValues.reduce(function (accumulator, currentValue) {
         return accumulator + currentValue;
     }, 0);
-    //console.log(totalSum); 
+    //console.log(totalSum);
 } else {
     console.log('El array totalMoney está vacío o no definido.');
 }
@@ -267,13 +267,34 @@ var meses = [
     'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
 ];
 
+var salesMonths = @json($salesMonths);
 var labelsMonths = salesMonths.map(month => meses[month.month - 1]); // Ajusta para que coincida con el índice del array
 var salesData = salesMonths.map(month => month.sales);
+
+// Busca si ya existe enero en los datos originales
+var eneroIndex = labelsMonths.indexOf('Enero');
+if (eneroIndex !== -1) {
+    // Si existe, elimínalo del conjunto de datos existente
+    labelsMonths.splice(eneroIndex, 1);
+    salesData.splice(eneroIndex, 1);
+}
+
+// Agrega el mes de enero al final
+labelsMonths.push('Enero');
+
+// Comprueba si ya hay datos para enero
+var eneroDataIndex = salesMonths.findIndex(month => month.month === 1);
+if (eneroDataIndex !== -1) {
+    salesData.push(salesMonths[eneroDataIndex].sales); // Utiliza los datos de ventas para enero si están disponibles
+} else {
+    salesData.push(0); // Agrega un valor cero si no hay datos disponibles para enero
+}
+
 
 var lineData = {
     labels: labelsMonths, // Utiliza los meses que obtuviste
     datasets: [{
-        label: 'Ventas Totales', // Puedes ajustar el nombre de la leyenda
+        label: 'Ventas Mensuales', // Puedes ajustar el nombre de la leyenda
         borderColor: 'rgb(45, 76, 110)',
         data: salesData, // Utiliza los datos de ventas por mes
     }],
@@ -287,7 +308,7 @@ new Chart(lineCtx, {
         plugins: {
             title: {
                 display: true,
-                text: 'LINEA DE TENDENCIA ANUAL 2023',
+                text: 'LINEA DE TENDENCIA ANUAL',
             }
         },
         responsive: true, // Permite que el gráfico sea receptivo

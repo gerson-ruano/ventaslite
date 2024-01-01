@@ -28,13 +28,13 @@ class GraficasController extends Controller
         //$productQuantities = $productSales->pluck('total_quantity');
 
         $stockProducts = $this->productosConMenosExistencias();
-        
+
         $posicion = 0; // Puedes cambiar esta variable para elegir otra posición si es necesario
         if (isset($stockProducts[$posicion])) {
             $stock = $stockProducts[$posicion]['alerts'];
             $datosDeVentas = $this->obtenerDatosDeVentas($stock);
         } else {
-            $stock = 10; 
+            $stock = 10;
             $datosDeVentas = $this->obtenerDatosDeVentas($stock);
         }
         //$datosDeVentas = $this->obtenerDatosDeVentas(10);
@@ -123,7 +123,7 @@ class GraficasController extends Controller
     public function productosConMenosExistencias() {
         return Product::whereColumn('stock', '<', 'alerts')->get();
     }
-    
+
 
     public function obtenerDatosDeVentas($stock) {
         return Sale::join('sale_details', 'sales.id', '=', 'sale_details.sale_id')
@@ -148,14 +148,14 @@ class GraficasController extends Controller
 
     public function TendenciaAnual(){
     $endDate = Carbon::now(); // Fecha actual
-    $startDate = $endDate->copy()->subDays(365); // Fecha hace 30 días
+    $startDate = $endDate->copy()->subDays(365); // Fecha hace 365 días
 
     $salesMonths = Sale::whereDate('created_at', '>=', $startDate)
         ->whereDate('created_at', '<=', $endDate)
         ->selectRaw('MONTH(created_at) as month, COUNT(*) as sales')
         ->groupBy('month')
         ->orderBy('month')
-        ->get();  
+        ->get();
     return $salesMonths;
 }
 

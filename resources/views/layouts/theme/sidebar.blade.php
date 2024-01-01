@@ -5,23 +5,19 @@
             @can('Ventas_Index')
             <li class="">
                 <a href="{{ url('pos')}}" class="menu-toggle" data-active="false">
-                    <div class="base-menu">
-                        <div class="base-icons">
-                            {{--<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                <path
-                                    d="M0 32C0 14.3 14.3 0 32 0H160c17.7 0 32 14.3 32 32V416c0 53-43 96-96 96s-96-43-96-96V32zM223.6 425.9c.3-3.3 .4-6.6 .4-9.9V154l75.4-75.4c12.5-12.5 32.8-12.5 45.3 0l90.5 90.5c12.5 12.5 12.5 32.8 0 45.3L223.6 425.9zM182.8 512l192-192H480c17.7 0 32 14.3 32 32V480c0 17.7-14.3 32-32 32H182.8zM128 64H64v64h64V64zM64 192v64h64V192H64zM96 440c13.3 0 24-10.7 24-24s-10.7-24-24-24s-24 10.7-24 24s10.7 24 24 24z" />
-                            </svg>--}}
-                            <i class="fas fa-shopping-cart fa-3x text-muted"></i>
-                        </div>
-                        <span>VENTA</span>
+                    <div class="text-center mt-4">
+                        <i class="fas fa-shopping-cart fa-3x text-muted"></i>
+                            <div class=" text-center">
+                                <span class="text-white">VENTA</span>
+                            </div>
                     </div>
                 </a>
             </li>
             @endcan
-            <li class="mt-2">
+            <li class="">
                 @can('Report_Index')
                 <a href="#homeSubmenuStock" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <div class="text-center">
+                    <div class="text-center mt-0">
                         <i class="fa fa-boxes fa-3x text-muted" aria-hidden="true"></i>
                         <div class=" text-center">
                             <span class="text-white">GESTION STOKS</span>
@@ -52,10 +48,10 @@
                     @endcan
                 </ul>
             </li>
-            <li class="mt-5">
+            <li class="mt-2">
                 @can('Report_Index')
                 <a href="#homeSubmenuReport" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <div class="text-center">
+                    <div class="text-center mt-0">
                         <i class="fas fa-file-medical-alt fa-3x text-muted" aria-hidden="true"></i>
                         <div class=" text-center">
                             <span class="text-white">REPORTERIA</span>
@@ -85,10 +81,10 @@
                     @endcan
                 </ul>
             </li>
-            <li class="mt-5">
+            <li class="mt-2">
                 @role('Admin')
                 <a href="#homeSubmenuUser" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <div class="text-center">
+                    <div class="text-center mt-0">
                         <i class="fa fa-users fa-3x text-muted" aria-hidden="true"></i>
                         <div class=" text-center">
                             <span class="text-white">GESTION USUARIOS</span>
