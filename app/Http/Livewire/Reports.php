@@ -156,6 +156,8 @@ class Reports extends Component
         if ($sale) {
             // Asigna el nuevo estado al modelo de venta
             $sale->status = $this->type; // Asumiendo que 'type' contiene el nuevo estado
+            $sale->updated_at = now();   //Fecha de actualizacion 
+            $sale->mod_id = auth()->user()->name; //Nombre del usuario quien lo actualizo
 
             // Guarda el cambio en la base de datos
             $sale->save();
@@ -174,6 +176,6 @@ public function resetUI()
     {
         $this->type = '';
         $this->value = '';
-    }
-    
+        $this->resetErrorBag();
+    }   
 }
