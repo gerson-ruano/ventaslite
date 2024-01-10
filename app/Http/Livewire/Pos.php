@@ -14,14 +14,12 @@ use App\Models\Product;
 use DB;
 use Illuminate\Support\Facades\URL;
 
-
 class Pos extends Component
 
 {
 
     public $total, $itemsQuantity, $efectivo, $change, $tipoPago, $vendedorSeleccionado;
     public $vendedores = [];
-
     public $revisionVenta = false;
 
 
@@ -33,7 +31,6 @@ class Pos extends Component
         $this->itemsQuantity = Cart::getTotalQuantity();
         $this->vendedores = User::where('profile', 'vendedor')->pluck('name');
         //$this->vendedorSeleccionado = 0;
-
     }
 
 
@@ -59,7 +56,6 @@ class Pos extends Component
         ->section('content');
         }
     }
-
 
     public function filtroTipoPago(){
         return Sale::pluck('status')->unique()->toArray();

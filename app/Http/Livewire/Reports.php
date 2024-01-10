@@ -15,12 +15,13 @@ class Reports extends Component
 
     use WithPagination;
 
-    public $componentName, $details, $sumDetails, $countDetails, 
+    public $componentName, $details, $sumDetails, $countDetails, $selected_id = 2,
     $reportType, $userId, $dateFrom, $dateTo, $saleId, $selectTipoEstado;
 
     private $pagination = 12;
     private $data = [];
     public $page = 1;
+    public $selectedId;
 
     public function paginationView()
     {
@@ -30,6 +31,8 @@ class Reports extends Component
 
     public function mount(){
         $this->componentName = 'Reporte de Ventas';
+        $this->pageTitle = 'EDITAR';
+        $this->type = 'Elegir';
         $this->data = [];
         $this->details = [];
         $this->sumDetails = 0;
@@ -38,7 +41,6 @@ class Reports extends Component
         $this->userId = 0;
         $this->saleId = 0;
        
-        
     }
     public function render()
     {
@@ -105,8 +107,6 @@ class Reports extends Component
         
     } 
 
-    
-
     public function getDetails($saleId)
     {
         $this->details = SaleDetails::join('products as p','p.id','sale_details.product_id')
@@ -132,6 +132,48 @@ class Reports extends Component
 
     public function filtroTipoEstado(){
         return Sale::pluck('status')->unique()->toArray();
+    }
+
+    public function Edit($id)
+    {
+        // Almacena el ID en la propiedad
+        $this->selectedId = $id;
+
+        // Emite un evento para mostrar el modal u otra lógica que tengas
+        $this->resetUI();
+        $this->emit('show', 'show modal!');
+    }
+
+    public function Update()
+    {
+        $this->validate([
+            'type' => 'required|not_in:Elegir', // Asegúrate de que 'Elegir' sea el valor por defecto
+        ]);
+            // Obtén la venta correspondiente por su ID
+        $sale = Sale::find($this->selectedId);
+
+        // Verifica si se encontró la venta
+        if ($sale) {
+            // Asigna el nuevo estado al modelo de venta
+            $sale->status = $this->type; // Asumiendo que 'type' contiene el nuevo estado
+
+            // Guarda el cambio en la base de datos
+            $sale->save();
+
+            // Puedes emitir un evento o realizar alguna acción adicional si es necesario
+            $this->resetUI();
+            $this->emit('venta-updated', 'Estado actualizado correctamente');
+        } else {
+            $this->emit('sale-error','DEBE SELECCIONAR UN TIPO DE ESTADO');
+            return;
+            // Manejo si la venta no existe
+            // Puedes emitir un mensaje de error o realizar alguna acción apropiada
+        }
+    }
+public function resetUI()
+    {
+        $this->type = '';
+        $this->value = '';
     }
     
 }

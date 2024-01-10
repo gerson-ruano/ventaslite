@@ -33,14 +33,14 @@
                                 <h6>Fecha desde</h6>
                                 <div class="form-group">
                                     <input type="text" wire:model="dateFrom" class="form-control flatpickr"
-                                        placeholder="Click para elegir"  @if ($reportType == 0) disabled @endif>
+                                        placeholder="Click para elegir" @if ($reportType==0) disabled @endif>
                                 </div>
                             </div>
                             <div class="col-sm-12 mt-2">
                                 <h6>Fecha hasta</h6>
                                 <div class="form-group">
                                     <input type="text" wire:model="dateTo" class="form-control flatpickr"
-                                        placeholder="Click para elegir" @if ($reportType == 0) disabled @endif>
+                                        placeholder="Click para elegir" @if ($reportType==0) disabled @endif>
                                 </div>
                             </div>
                             <div class="col-sm-12">
@@ -49,13 +49,14 @@
                                 </button>
 
                                 <a class="btn btn-dark btn-block {{count($data) <1 ? 'disabled' : '' }}"
-                                href="{{ url('report/pdf' . '/' . $userId . '/' . $reportType . '/' . $dateFrom . '/' . $dateTo) }}"
-                                target="_blank">Generar PDF</a>
+                                    href="{{ url('report/pdf' . '/' . $userId . '/' . $reportType . '/' . $dateFrom . '/' . $dateTo) }}"
+                                    target="_blank">Generar PDF</a>
 
                                 <a class="btn btn-dark btn-block {{count($data) <1 ? 'disabled' : '' }} mb-3"
                                     href="{{ url('report/excel' . '/' . $userId . '/' . $reportType . '/' . $dateFrom . '/' . $dateTo) }}"
                                     target="_blank">Exportar a EXCEL</a>
-                                @include('partials.select_filtro', ['tam' => '12 mb-md-0', 'title' => 'Estado de Pago', 'model' => 'selectTipoEstado', 'valores' => $valores])
+                                @include('partials.select_filtro', ['tam' => '12 mb-md-0', 'title' => 'Estado de Pago',
+                                'model' => 'selectTipoEstado', 'valores' => $valores])
                             </div>
                         </div>
                     </div>
@@ -73,6 +74,9 @@
                                         <th class="table-th text-white text-center">VENDEDOR</th>
                                         <th class="table-th text-white text-center">FECHA Y HORA</th>
                                         <th class="table-th text-white text-center">DETALLES</th>
+                                        @can('Ventas_Update')
+                                        <th class="table-th text-white text-center">EDITAR</th>
+                                        @endcan
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -89,6 +93,7 @@
                                         <td class="text-center">
                                             <h6>{{ $d->items }}</h6>
                                         </td>
+
                                         <td class="text-center">
                                             <span
                                                 class="badge badge-{{ $d->status === 'PAID' ? 'success' : ($d->status === 'CANCELLED' ? 'danger' : ($d->status === 'PENDING' ? 'primary' : 'secondary')) }} custom-badge text-uppercase">
@@ -104,12 +109,20 @@
                                         <td class="text-center">
                                             <h6>{{ \Carbon\Carbon::parse($d->created_at)->format('d-m-Y H:i:s') }}</h6>
                                         </td>
-                                        <td class="text-center" width="50px">
-                                            <button wire:click.prevent="getDetails({{$d->id}})"
-                                                class="bt btn-dark btn-sm">
+                                        <td class="text-center" width="6%">
+                                            <button wire:click.prevent="getDetails({{ $d->id }})"
+                                                class="btn btn-dark btn-sm">
                                                 <i class="fas fa-list"></i>
                                             </button>
                                         </td>
+                                        @can('Ventas_Update')
+                                        <td class="text-center" width="6%">
+                                            <a href="javascript:void(0)" wire:click="Edit({{ $d->id }})"
+                                                class="btn btn-dark btn-sm" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </td>
+                                        @endcan
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -125,6 +138,7 @@
         </div>
     </div>
     @include('livewire.reports.sales-detail')
+    @include('livewire.reports.form')
 </div>
 
 <script>
@@ -182,6 +196,18 @@ document.addEventListener('DOMContentLoaded', function() {
     //Eventos 
     window.livewire.on('show-modal', Msg => {
         $('#modalDetails').modal('show')
+    })
+    window.livewire.on('venta-updated', msg => {
+        $('#theModal').modal('hide');
+    });
+    window.livewire.on('show', msg => {
+        $('#theModal').modal('show');
+    });
+    window.livewire.on('modal-hide', msg => {
+        $('#theModal').modal('hide');
+    });
+    window.livewire.on('sale-error', Msg => {
+            noty(Msg)
     })
 })
 </script>

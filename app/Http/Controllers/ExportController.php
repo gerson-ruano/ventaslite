@@ -18,7 +18,6 @@ class ExportController extends Controller
 {
     public function reportPDF($userId, $reportType, $dateFrom = null, $dateTo = null){
 
-
         $data = [];
 
         if($reportType == 0)  //VENTAS DEL DIA
