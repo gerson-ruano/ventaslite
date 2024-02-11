@@ -111,14 +111,14 @@
                                         </td>
                                         <td class="text-center" width="6%">
                                             <button wire:click.prevent="getDetails({{ $d->id }})"
-                                                class="btn btn-dark btn-sm">
+                                                class="btn btn-dark btn-sm" title="Detalles">
                                                 <i class="fas fa-list"></i>
                                             </button>
                                         </td>
                                         @can('Ventas_Update')
                                         <td class="text-center" width="6%">
                                             <a href="javascript:void(0)" wire:click="Edit({{ $d->id }})"
-                                                class="btn btn-dark btn-sm" title="Edit">
+                                                class="btn btn-dark btn-sm" title="Editar">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                         </td>
@@ -210,4 +210,23 @@ document.addEventListener('DOMContentLoaded', function() {
             noty(Msg)
     })
 })
+
+
+document.addEventListener('livewire:load', function() {
+    Livewire.on('venta-updated', message => {
+        // Muestra la alerta utilizando SweetAlert (o tu biblioteca preferida)
+        swal({
+            position: "top-end",
+            type: "success",
+            title: message,
+            showConfirmButton: false,
+            timer: 1500
+        }).then(() => {
+            // Realiza alguna acción adicional si es necesario
+            // Por ejemplo, redireccionar a otra página
+            Livewire.emit('redirectPos');
+        });
+    });
+});
+
 </script>

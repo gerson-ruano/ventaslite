@@ -142,12 +142,15 @@ class Reports extends Component
         // Emite un evento para mostrar el modal u otra lógica que tengas
         $this->resetUI();
         $this->emit('show', 'show modal!');
+
+        $sale = Sale::find($id);
+        $this->selectedStatus = $sale->status;
     }
 
     public function Update()
     {
         $this->validate([
-            'type' => 'required|not_in:Elegir', // Asegúrate de que 'Elegir' sea el valor por defecto
+            'selectedStatus' => 'required|not_in:Elegir', // Asegúrate de que 'Elegir' sea el valor por defecto
         ]);
             // Obtén la venta correspondiente por su ID
         $sale = Sale::find($this->selectedId);
@@ -155,7 +158,7 @@ class Reports extends Component
         // Verifica si se encontró la venta
         if ($sale) {
             // Asigna el nuevo estado al modelo de venta
-            $sale->status = $this->type; // Asumiendo que 'type' contiene el nuevo estado
+            $sale->status = $this->selectedStatus; // Asumiendo que 'type' contiene el nuevo estado
             $sale->updated_at = now();   //Fecha de actualizacion 
             $sale->mod_id = auth()->user()->name; //Nombre del usuario quien lo actualizo
 
@@ -164,7 +167,7 @@ class Reports extends Component
 
             // Puedes emitir un evento o realizar alguna acción adicional si es necesario
             $this->resetUI();
-            $this->emit('venta-updated', 'Estado actualizado correctamente');
+            $this->emit('venta-updated', 'La venta ha sido actualizada correctamente');
         } else {
             $this->emit('sale-error','DEBE SELECCIONAR UN TIPO DE ESTADO');
             return;
@@ -177,5 +180,6 @@ public function resetUI()
         $this->type = '';
         $this->value = '';
         $this->resetErrorBag();
-    }   
+    }  
 }
+

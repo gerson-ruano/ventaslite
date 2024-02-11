@@ -6,22 +6,8 @@
         <div class="col-md-8">
             <div class="card custom-color">
                 <div class="card-header text-center">{{ __($appName) }}</div>
-
-                <div class="card-body text-center">
-
-                    <div id="message" class="alert alert-success" role="alert" style="display: none;">
-                        @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                        @endif
-
-                       
-                    </div>
-                    <h5 class="text-white">Hola {{ Auth::user()->name }}
-                    {{ __('esta logueado en') }} {{$appName}}</h5>
-
-
+                <div id="cardBody" class="card-body text-center" style="display: none;">
+                    <h5 class="text-white">Hola {{ Auth::user()->name }} {{ __('bienvenido a') }} {{$appName}}</h5>
                 </div>
             </div>
         </div>
@@ -89,17 +75,31 @@
     </div>
 
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var cardBody = document.getElementById('cardBody');
 
+    // Muestra el card-body
+    cardBody.style.display = 'block';
+
+    // Oculta el card-body después de 5 segundos (5000 milisegundos)
+    setTimeout(function() {
+        cardBody.style.display = 'none';
+    }, 6000);
+});
+</script>
 @endsection
 @push('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const message = document.getElementById('message');
-            if (message) {
-                setTimeout(() => {
-                    message.style.display = 'none';
-                }, 3000);
-            }
-        });
-    </script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Oculta el mensaje después de 3 segundos (3000 milisegundos)
+    const message = document.getElementById('message');
+    if (message) {
+        setTimeout(() => {
+            message.style.display = 'none';
+        }, 3000);
+    }
+
+});
+</script>
 @endpush
