@@ -6,11 +6,11 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card ml-30" style="margin-top: 120px;">
-                <div class="card-header text-center custom-color">
-                    <h4 class="text-white">{{config('app.name')}}</h4>
+                <div class="card-header text-center bg-primary">
+                    <h4 class="text-light">{{config('app.name')}}</h4>
                 </div>
 
-                <div class="card-body custom-color">
+                <div class="card-body bg-light">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
@@ -66,7 +66,7 @@
 
                         <div class="row mb-0 text-center">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-blue">
+                                <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
                             </div>

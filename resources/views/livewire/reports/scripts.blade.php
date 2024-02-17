@@ -3,8 +3,8 @@
 //Chart.register(LinearScale, BarElement, BarController, CategoryScale);
 ///////////////// GRAFICA 1 ////////////////
 // Datos para el gráfico de Barras ULTIMOS DIAS / VENTAS
-var daysOfWeek = @json($salesData->pluck('date'));
-var salesData = @json($salesData->pluck('sales'));
+var daysOfWeek = @json($salesData-> pluck('date'));
+var salesData = @json($salesData-> pluck('sales'));
 var trendline = calculateTrendline(daysOfWeek, salesData);
 var barData = {
     labels: daysOfWeek,
@@ -165,7 +165,7 @@ var totalMoney = @json($totalMoney);
 if (totalMoney && totalMoney.length > 0) {
     var numericValues = totalMoney.map(Number); // Convertir a números explícitamente
 
-    var totalSum = numericValues.reduce(function (accumulator, currentValue) {
+    var totalSum = numericValues.reduce(function(accumulator, currentValue) {
         return accumulator + currentValue;
     }, 0);
     //console.log(totalSum);
@@ -200,8 +200,8 @@ new Chart(donutCtx, {
 
 ///////////////// GRAFICA 5 ////////////////
 // Datos para el gráfico de Barras TOP USUARIOS / VENTAS
-var userNames = @json($TopUserData->pluck('user_name')->toArray());
-var salesCounts = @json($TopUserData->pluck('sales_count')->toArray());
+var userNames = @json($TopUserData-> pluck('user_name')-> toArray());
+var salesCounts = @json($TopUserData-> pluck('sales_count')-> toArray());
 //var daysOfWeek = salesData.map(item => item.user_name); //OTRA FORMA DE OBTENER
 //var salesData = salesData.map(item => item.sales_count);
 var barData = {
@@ -259,46 +259,53 @@ new Chart(donutCtx, {
 });
 
 ///////////////// GRAFICA 7 ////////////////
-// Datos para el gráfico de línea TENDENCIA DE VENTAS ANUAL
+// Datos para el gráfico de línea TENDENCIA DE VENTAS ANUALES
+var salesData = @json($salesData);
 var salesMonths = @json($salesMonths);
 // Mapeo de números de mes a nombres de mes
-var meses = [
+var months = [
     'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
     'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
 ];
 
-var salesMonths = @json($salesMonths);
-var labelsMonths = salesMonths.map(month => meses[month.month - 1]); // Ajusta para que coincida con el índice del array
-var salesData = salesMonths.map(month => month.sales);
-
-// Busca si ya existe enero en los datos originales
-var eneroIndex = labelsMonths.indexOf('Enero');
-if (eneroIndex !== -1) {
-    // Si existe, elimínalo del conjunto de datos existente
-    labelsMonths.splice(eneroIndex, 1);
-    salesData.splice(eneroIndex, 1);
+// Función para obtener el nombre del mes
+function getMonthName(monthNumber) {
+    return months[monthNumber - 1];
 }
 
-// Agrega el mes de enero al final
-labelsMonths.push('Enero');
-
-// Comprueba si ya hay datos para enero
-var eneroDataIndex = salesMonths.findIndex(month => month.month === 1);
-if (eneroDataIndex !== -1) {
-    salesData.push(salesMonths[eneroDataIndex].sales); // Utiliza los datos de ventas para enero si están disponibles
-} else {
-    salesData.push(0); // Agrega un valor cero si no hay datos disponibles para enero
-}
-
-
+// Procesar los datos para el gráfico
 var lineData = {
-    labels: labelsMonths, // Utiliza los meses que obtuviste
-    datasets: [{
-        label: 'Ventas Mensuales', // Puedes ajustar el nombre de la leyenda
-        borderColor: 'rgb(45, 76, 110)',
-        data: salesData, // Utiliza los datos de ventas por mes
-    }],
+    labels: [], // Labels para los meses
+    datasets: [], // Datos de ventas por año
 };
+
+// Iterar sobre los datos de ventas por año
+for (var year in salesMonths) {
+    var yearData = salesMonths[year];
+
+    // Labels de los meses para el año actual
+    var labels = [];
+    var sales = [];
+
+    // Iterar sobre los datos de ventas para cada mes del año actual
+    for (var i = 1; i <= 12; i++) {
+        var monthData = yearData.find(data => data.month === i);
+        if (monthData) {
+            labels.push(getMonthName(i));
+            sales.push(monthData.sales);
+        } else {
+            labels.push(getMonthName(i));
+            sales.push(0);
+        }
+    }
+
+    lineData.labels = labels; // Agregar labels al conjunto de datos
+    lineData.datasets.push({
+        label: ' Ventas ' + year,
+        data: sales,
+        borderColor: 'rgb(45, 76, 110)',
+    });
+}
 
 var lineCtx = document.getElementById('chartTendenciaAnual').getContext('2d');
 new Chart(lineCtx, {
@@ -308,7 +315,7 @@ new Chart(lineCtx, {
         plugins: {
             title: {
                 display: true,
-                text: 'LINEA DE TENDENCIA ANUAL',
+                text: 'LINEA DE TENDENCIA AÑO / MES',
             }
         },
         responsive: true, // Permite que el gráfico sea receptivo

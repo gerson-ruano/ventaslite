@@ -147,8 +147,8 @@ class GraficasController extends Controller
     }
 
     public function TendenciaAnual(){
-    $endDate = Carbon::now(); // Fecha actual
-    $startDate = $endDate->copy()->subDays(365); // Fecha hace 365 días
+    /*$endDate = Carbon::now(); // Fecha actual
+    $startDate = $endDate->copy()->subDays(730); // Fecha hace 365 días
 
     $salesMonths = Sale::whereDate('created_at', '>=', $startDate)
         ->whereDate('created_at', '<=', $endDate)
@@ -156,7 +156,33 @@ class GraficasController extends Controller
         ->groupBy('month')
         ->orderBy('month')
         ->get();
-    return $salesMonths;
+    return $salesMonths;*/
+    
+    // Obtener el año actual
+    $currentYear = Carbon::now()->year;
+
+    // Inicializar un arreglo para almacenar los datos de ventas por año
+    $salesByYear = [];
+
+    // Iterar sobre los últimos dos años
+    for ($year = $currentYear - 1; $year <= $currentYear; $year++) {
+        // Calcular las fechas de inicio y fin del año
+        $startDate = Carbon::create($year, 1, 1)->startOfDay();
+        $endDate = Carbon::create($year, 12, 31)->endOfDay();
+
+        // Consultar las ventas para el año actual en el rango de fechas
+        $sales = Sale::whereBetween('created_at', [$startDate, $endDate])
+            ->selectRaw('MONTH(created_at) as month, COUNT(*) as sales')
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
+
+        // Almacenar las ventas por mes para el año actual en el arreglo
+        $salesByYear[$year] = $sales;
+    }
+
+    return $salesByYear;
+
 }
 
 }
