@@ -19,6 +19,8 @@ return new class extends Migration
             $table->integer('items');
             $table->decimal('cash',10,2);
             $table->decimal('change',10,2);
+            $table->string('vendedor',30)->nullable();
+            $table->string('mod_id',20)->nullable();
             $table->enum('status',['PAID','PENDING','CANCELLED'])->default('PAID');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
