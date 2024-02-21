@@ -60,14 +60,7 @@ class Pos extends Component
     public function filtroTipoPago(){
     //return Sale::pluck('status')->unique()->toArray();
 
-    // Obtener los valores únicos de la columna 'status' de la tabla 'Sales'
-    $valores = Sale::distinct()->pluck('status')->toArray();
-
-    // Si no hay valores en la tabla, definir manualmente los valores 'PAID', 'PENDING' y 'CANCELLED'
-    if (empty($valores)) {
-        $valores = ['PAID', 'PENDING', 'CANCELLED'];
-    }
-
+    $valores = ['PAID', 'PENDING', 'CANCELLED'];
     return $valores;
     }
 

@@ -160,7 +160,6 @@ new Chart(pieCtx, {
 // Datos para el gráfico de DONA INGRESOS, PRODUCTOS, VENTAS
 var totalStock = @json($totalStock);
 var totalSales = @json($totalSales);
-//var totalPaid = @json($totalMoney[0]); // Muestra solo el primer elemento
 var totalMoney = @json($totalMoney);
 if (totalMoney && totalMoney.length > 0) {
     var numericValues = totalMoney.map(Number); // Convertir a números explícitamente
