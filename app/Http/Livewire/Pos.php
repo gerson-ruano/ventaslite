@@ -25,11 +25,11 @@ class Pos extends Component
 
     public function mount()
     {
-        $this->efectivo = number_format($this->efectivo, 2); 
+        $this->efectivo = number_format($this->efectivo, 2);
         $this->change = 0;
         $this->total = Cart::getTotal();
         $this->itemsQuantity = Cart::getTotalQuantity();
-        $this->vendedores = User::where('profile', 'vendedor')->pluck('name');
+        $this->vendedores = User::where('profile', 'Seller')->pluck('name');
         //$this->vendedorSeleccionado = 0;
     }
 
@@ -38,7 +38,7 @@ class Pos extends Component
     {
         $valores = $this->filtroTipoPago();
         if ($this->revisionVenta) {
-           
+
         return view('livewire.pos.revision_venta', [
             'denominations' => Denomination::orderBy('value','desc')->get(),
             'cart' => Cart::getContent()->sortBy('name'),
@@ -58,8 +58,17 @@ class Pos extends Component
     }
 
     public function filtroTipoPago(){
-        return Sale::pluck('status')->unique()->toArray();
-        //return $valores; lista de estados
+    //return Sale::pluck('status')->unique()->toArray();
+
+    // Obtener los valores únicos de la columna 'status' de la tabla 'Sales'
+    $valores = Sale::distinct()->pluck('status')->toArray();
+
+    // Si no hay valores en la tabla, definir manualmente los valores 'PAID', 'PENDING' y 'CANCELLED'
+    if (empty($valores)) {
+        $valores = ['PAID', 'PENDING', 'CANCELLED'];
+    }
+
+    return $valores;
     }
 
     public function revisarVenta() //Indica que vista utiliza para el index
@@ -230,15 +239,15 @@ class Pos extends Component
             $this->itemsQuantity = Cart::getTotalQuantity();
             //Reinician los valores de TOTAL y ARTICULOS
 
-        
+
             $newQty = ($item->quantity) - 1;
-        
+
             if ($newQty > 0) {
                 // Asegúrate de que `attributes` esté definido y sea un array antes de acceder a su índice 0
                 $attributes = isset($item->attributes) && is_array($item->attributes) ? $item->attributes : [];
-        
+
                 Cart::add($item->id, $item->name, $item->price, $newQty, $attributes);
-        
+
                 $this->total = Cart::getTotal();
                 $this->itemsQuantity = Cart::getTotalQuantity();
                 $this->emit('scan-ok', 'Cantidad Actualizada 1');
@@ -263,7 +272,7 @@ class Pos extends Component
 
     public function saveSale()
     {
-       
+
         if($this->total <=0)
         {
             $this->emit('sale-error','AGREGA PRODUCTOS A LA VENTA');
@@ -329,11 +338,11 @@ class Pos extends Component
                     $product->stock = $product->stock - $item->quantity;
                     $product->save();
                 }
-                
+
             }
-            
+
             DB::commit();
-            
+
             Cart::clear();
             $this->efectivo =0;
             $this->change =0;
@@ -344,7 +353,7 @@ class Pos extends Component
             $this->emit('sale-ok','Venta registrada con exito');
             //return redirect()->to('pos');
             //$this->emit('print-ticket', $sale->id);
-            
+
         }catch (Exception $e){
             DB::rollback();
             $this->emit('sale-error', $e->getMessage());
