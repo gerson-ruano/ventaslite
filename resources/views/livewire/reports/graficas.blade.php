@@ -18,7 +18,7 @@
                 </div>
             </div>
             @if(count($salesData) == 0)
-            <div class="alert alert-warning mt-4">
+            <div class="alert alert-warning mt-3">
                 <strong>No hay reportes de ventas recientes.</strong> ¡Puedes crear ventas para comenzar a ver datos en la
                 gráfica!
             </div>
@@ -37,7 +37,7 @@
                 </div>
             </div>
             @if(count($stockProducts) == 0)
-            <div class="alert alert-success">
+            <div class="alert alert-secondary mt-3">
                 <strong>No hay productos con bajo stock.</strong> ¡Puedes modificar el stock mínimo (10) para comenzar a
                 ver datos en la gráfica!
             </div>
@@ -56,7 +56,7 @@
                 </div>
             </div>
             @if(count($productSales) == 0)
-            <div class="alert alert-warning">
+            <div class="alert alert-warning mt-3">
                 <strong>No existen productos más vendidos.</strong> ¡Puedes crear más ventas para comenzar a ver
                 datos en la gráfica!
             </div>
@@ -75,7 +75,7 @@
                 </div>
             </div>
             @if($totalStock == 0)
-            <div class="alert alert-warning">
+            <div class="alert alert-warning mt-3">
                 <strong>No hay productos en el stock.</strong> ¡Puedes agregar productos para comenzar a ver datos en la
                 gráfica!
             </div>
@@ -94,7 +94,7 @@
                 </div>
             </div>
             @if(count($TopUserData) == 0)
-            <div class="alert alert-warning mt-4">
+            <div class="alert alert-warning mt-3">
                 <strong>No hay reportes de ventas de usuarios.</strong> ¡Puedes crear ventas para comenzar a ver datos en la
                 gráfica!
             </div>
@@ -112,8 +112,8 @@
                     </div>
                 </div>
             </div>
-            @if($totalMoney == 0)
-            <div class="alert alert-warning">
+            @if($totalMoney == null)
+            <div class="alert alert-warning mt-3">
                 <strong>No hay Ingresos.</strong> ¡Puedes agregar ventas para comenzar a ver datos en la
                 gráfica!
             </div>
@@ -131,7 +131,7 @@
                 </div>
             </div>
             @if(count($salesMonths) == 0)
-            <div class="alert alert-warning">
+            <div class="alert alert-warning mt-3">
                 <strong>No hay datos de ventas anuales.</strong> ¡Puedes crear ventas para comenzar a ver datos en la
                 gráfica!
             </div>
@@ -149,7 +149,7 @@
                 </div>
             </div>
             @if(count($ventasTipoPago) == 0)
-            <div class="alert alert-warning mt-4">
+            <div class="alert alert-warning mt-3">
                 <strong>No hay reportes de ventas Tipo Pago recientes.</strong> ¡Puedes crear ventas para comenzar a ver datos en la
                 gráfica!
             </div>
