@@ -1,5 +1,6 @@
 @extends('layouts.theme.app')
 
+
 @section('content')
 <div class="container mt-3">
     <div class="row justify-content-center">
@@ -7,7 +8,8 @@
             <div class="card custom-color">
                 <div class="card-header text-center">{{ __($appName) }}</div>
                 <div id="cardBody" class="card-body text-center" style="display: none;">
-                    <h5 class="text-white">Hola {{ Auth::user()->name }} {{ __('bienvenido a') }} {{$appName}}</h5>
+                    <h5 class="text-white">Hola {{ Auth::user()->name }} {{ __('bienvenido a') }} {{$empresa->name}}</h5>
+
                 </div>
             </div>
         </div>
@@ -68,6 +70,34 @@
                         a nuestros clientes. Estamos aquí
                         para resolver cualquier consulta, proporcionar información adicional y garantizar una
                         experiencia de compra satisfactoria.</p>
+                    <!-- Aquí puedes mostrar una lista de productos o detalles de ventas -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Aquí puedes colocar información relacionada con el tema o la presentación general -->
+            <div class="card bg-red text-center">
+                <div class="card-body">
+                    <h2 class="text-center">EMPRESA</h2>
+                    <h6>{{ $empresa->name }}</h6>
+                    <h6>{{ $empresa->address }}</h6>
+                    <h6>{{ $empresa->phone }}</h6>
+                    <h6>{{ $empresa->taxpayer_id }}</h6>
+                    <!-- Puedes agregar más contenido aquí -->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <!-- Esta sección puede estar destinada a productos o detalles de ventas -->
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="text-center">VACIO</h2>
+                    <p></p>
                     <!-- Aquí puedes mostrar una lista de productos o detalles de ventas -->
                 </div>
             </div>

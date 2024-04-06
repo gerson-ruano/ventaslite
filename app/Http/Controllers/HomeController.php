@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Company;
+
 
 class HomeController extends Controller
 {
@@ -23,10 +25,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-
+        $empresa = Company::first();
         $appName = config('app.name');
         $showSidebar = true;
-        return view('home',['showSidebar' => $showSidebar, 'appName'=> $appName]);
+        //dd($empresa);
+        return view('home',['showSidebar' => $showSidebar, 'appName'=> $appName, 'empresa'=> $empresa]);
     }
 
 }

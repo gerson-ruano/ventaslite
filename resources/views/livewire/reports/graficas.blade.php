@@ -74,7 +74,7 @@
                     </div>
                 </div>
             </div>
-            @if($totalStock == 0)
+            @if($totalStock == null)
             <div class="alert alert-warning mt-3">
                 <strong>No hay productos en el stock.</strong> ¡Puedes agregar productos para comenzar a ver datos en la
                 gráfica!
@@ -130,7 +130,7 @@
                     </div>
                 </div>
             </div>
-            @if(count($salesMonths) == 0)
+            @if(count($salesMonths) == null)
             <div class="alert alert-warning mt-3">
                 <strong>No hay datos de ventas anuales.</strong> ¡Puedes crear ventas para comenzar a ver datos en la
                 gráfica!
