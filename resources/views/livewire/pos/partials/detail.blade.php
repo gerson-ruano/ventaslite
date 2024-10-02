@@ -20,6 +20,7 @@
                         $totalProduct = count($cart);
                         @endphp
                         <tbody>
+                            {{--dd($cart);--}}
                             @foreach($cart as $item)
                             <tr>
                                 <td class="text-center table-th">

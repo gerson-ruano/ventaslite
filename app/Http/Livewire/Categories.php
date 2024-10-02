@@ -69,7 +69,7 @@ class Categories extends Component
             'name' => $this->name
         ]);
 
-        $customFileName;
+        //$customFileName;
         if($this->image)
         {
             $customFileName = uniqid() . '_.' . $this->image->extension();

@@ -41,10 +41,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('users', Users::class);
     });
 
-    Route::get('categories', Categories::class);  //->middleware('role:Employee');
-    Route::get('products', Products::class);
-    Route::get('pos', Pos::class);
-    Route::get('coins', Coins::class);
+    Route::middleware('role:employee')->group(function (){
+            Route::get('categories', Categories::class);  //->middleware('role:Employee');
+            Route::get('products', Products::class);
+            Route::get('pos', Pos::class);
+            Route::get('coins', Coins::class);
+        });
+    
+    
 
     Route::get('cashout', Cashout::class);
     Route::get('reports', Reports::class);
